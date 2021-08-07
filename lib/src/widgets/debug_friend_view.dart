@@ -3,13 +3,17 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class DebugFriendView extends StatelessWidget {
-  const DebugFriendView({
+  DebugFriendView({
     Key? key,
     required this.icon,
     required this.builder,
     this.color,
     this.enabled = kDebugMode,
-  }) : super(key: key);
+  })  : _bottomSheetManager = BottomSheetManager(
+          items: [],
+          commonItems: [],
+        ),
+        super(key: key);
 
   /// Widget that displayed at main Button
   final Widget icon;
@@ -25,6 +29,8 @@ class DebugFriendView extends StatelessWidget {
   /// By default this field get value from const [kDebugMode]
   final bool enabled;
 
+  final BottomSheetManager _bottomSheetManager;
+
   @override
   Widget build(BuildContext context) {
     if (!enabled) {
@@ -35,6 +41,9 @@ class DebugFriendView extends StatelessWidget {
         children: [
           builder(context),
           DebugFriendButton(
+            onTap: () {
+              _bottomSheetManager.showDebugMenu(context);
+            },
             child: icon,
           ),
         ],

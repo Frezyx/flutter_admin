@@ -1,12 +1,13 @@
-import 'package:debug_friend/debug_friend.dart';
 import 'package:debug_friend/src/utils/simulation_calculator.dart';
 import 'package:flutter/material.dart';
 
 class DebugFriendButton extends StatefulWidget {
   const DebugFriendButton({
     required this.child,
+    required this.onTap,
   });
   final Widget child;
+  final Function() onTap;
 
   @override
   _DebugFriendButtonState createState() => _DebugFriendButtonState();
@@ -58,9 +59,7 @@ class _DebugFriendButtonState extends State<DebugFriendButton>
         _setSide();
         _runAnimation(details.velocity.pixelsPerSecond, size);
       },
-      onTap: () {
-        BottomSheetManager.showDebugMenu(context);
-      },
+      onTap: widget.onTap,
       child: Align(
         alignment: _dragAlignment,
         child: Container(

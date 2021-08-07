@@ -4,9 +4,11 @@ class DebugMenu extends StatelessWidget {
   const DebugMenu({
     Key? key,
     required this.items,
+    required this.commonItems,
   }) : super(key: key);
 
   final List<Widget> items;
+  final List<Widget> commonItems;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,11 @@ class DebugMenu extends StatelessWidget {
               child: Text(
                 'Debug friend',
                 style: theme.textTheme.headline5,
+              ),
+            ),
+            Flexible(
+              child: Row(
+                children: [],
               ),
             ),
             Expanded(
