@@ -23,11 +23,13 @@ class MyApp extends StatelessWidget {
             size: 34,
           ),
         ),
-        child: Scaffold(
-          body: Center(
-            child: Text('Title'),
-          ),
-        ),
+        builder: (context) {
+          return Scaffold(
+            body: Center(
+              child: Text('Title'),
+            ),
+          );
+        },
       ),
     );
   }

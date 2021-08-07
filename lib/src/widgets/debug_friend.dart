@@ -1,45 +1,35 @@
 import 'package:debug_friend/debug_friend.dart';
+import 'package:debug_friend/src/utils/simulation_calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 
-class DebugFriend extends StatefulWidget {
+class DebugFriendButton extends StatefulWidget {
   final Widget child;
 
-  DebugFriend({
+  DebugFriendButton({
     required this.child,
   });
 
   @override
-  _DebugFriendState createState() => _DebugFriendState();
+  _DebugFriendButtonState createState() => _DebugFriendButtonState();
 }
 
-class _DebugFriendState extends State<DebugFriend>
+class _DebugFriendButtonState extends State<DebugFriendButton>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  Alignment _dragAlignment = Alignment.center;
-
-  Animation<Alignment>? _animation;
+  Alignment _dragAlignment = Alignment.centerRight;
+  final _simulationCalculator = SimulationCalculator();
 
   void _runAnimation(Offset pixelsPerSecond, Size size) {
-    _animation = _controller.drive(
+    _controller.drive(
       AlignmentTween(
         begin: _dragAlignment,
         end: _dragAlignment,
       ),
     );
 
-    final unitsPerSecondX = pixelsPerSecond.dx / size.width;
-    final unitsPerSecondY = pixelsPerSecond.dy / size.height;
-    final unitsPerSecond = Offset(unitsPerSecondX, unitsPerSecondY);
-    final unitVelocity = unitsPerSecond.distance;
-
-    const spring = SpringDescription(
-      mass: 30,
-      stiffness: 1,
-      damping: 1,
-    );
-
-    final simulation = SpringSimulation(spring, 0, 1, -unitVelocity);
+    SpringSimulation simulation =
+        _simulationCalculator.calculateSimulation(pixelsPerSecond, size);
     _controller.animateWith(simulation);
   }
 
