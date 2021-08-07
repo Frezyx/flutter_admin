@@ -13,12 +13,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: DebugFriend(
+      home: DebugFriendView(
         icon: SizedBox(
           width: 50,
           height: 50,
           child: Icon(
             Icons.bug_report,
+            color: Colors.white,
             size: 34,
           ),
         ),
