@@ -1,14 +1,12 @@
 import 'package:debug_friend/debug_friend.dart';
 import 'package:debug_friend/src/utils/simulation_calculator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/physics.dart';
 
 class DebugFriendButton extends StatefulWidget {
-  final Widget child;
-
-  DebugFriendButton({
+  const DebugFriendButton({
     required this.child,
   });
+  final Widget child;
 
   @override
   _DebugFriendButtonState createState() => _DebugFriendButtonState();
@@ -28,7 +26,7 @@ class _DebugFriendButtonState extends State<DebugFriendButton>
       ),
     );
 
-    SpringSimulation simulation =
+    final simulation =
         _simulationCalculator.calculateSimulation(pixelsPerSecond, size);
     _controller.animateWith(simulation);
   }
@@ -76,7 +74,7 @@ class _DebugFriendButtonState extends State<DebugFriendButton>
     );
   }
 
-  _setSide() {
+  void _setSide() {
     final isLeft = _dragAlignment.x < 0.0;
     if (isLeft) {
       setState(() {
@@ -95,7 +93,7 @@ class _DebugFriendButtonState extends State<DebugFriendButton>
     }
   }
 
-  _setPosition(DragUpdateDetails details, Size size) {
+  void _setPosition(DragUpdateDetails details, Size size) {
     setState(
       () {
         _dragAlignment += Alignment(

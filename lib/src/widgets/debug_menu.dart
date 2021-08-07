@@ -27,7 +27,7 @@ class DebugMenu extends StatelessWidget {
             ),
             Expanded(
               child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 100,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,

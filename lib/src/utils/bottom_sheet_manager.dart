@@ -6,7 +6,7 @@ abstract class BottomSheetManager {
     showModalBottomSheet(
       context: context,
       builder: (ctx) {
-        return DebugMenu(
+        return const DebugMenu(
           items: [],
         );
       },

@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: DebugFriendView(
-        icon: SizedBox(
+        icon: const SizedBox(
           width: 50,
           height: 50,
           child: Icon(
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         builder: (context) {
-          return Scaffold(
+          return const Scaffold(
             body: Center(
               child: Text('Title'),
             ),
