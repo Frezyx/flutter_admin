@@ -12,8 +12,13 @@ class BottomSheetManager {
   void showDebugMenu(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(10),
+        ),
+      ),
       builder: (ctx) {
-        return const DebugMenu(
+        return const DebugFriendMenu(
           items: [],
           commonItems: [],
         );
