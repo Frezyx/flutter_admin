@@ -12,6 +12,7 @@ class DebugFriendMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -19,33 +20,43 @@ class DebugFriendMenu extends StatelessWidget {
           top: Radius.circular(10),
         ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const _Title(title: 'Common actions'),
-            Flexible(
-              child: Row(
-                children: commonItems,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            decoration: BoxDecoration(
+              color: theme.cardColor,
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(10),
               ),
             ),
-            const _Title(title: 'Custom actions'),
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 100,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                ),
-                itemCount: items.length,
-                itemBuilder: (BuildContext ctx, i) {
-                  return items[i];
-                },
-              ),
+            child: _Title(
+              title: 'Debug Menu',
+              style: theme.textTheme.headline5,
             ),
-          ],
-        ),
+          ),
+          const _Title(title: 'Common actions'),
+          Flexible(
+            child: Row(
+              children: commonItems,
+            ),
+          ),
+          const _Title(title: 'Custom actions'),
+          Expanded(
+            child: GridView.builder(
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 100,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
+              ),
+              itemCount: items.length,
+              itemBuilder: (BuildContext ctx, i) {
+                return items[i];
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
