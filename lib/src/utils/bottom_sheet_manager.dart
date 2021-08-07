@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 
 abstract class BottomSheetManager {
   static void showDebugMenu(BuildContext context) {
-    print('Show');
-    showBottomSheet(
+    showModalBottomSheet(
       context: context,
       builder: (ctx) {
-        return DebugMenu();
+        return DebugMenu(
+          items: [],
+        );
       },
     );
   }
