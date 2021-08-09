@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:debug_friend/src/services/device_info/service.dart';
 import 'package:debug_friend/src/widgets/action_bodies/action_bodies.dart';
+import 'package:debug_friend/src/widgets/widgets.dart';
 import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
 
@@ -61,10 +62,10 @@ class _IosInfoBody extends StatelessWidget {
   const _IosInfoBody({
     Key? key,
     required IosDeviceInfo iosDeviceInfo,
-  })  : _iosDeviceInfo = iosDeviceInfo,
+  })  : _di = iosDeviceInfo,
         super(key: key);
 
-  final IosDeviceInfo _iosDeviceInfo;
+  final IosDeviceInfo _di;
 
   @override
   Widget build(BuildContext context) {
@@ -74,16 +75,18 @@ class _IosInfoBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(_iosDeviceInfo.model),
-          Text(_iosDeviceInfo.name),
-          Text(_iosDeviceInfo.systemName),
-          Text(_iosDeviceInfo.systemVersion),
-          Text(_iosDeviceInfo.identifierForVendor),
-          Text(_iosDeviceInfo.localizedModel),
-          Text(_iosDeviceInfo.isPhysicalDevice ? 'Physical' : 'Emulator'),
+          KeyValueLine(k: 'Model:', v: _di.model),
+          KeyValueLine(k: 'Name:', v: _di.name),
+          KeyValueLine(k: 'System name:', v: _di.systemName),
+          KeyValueLine(k: 'System version:', v: _di.systemVersion),
+          KeyValueLine(k: 'Identifier fro vendor:', v: _di.identifierForVendor),
+          KeyValueLine(k: 'Localized model:', v: _di.localizedModel),
+          KeyValueLine(
+              k: 'Device foundation:',
+              v: _di.isPhysicalDevice ? 'Physical' : 'Emulator'),
         ]
             .map((e) => Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
+                  padding: const EdgeInsets.only(bottom: 2.0),
                   child: e,
                 ))
             .toList(),

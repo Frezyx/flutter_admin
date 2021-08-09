@@ -25,7 +25,7 @@ class BottomSheetManager {
           ],
           items: [
             DeviceInfoBody(),
-            Text('Salam'),
+            PackageInfoBody(),
           ],
         );
       },
