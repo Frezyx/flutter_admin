@@ -38,8 +38,11 @@ class DebugFriendMenu extends StatelessWidget {
           ),
           const _Title(title: 'Common actions'),
           Flexible(
-            child: Row(
-              children: commonItems,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: commonItems,
+              ),
             ),
           ),
           const _Title(title: 'Custom actions'),

@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   lint: ^1.5.3
+  #TODO: to plus
   device_info: ^2.0.2
   package_info: ^2.0.2
 
