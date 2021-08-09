@@ -11,6 +11,10 @@ class DebugFriendMenu extends StatelessWidget {
   final List<Widget> items;
   final List<Widget> commonItems;
 
+  void _closeMenu(BuildContext context) {
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -35,9 +39,20 @@ class DebugFriendMenu extends StatelessWidget {
               ),
               boxShadow: [Defaults.getShadow(theme)],
             ),
-            child: _Title(
-              title: 'Debug Menu',
-              style: theme.textTheme.headline5,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _Title(
+                  title: 'Debug Menu',
+                  style: theme.textTheme.headline5,
+                ),
+                IconButton(
+                  onPressed: () => _closeMenu(context),
+                  icon: const Icon(
+                    Icons.close,
+                  ),
+                ),
+              ],
             ),
           ),
           const SizedBox(height: 10),
@@ -83,18 +98,11 @@ class _Title extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.all(15.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: style ?? theme.textTheme.bodyText1,
-          ),
-          // const Divider(height: 6),
-        ],
+      child: Text(
+        title,
+        style: style ?? theme.textTheme.bodyText1,
       ),
     );
   }
