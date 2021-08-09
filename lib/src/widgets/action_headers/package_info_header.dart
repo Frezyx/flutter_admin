@@ -6,9 +6,8 @@ class PackageInfoHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CommonActionHeader(
-      icon: const Icon(Icons.storefront),
-      onTap: () {},
+    return const CommonActionHeader(
+      icon: Icon(Icons.storefront),
     );
   }
 }

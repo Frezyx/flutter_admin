@@ -1,7 +1,7 @@
 import 'package:debug_friend/debug_friend.dart';
 import 'package:flutter/material.dart';
 
-class DebugFriendMenu extends StatelessWidget {
+class DebugFriendMenu extends StatefulWidget {
   const DebugFriendMenu({
     Key? key,
     required this.items,
@@ -11,6 +11,13 @@ class DebugFriendMenu extends StatelessWidget {
   final List<Widget> items;
   final List<Widget> commonItems;
 
+  @override
+  _DebugFriendMenuState createState() => _DebugFriendMenuState();
+}
+
+class _DebugFriendMenuState extends State<DebugFriendMenu> {
+  int _selectedIndex = 0;
+
   void _closeMenu(BuildContext context) {
     Navigator.pop(context);
   }
@@ -19,71 +26,72 @@ class DebugFriendMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey[100],
-        borderRadius: const BorderRadius.vertical(
-          top: Radius.circular(10),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: size.width,
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          decoration: BoxDecoration(
+            color: theme.cardColor,
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(10),
+            ),
+            boxShadow: [Defaults.getShadow(theme)],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _Title(
+                title: 'Debug Menu',
+                style: theme.textTheme.headline5,
+              ),
+              IconButton(
+                onPressed: () => _closeMenu(context),
+                icon: const Icon(
+                  Icons.close,
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: size.width,
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            decoration: BoxDecoration(
-              color: theme.cardColor,
-              borderRadius: const BorderRadius.vertical(
-                top: Radius.circular(10),
-              ),
-              boxShadow: [Defaults.getShadow(theme)],
-            ),
+        const SizedBox(height: 10),
+        Flexible(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _Title(
-                  title: 'Debug Menu',
-                  style: theme.textTheme.headline5,
-                ),
-                IconButton(
-                  onPressed: () => _closeMenu(context),
-                  icon: const Icon(
-                    Icons.close,
-                  ),
-                ),
-              ],
+              children: widget.commonItems
+                  .asMap()
+                  .entries
+                  .map((e) => GestureDetector(
+                        onTap: () => setState(() => _selectedIndex = e.key),
+                        child: e.value,
+                      ))
+                  .toList(),
             ),
           ),
-          const SizedBox(height: 10),
-          // const _Title(title: 'Common actions'),
-          Flexible(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: commonItems,
-              ),
-            ),
-          ),
-          // const _Title(title: 'Custom actions'),
-          Expanded(
-            child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 100,
-                crossAxisSpacing: 10,
-                mainAxisSpacing: 10,
-              ),
-              itemCount: items.length,
-              itemBuilder: (BuildContext ctx, i) {
-                return items[i];
-              },
-            ),
-          ),
-        ],
-      ),
+        ),
+        SingleChildScrollView(
+          child: widget.items[_selectedIndex],
+        ),
+      ],
     );
   }
 }
+
+// Expanded(
+//   child: GridView.builder(
+//     gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+//       maxCrossAxisExtent: 100,
+//       crossAxisSpacing: 10,
+//       mainAxisSpacing: 10,
+//     ),
+//     itemCount: items.length,
+//     itemBuilder: (BuildContext ctx, i) {
+//       return items[i];
+//     },
+//   ),
+// ),
 
 class _Title extends StatelessWidget {
   const _Title({

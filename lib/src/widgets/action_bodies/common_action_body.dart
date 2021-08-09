@@ -14,10 +14,11 @@ class CommonActionBody extends StatelessWidget {
     final theme = Theme.of(context);
     return Container(
       padding: const EdgeInsets.all(8.0),
+      margin: const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         color: theme.cardColor,
         boxShadow: [Defaults.getShadow(theme)],
-        borderRadius: BorderRadius.circular(5.0),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: child,
     );

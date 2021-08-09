@@ -6,9 +6,8 @@ class DeviceInfoHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CommonActionHeader(
-      icon: const Icon(Icons.devices),
-      onTap: () {},
+    return const CommonActionHeader(
+      icon: Icon(Icons.devices),
     );
   }
 }

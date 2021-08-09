@@ -20,10 +20,13 @@ class BottomSheetManager {
       builder: (ctx) {
         return const DebugFriendMenu(
           commonItems: [
-            PackageInfoHeader(),
             DeviceInfoHeader(),
+            PackageInfoHeader(),
           ],
-          items: [],
+          items: [
+            DeviceInfoBody(),
+            Text('Salam'),
+          ],
         );
       },
     );
