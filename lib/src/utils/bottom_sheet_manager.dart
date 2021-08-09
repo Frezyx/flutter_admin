@@ -21,6 +21,7 @@ class BottomSheetManager {
         return const DebugFriendMenu(
           commonItems: [
             PackageInfoHeader(),
+            DeviceInfoHeader(),
           ],
           items: [],
         );

@@ -1,3 +1,4 @@
+import 'package:debug_friend/debug_friend.dart';
 import 'package:flutter/material.dart';
 
 class CommonActionHeader extends StatelessWidget {
@@ -16,16 +17,15 @@ class CommonActionHeader extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        width: 45,
+        height: 45,
         decoration: BoxDecoration(
-          color: theme.canvasColor,
-          boxShadow: [
-            BoxShadow(
-              color: theme.shadowColor,
-              blurRadius: 5,
-            ),
-          ],
+          color: theme.cardColor,
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [Defaults.getShadow(theme)],
         ),
         padding: const EdgeInsets.all(8.0),
+        margin: const EdgeInsets.only(left: 15),
         child: icon,
       ),
     );

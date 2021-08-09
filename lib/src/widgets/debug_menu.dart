@@ -1,3 +1,4 @@
+import 'package:debug_friend/debug_friend.dart';
 import 'package:flutter/material.dart';
 
 class DebugFriendMenu extends StatelessWidget {
@@ -13,10 +14,11 @@ class DebugFriendMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final size = MediaQuery.of(context).size;
     return Container(
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(
+      decoration: BoxDecoration(
+        color: Colors.grey[100],
+        borderRadius: const BorderRadius.vertical(
           top: Radius.circular(10),
         ),
       ),
@@ -24,19 +26,22 @@ class DebugFriendMenu extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
+            width: size.width,
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             decoration: BoxDecoration(
               color: theme.cardColor,
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(10),
               ),
+              boxShadow: [Defaults.getShadow(theme)],
             ),
             child: _Title(
               title: 'Debug Menu',
               style: theme.textTheme.headline5,
             ),
           ),
-          const _Title(title: 'Common actions'),
+          const SizedBox(height: 10),
+          // const _Title(title: 'Common actions'),
           Flexible(
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -45,7 +50,7 @@ class DebugFriendMenu extends StatelessWidget {
               ),
             ),
           ),
-          const _Title(title: 'Custom actions'),
+          // const _Title(title: 'Custom actions'),
           Expanded(
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -80,7 +85,7 @@ class _Title extends StatelessWidget {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(15.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -88,7 +93,7 @@ class _Title extends StatelessWidget {
             title,
             style: style ?? theme.textTheme.bodyText1,
           ),
-          const Divider(height: 6),
+          // const Divider(height: 6),
         ],
       ),
     );
