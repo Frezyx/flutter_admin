@@ -22,6 +22,7 @@ class BottomSheetManager {
           commonItems: [
             DeviceInfoHeader(),
             PackageInfoHeader(),
+            CustomActionHeader(),
           ],
           items: [
             DeviceInfoBody(),
