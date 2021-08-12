@@ -75,28 +75,12 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
               ),
             ),
           ),
-          SingleChildScrollView(
-            child: widget.bodies[_selectedIndex],
-          ),
+          widget.bodies[_selectedIndex],
         ],
       ),
     );
   }
 }
-
-// Expanded(
-//   child: GridView.builder(
-//     gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-//       maxCrossAxisExtent: 100,
-//       crossAxisSpacing: 10,
-//       mainAxisSpacing: 10,
-//     ),
-//     itemCount: items.length,
-//     itemBuilder: (BuildContext ctx, i) {
-//       return items[i];
-//     },
-//   ),
-// ),
 
 class _Title extends StatelessWidget {
   const _Title({

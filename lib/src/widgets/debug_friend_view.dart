@@ -46,7 +46,10 @@ class DebugFriendView extends StatelessWidget {
           builder(context),
           DebugFriendButton(
             onTap: () {
-              _bottomSheetManager.showDebugMenu(context);
+              _bottomSheetManager.showDebugMenu(
+                context,
+                customActionCards: customActions,
+              );
             },
             child: icon,
           ),

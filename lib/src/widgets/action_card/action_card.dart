@@ -15,11 +15,12 @@ class ActionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: onTap,
-      child: Column(
+      child: Row(
         children: [
           CommonActionHeader(icon: icon),
+          if (title != null) const SizedBox(width: 10),
           if (title != null) Text(title!),
         ],
       ),

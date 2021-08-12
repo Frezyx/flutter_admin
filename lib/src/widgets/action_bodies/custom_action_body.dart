@@ -8,8 +8,29 @@ class CustomActionBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CommonActionBody(
-      child: Center(child: Text('SSS')),
+    if (cards == null || cards!.isEmpty) {
+      return const Text('No custom actions');
+    }
+    return Expanded(
+      child: ListView.builder(
+        padding: const EdgeInsets.only(top: 10.0),
+        itemCount: cards!.length,
+        itemBuilder: (BuildContext ctx, i) {
+          return cards![i];
+        },
+      ),
     );
   }
 }
+
+// GridView.builder(
+//         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+//           maxCrossAxisExtent: 100,
+//           crossAxisSpacing: 10,
+//           mainAxisSpacing: 10,
+//         ),
+//         itemCount: cards!.length,
+//         itemBuilder: (BuildContext ctx, i) {
+//           return cards![i];
+//         },
+//       ),
