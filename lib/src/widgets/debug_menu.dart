@@ -26,55 +26,60 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: size.width,
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          decoration: BoxDecoration(
-            color: theme.cardColor,
-            borderRadius: const BorderRadius.vertical(
-              top: Radius.circular(10),
+    return Transform(
+      transform: Matrix4.translationValues(0, -20, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: size.width,
+            margin: const EdgeInsets.symmetric(horizontal: 10.0),
+            padding: const EdgeInsets.symmetric(vertical: 2.0),
+            decoration: BoxDecoration(
+              color: theme.cardColor,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(10),
+              ),
+              boxShadow: [Defaults.getShadow(theme)],
             ),
-            boxShadow: [Defaults.getShadow(theme)],
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _Title(
-                title: 'Debug Menu',
-                style: theme.textTheme.headline5,
-              ),
-              IconButton(
-                onPressed: () => _closeMenu(context),
-                icon: const Icon(
-                  Icons.close,
-                ),
-              ),
-            ],
-          ),
-        ),
-        const SizedBox(height: 10),
-        Flexible(
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
             child: Row(
-              children: widget.commonItems
-                  .asMap()
-                  .entries
-                  .map((e) => GestureDetector(
-                        onTap: () => setState(() => _selectedIndex = e.key),
-                        child: e.value,
-                      ))
-                  .toList(),
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _Title(
+                  title: 'Debug Menu',
+                  style: theme.textTheme.headline5,
+                ),
+                IconButton(
+                  onPressed: () => _closeMenu(context),
+                  icon: const Icon(
+                    Icons.close,
+                  ),
+                ),
+              ],
             ),
           ),
-        ),
-        SingleChildScrollView(
-          child: widget.items[_selectedIndex],
-        ),
-      ],
+          const SizedBox(height: 10),
+          Flexible(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.zero,
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: widget.commonItems
+                    .asMap()
+                    .entries
+                    .map((e) => GestureDetector(
+                          onTap: () => setState(() => _selectedIndex = e.key),
+                          child: e.value,
+                        ))
+                    .toList(),
+              ),
+            ),
+          ),
+          SingleChildScrollView(
+            child: widget.items[_selectedIndex],
+          ),
+        ],
+      ),
     );
   }
 }
