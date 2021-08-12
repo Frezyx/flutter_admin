@@ -9,6 +9,7 @@ class DebugFriendView extends StatelessWidget {
     required this.builder,
     this.color,
     this.enabled = kDebugMode,
+    this.customActions,
   })  : _bottomSheetManager = BottomSheetManager(
           items: [],
           commonItems: [],
@@ -28,6 +29,9 @@ class DebugFriendView extends StatelessWidget {
   /// in other case - [DebugFriendButton] going sleep
   /// By default this field get value from const [kDebugMode]
   final bool enabled;
+
+  /// Custom actions menu items
+  final List<ActionCard>? customActions;
 
   final BottomSheetManager _bottomSheetManager;
 

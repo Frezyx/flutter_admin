@@ -9,7 +9,10 @@ class BottomSheetManager {
   final List<Widget> items;
   final List<Widget> commonItems;
 
-  void showDebugMenu(BuildContext context) {
+  void showDebugMenu(
+    BuildContext context, {
+    List<ActionCard>? customActionCards,
+  }) {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -18,16 +21,18 @@ class BottomSheetManager {
         ),
       ),
       builder: (ctx) {
-        return const DebugFriendMenu(
-          headers: [
+        return DebugFriendMenu(
+          headers: const [
             DeviceInfoHeader(),
             PackageInfoHeader(),
             CustomActionHeader(),
           ],
           bodies: [
-            DeviceInfoBody(),
-            PackageInfoBody(),
-            CustomActionBody(),
+            const DeviceInfoBody(),
+            const PackageInfoBody(),
+            CustomActionBody(
+              cards: customActionCards,
+            ),
           ],
         );
       },

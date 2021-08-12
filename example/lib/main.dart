@@ -23,6 +23,13 @@ class MyApp extends StatelessWidget {
             size: 34,
           ),
         ),
+        customActions: [
+          ActionCard(
+            icon: const Icon(Icons.delete),
+            title: 'Clear app data',
+            onTap: () {},
+          )
+        ],
         builder: (context) {
           return const Scaffold(
             body: Center(
