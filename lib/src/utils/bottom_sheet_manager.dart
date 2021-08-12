@@ -27,6 +27,7 @@ class BottomSheetManager {
           items: [
             DeviceInfoBody(),
             PackageInfoBody(),
+            CustomActionBody(),
           ],
         );
       },
