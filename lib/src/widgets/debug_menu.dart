@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 class DebugFriendMenu extends StatefulWidget {
   const DebugFriendMenu({
     Key? key,
-    required this.items,
-    required this.commonItems,
+    required this.bodies,
+    required this.headers,
   }) : super(key: key);
 
-  final List<Widget> items;
-  final List<Widget> commonItems;
+  final List<Widget> bodies;
+  final List<Widget> headers;
 
   @override
   _DebugFriendMenuState createState() => _DebugFriendMenuState();
@@ -64,7 +64,7 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
               padding: EdgeInsets.zero,
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: widget.commonItems
+                children: widget.headers
                     .asMap()
                     .entries
                     .map((e) => GestureDetector(
@@ -76,7 +76,7 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
             ),
           ),
           SingleChildScrollView(
-            child: widget.items[_selectedIndex],
+            child: widget.bodies[_selectedIndex],
           ),
         ],
       ),
