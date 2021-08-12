@@ -28,7 +28,27 @@ class MyApp extends StatelessWidget {
             icon: const Icon(Icons.delete),
             title: 'Clear app data',
             onTap: () {},
-          )
+          ),
+          ActionCard(
+            icon: const Icon(Icons.dining),
+            title: 'Test',
+            onTap: () {},
+          ),
+          ActionCard(
+            icon: const Icon(Icons.directions_car),
+            title: 'Test',
+            onTap: () {},
+          ),
+          ActionCard(
+            icon: const Icon(Icons.directions_car),
+            title: 'Test',
+            onTap: () {},
+          ),
+          ActionCard(
+            icon: const Icon(Icons.directions_car),
+            title: 'Test',
+            onTap: () {},
+          ),
         ],
         builder: (context) {
           return const Scaffold(

@@ -59,7 +59,8 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
             ),
           ),
           const SizedBox(height: 10),
-          Flexible(
+          SizedBox(
+            height: 55,
             child: SingleChildScrollView(
               padding: EdgeInsets.zero,
               scrollDirection: Axis.horizontal,

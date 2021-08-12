@@ -12,9 +12,10 @@ class CustomActionBody extends StatelessWidget {
       return const Text('No custom actions');
     }
     return Expanded(
-      child: ListView.builder(
+      child: ListView.separated(
         padding: const EdgeInsets.only(top: 10.0),
         itemCount: cards!.length,
+        separatorBuilder: (_, __) => const SizedBox(height: 10),
         itemBuilder: (BuildContext ctx, i) {
           return cards![i];
         },
