@@ -26,41 +26,40 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
-    return Transform(
-      transform: Matrix4.translationValues(0, -20, 0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: size.width,
-            margin: const EdgeInsets.symmetric(horizontal: 10.0),
-            padding: const EdgeInsets.symmetric(vertical: 2.0),
-            decoration: BoxDecoration(
-              color: theme.cardColor,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(10),
-              ),
-              boxShadow: [Defaults.getShadow(theme)],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          width: size.width,
+          transform: Matrix4.translationValues(0, -20, 0),
+          margin: const EdgeInsets.symmetric(horizontal: 10.0),
+          padding: const EdgeInsets.symmetric(vertical: 2.0),
+          decoration: BoxDecoration(
+            color: theme.cardColor,
+            borderRadius: const BorderRadius.all(
+              Radius.circular(10),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _Title(
-                  title: 'Debug Menu',
-                  style: theme.textTheme.headline5,
-                ),
-                IconButton(
-                  onPressed: () => _closeMenu(context),
-                  icon: const Icon(
-                    Icons.close,
-                  ),
-                ),
-              ],
-            ),
+            boxShadow: [Defaults.getShadow(theme)],
           ),
-          const SizedBox(height: 10),
-          SizedBox(
-            height: 55,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              _Title(
+                title: 'Debug Menu',
+                style: theme.textTheme.headline5,
+              ),
+              IconButton(
+                onPressed: () => _closeMenu(context),
+                icon: const Icon(
+                  Icons.close,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Transform(
+          transform: Matrix4.translationValues(0, -10, 0),
+          child: SizedBox(
             child: SingleChildScrollView(
               padding: EdgeInsets.zero,
               scrollDirection: Axis.horizontal,
@@ -76,9 +75,9 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
               ),
             ),
           ),
-          widget.bodies[_selectedIndex],
-        ],
-      ),
+        ),
+        widget.bodies[_selectedIndex],
+      ],
     );
   }
 }

@@ -19,6 +19,7 @@ class BottomSheetManager {
       // isDismissible: false,
       // enableDrag: true,
       shape: const RoundedRectangleBorder(
+        // side: BorderSide(),
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(10),
         ),
@@ -32,7 +33,14 @@ class BottomSheetManager {
             // CustomActionHeader(),
           ],
           bodies: [
-            const DeviceInfoBody(),
+            Expanded(
+              child: ListView(
+                children: const [
+                  DeviceInfoBody(),
+                  PackageInfoBody(),
+                ],
+              ),
+            ),
             const PackageInfoBody(),
             AppActionsBody(
               cards: customActionCards,
