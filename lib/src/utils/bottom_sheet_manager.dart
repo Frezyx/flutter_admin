@@ -29,12 +29,12 @@ class BottomSheetManager {
             DeviceInfoHeader(),
             PackageInfoHeader(),
             AppActionsHeader(),
-            CustomActionHeader(),
+            // CustomActionHeader(),
           ],
           bodies: [
             const DeviceInfoBody(),
             const PackageInfoBody(),
-            CustomActionBody(
+            AppActionsBody(
               cards: customActionCards,
             ),
           ],
