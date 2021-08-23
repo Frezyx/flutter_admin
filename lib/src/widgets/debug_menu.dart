@@ -27,7 +27,7 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
     return SizedBox(
-      height: size.height * 0.85,
+      height: size.height * 0.9,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -77,6 +77,11 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
                 ),
               ),
             ),
+          ),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 10.0).copyWith(top: 6.0),
+            child: const Divider(height: 0),
           ),
           widget.bodies[_selectedIndex],
         ],

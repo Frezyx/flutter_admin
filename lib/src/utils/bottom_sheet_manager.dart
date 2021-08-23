@@ -16,11 +16,8 @@ class BottomSheetManager {
     final theme = Theme.of(context);
     showModalBottomSheet(
       context: context,
-      // isScrollControlled: true,
-      // isDismissible: false,
-      // enableDrag: true,
+      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
-        // side: BorderSide(),
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(10),
         ),
@@ -37,7 +34,9 @@ class BottomSheetManager {
             Expanded(
               child: ListView(
                 children: const [
+                  SizedBox(height: 10),
                   DeviceInfoBody(),
+                  SizedBox(height: 10),
                   PackageInfoBody(),
                 ],
               ),
