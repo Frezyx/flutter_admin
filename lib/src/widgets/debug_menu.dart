@@ -26,58 +26,61 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final size = MediaQuery.of(context).size;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          width: size.width,
-          transform: Matrix4.translationValues(0, -20, 0),
-          margin: const EdgeInsets.symmetric(horizontal: 10.0),
-          padding: const EdgeInsets.symmetric(vertical: 2.0),
-          decoration: BoxDecoration(
-            color: theme.cardColor,
-            borderRadius: const BorderRadius.all(
-              Radius.circular(10),
-            ),
-            boxShadow: [Defaults.getShadow(theme)],
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              _Title(
-                title: 'Debug Menu',
-                style: theme.textTheme.headline5,
+    return SizedBox(
+      height: size.height * 0.85,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: size.width,
+            transform: Matrix4.translationValues(0, -20, 0),
+            margin: const EdgeInsets.symmetric(horizontal: 10.0),
+            padding: const EdgeInsets.symmetric(vertical: 2.0),
+            decoration: BoxDecoration(
+              color: theme.cardColor,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(10),
               ),
-              IconButton(
-                onPressed: () => _closeMenu(context),
-                icon: const Icon(
-                  Icons.close,
+              boxShadow: [Defaults.getShadow(theme)],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _Title(
+                  title: 'Debug Menu',
+                  style: theme.textTheme.headline5,
+                ),
+                IconButton(
+                  onPressed: () => _closeMenu(context),
+                  icon: const Icon(
+                    Icons.close,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Transform(
+            transform: Matrix4.translationValues(0, -10, 0),
+            child: SizedBox(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.zero,
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: widget.headers
+                      .asMap()
+                      .entries
+                      .map((e) => GestureDetector(
+                            onTap: () => setState(() => _selectedIndex = e.key),
+                            child: e.value,
+                          ))
+                      .toList(),
                 ),
               ),
-            ],
-          ),
-        ),
-        Transform(
-          transform: Matrix4.translationValues(0, -10, 0),
-          child: SizedBox(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.zero,
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: widget.headers
-                    .asMap()
-                    .entries
-                    .map((e) => GestureDetector(
-                          onTap: () => setState(() => _selectedIndex = e.key),
-                          child: e.value,
-                        ))
-                    .toList(),
-              ),
             ),
           ),
-        ),
-        widget.bodies[_selectedIndex],
-      ],
+          widget.bodies[_selectedIndex],
+        ],
+      ),
     );
   }
 }

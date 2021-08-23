@@ -28,11 +28,24 @@ class _PackageInfoBodyState extends State<PackageInfoBody> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return CommonActionBody(
-      child: SizedBox(
-        width: size.width,
-        child: _PackageInfoBody(packageInfo: _packageInfo),
-      ),
+    final theme = Theme.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Text(
+            'Package info',
+            style: theme.textTheme.headline5,
+          ),
+        ),
+        CommonActionBody(
+          child: SizedBox(
+            width: size.width,
+            child: _PackageInfoBody(packageInfo: _packageInfo),
+          ),
+        ),
+      ],
     );
   }
 }

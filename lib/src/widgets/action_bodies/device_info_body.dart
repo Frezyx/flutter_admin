@@ -39,6 +39,7 @@ class _DeviceInfoBodyState extends State<DeviceInfoBody> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     Widget? child;
 
     if (_androidDeviceInfo != null) {
@@ -52,8 +53,20 @@ class _DeviceInfoBodyState extends State<DeviceInfoBody> {
       child = const SizedBox();
     }
 
-    return CommonActionBody(
-      child: child,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Text(
+            'Device info',
+            style: theme.textTheme.headline5,
+          ),
+        ),
+        CommonActionBody(
+          child: child,
+        ),
+      ],
     );
   }
 }
