@@ -34,21 +34,6 @@ class MyApp extends StatelessWidget {
             title: 'Test',
             onTap: () {},
           ),
-          ActionCard(
-            icon: const Icon(Icons.directions_car),
-            title: 'Test',
-            onTap: () {},
-          ),
-          ActionCard(
-            icon: const Icon(Icons.directions_car),
-            title: 'Test',
-            onTap: () {},
-          ),
-          ActionCard(
-            icon: const Icon(Icons.directions_car),
-            title: 'Test',
-            onTap: () {},
-          ),
         ],
         builder: (context) {
           return const Scaffold(

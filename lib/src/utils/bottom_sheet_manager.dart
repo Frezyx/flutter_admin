@@ -15,9 +15,9 @@ class BottomSheetManager {
   }) {
     showModalBottomSheet(
       context: context,
-      isScrollControlled: true,
-      isDismissible: false,
-      enableDrag: true,
+      // isScrollControlled: true,
+      // isDismissible: false,
+      // enableDrag: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(
           top: Radius.circular(10),
@@ -28,6 +28,7 @@ class BottomSheetManager {
           headers: const [
             DeviceInfoHeader(),
             PackageInfoHeader(),
+            AppActionsHeader(),
             CustomActionHeader(),
           ],
           bodies: [
