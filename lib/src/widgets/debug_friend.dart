@@ -26,6 +26,7 @@ class _DebugFriendButtonState extends State<DebugFriendButton>
         end: _dragAlignment,
       ),
     );
+    _setSide();
 
     final simulation =
         _simulationCalculator.calculateSimulation(pixelsPerSecond, size);
@@ -36,6 +37,7 @@ class _DebugFriendButtonState extends State<DebugFriendButton>
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
+    _setSide();
   }
 
   @override
@@ -56,7 +58,6 @@ class _DebugFriendButtonState extends State<DebugFriendButton>
         _setPosition(details, size);
       },
       onPanEnd: (details) {
-        _setSide();
         _runAnimation(details.velocity.pixelsPerSecond, size);
       },
       onTap: widget.onTap,
