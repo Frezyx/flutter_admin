@@ -27,6 +27,7 @@ class BottomSheetManager {
           headers: const [
             // DeviceInfoHeader(),
             PackageInfoHeader(),
+            AppDataHeader(),
             AppActionsHeader(),
             // CustomActionHeader(),
           ],
@@ -42,6 +43,7 @@ class BottomSheetManager {
               ),
             ),
             // const PackageInfoBody(),
+            const AppDataBody(),
             AppActionsBody(
               cards: customActionCards,
             ),

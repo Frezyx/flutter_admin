@@ -2,6 +2,11 @@
 
 A new Flutter package project.
 
+## TODO:
+
+- App data list in card
+- App data deleting in card
+
 ## Getting Started
 
 This project is a starting point for a Dart
