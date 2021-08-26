@@ -1,1 +1,4 @@
-abstract class AbstractFileService {}
+abstract class AbstractFileService {
+  Future<void> deleteCacheDir();
+  Future<void> deleteAppDir();
+}

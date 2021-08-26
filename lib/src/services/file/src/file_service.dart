@@ -7,19 +7,25 @@ class FileService implements AbstractFileService {
   static final AbstractFileService _service = FileService._();
   static AbstractFileService get instance => _service;
 
-  Future<void> _deleteCacheDir() async {
-    final cacheDir = await getTemporaryDirectory();
-
-    if (cacheDir.existsSync()) {
-      cacheDir.deleteSync(recursive: true);
-    }
-  }
+  @override
+  Future<void> deleteAppDir() => _deleteAppDir();
 
   Future<void> _deleteAppDir() async {
     final appDir = await getApplicationSupportDirectory();
 
     if (appDir.existsSync()) {
       appDir.deleteSync(recursive: true);
+    }
+  }
+
+  @override
+  Future<void> deleteCacheDir() => _deleteCacheDir();
+
+  Future<void> _deleteCacheDir() async {
+    final cacheDir = await getTemporaryDirectory();
+
+    if (cacheDir.existsSync()) {
+      cacheDir.deleteSync(recursive: true);
     }
   }
 }
