@@ -37,14 +37,26 @@ class _AppDataBodyState extends State<AppDataBody> {
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'App data',
-                  style: theme.textTheme.headline5,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'App data',
+                      style: theme.textTheme.headline5,
+                    ),
+                    Text('Total files count: ${_files.length}'),
+                  ],
                 ),
-                Text('Total files count: ${_files.length}'),
+                IconButton(
+                  onPressed: _deleteFiles,
+                  icon: const Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  ),
+                ),
               ],
             ),
           ),
@@ -63,10 +75,7 @@ class _AppDataBodyState extends State<AppDataBody> {
                     children: [
                       Expanded(child: Text('$f.path')),
                       IconButton(
-                        onPressed: () {
-                          f.delete();
-                          _loadFilesList();
-                        },
+                        onPressed: () => _deleteFile(f),
                         icon: const Icon(
                           Icons.delete,
                           color: Colors.red,
@@ -81,5 +90,16 @@ class _AppDataBodyState extends State<AppDataBody> {
         ],
       ),
     );
+  }
+
+  void _deleteFiles() {
+    for (final f in _files) {
+      _deleteFile(f);
+    }
+  }
+
+  void _deleteFile(File f) {
+    f.delete();
+    _loadFilesList();
   }
 }
