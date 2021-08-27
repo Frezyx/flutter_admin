@@ -14,7 +14,7 @@ class AppDataBody extends StatefulWidget {
 }
 
 class _AppDataBodyState extends State<AppDataBody> {
-  late List<File> _files;
+  var _files = <File>[];
 
   @override
   void initState() {
