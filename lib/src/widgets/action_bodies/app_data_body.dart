@@ -30,28 +30,42 @@ class _AppDataBodyState extends State<AppDataBody> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(height: 10),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Text(
-            'App data',
-            style: theme.textTheme.headline5,
+    return Flexible(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'App data',
+                  style: theme.textTheme.headline5,
+                ),
+                Text('Total files count: ${_files.length}'),
+              ],
+            ),
           ),
-        ),
-        CommonActionBody(
-          child: Column(
-            children: _files
-                .map((e) => Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text('$e.path'),
-                    ))
-                .toList(),
-          ),
-        ),
-      ],
+          Expanded(
+            child: ListView.separated(
+              physics: const BouncingScrollPhysics(),
+              padding: const EdgeInsets.only(top: 10.0),
+              itemCount: _files.length,
+              separatorBuilder: (_, __) => const SizedBox(height: 0),
+              itemBuilder: (BuildContext ctx, i) {
+                final f = _files[i];
+                return CommonActionBody(
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 5.0, horizontal: 10.0),
+                  child: Text('$f.path'),
+                );
+              },
+            ),
+          )
+        ],
+      ),
     );
   }
 }
