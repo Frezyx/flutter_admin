@@ -17,7 +17,10 @@ class KeyValueLine extends StatelessWidget {
       children: [
         Expanded(child: Text(k)),
         Flexible(
-          child: Align(alignment: Alignment.centerRight, child: Text(v)),
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: Text(v, textAlign: TextAlign.end),
+          ),
         ),
       ],
     );
