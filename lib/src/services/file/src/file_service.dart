@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:debug_friend/src/services/file/service.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -27,5 +29,19 @@ class FileService implements AbstractFileService {
     if (cacheDir.existsSync()) {
       cacheDir.deleteSync(recursive: true);
     }
+  }
+
+  @override
+  Future<List<File>> getFiles() => _getFilesList();
+
+  Future<List<File>> _getFilesList() async {
+    final fileModels = <File>[];
+    final cacheDir = await getTemporaryDirectory();
+    final files = cacheDir.listSync();
+    for (final file in files) {
+      final fileModel = File(file.path);
+      fileModels.add(fileModel);
+    }
+    return fileModels;
   }
 }
