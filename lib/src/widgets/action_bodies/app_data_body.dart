@@ -29,18 +29,29 @@ class _AppDataBodyState extends State<AppDataBody> {
 
   @override
   Widget build(BuildContext context) {
-    if (_files.isEmpty) {
-      return const SizedBox();
-    }
-    return CommonActionBody(
-      child: Column(
-        children: _files
-            .map((e) => Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text('$e.path'),
-                ))
-            .toList(),
-      ),
+    final theme = Theme.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Text(
+            'App data',
+            style: theme.textTheme.headline5,
+          ),
+        ),
+        CommonActionBody(
+          child: Column(
+            children: _files
+                .map((e) => Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('$e.path'),
+                    ))
+                .toList(),
+          ),
+        ),
+      ],
     );
   }
 }
