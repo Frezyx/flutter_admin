@@ -13,17 +13,33 @@ class AppActionsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomActionBody(
-      cards: [
-        ActionCard(
-          onTap: () => exit(0),
-          title: 'Close app',
-          icon: const Icon(
-            Icons.exit_to_app,
+    final theme = Theme.of(context);
+    return Flexible(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              'Device info',
+              style: theme.textTheme.headline5,
+            ),
           ),
-        ),
-        ...?cards,
-      ],
+          CustomActionBody(
+            cards: [
+              ActionCard(
+                onTap: () => exit(0),
+                title: 'Close app',
+                icon: const Icon(
+                  Icons.exit_to_app,
+                ),
+              ),
+              ...?cards,
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

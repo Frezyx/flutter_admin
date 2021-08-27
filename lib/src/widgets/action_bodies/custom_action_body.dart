@@ -13,6 +13,7 @@ class CustomActionBody extends StatelessWidget {
     }
     return Expanded(
       child: ListView.separated(
+        physics: const BouncingScrollPhysics(),
         padding: const EdgeInsets.only(top: 10.0),
         itemCount: cards!.length,
         separatorBuilder: (_, __) => const SizedBox(height: 10),

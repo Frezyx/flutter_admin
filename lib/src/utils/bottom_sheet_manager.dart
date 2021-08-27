@@ -34,6 +34,7 @@ class BottomSheetManager {
           bodies: [
             Expanded(
               child: ListView(
+                physics: const BouncingScrollPhysics(),
                 children: const [
                   SizedBox(height: 10),
                   DeviceInfoBody(),
