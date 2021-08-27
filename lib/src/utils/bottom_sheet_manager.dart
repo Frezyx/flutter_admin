@@ -13,7 +13,6 @@ class BottomSheetManager {
     BuildContext context, {
     List<ActionCard>? customActionCards,
   }) {
-    final theme = Theme.of(context);
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -25,11 +24,9 @@ class BottomSheetManager {
       builder: (ctx) {
         return DebugFriendMenu(
           headers: const [
-            // DeviceInfoHeader(),
             PackageInfoHeader(),
             AppDataHeader(),
             AppActionsHeader(),
-            // CustomActionHeader(),
           ],
           bodies: [
             Expanded(
@@ -43,7 +40,6 @@ class BottomSheetManager {
                 ],
               ),
             ),
-            // const PackageInfoBody(),
             const AppDataBody(),
             AppActionsBody(
               cards: customActionCards,

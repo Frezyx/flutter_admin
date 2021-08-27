@@ -1,4 +1,5 @@
 import 'package:debug_friend/debug_friend.dart';
+import 'package:example/utils/iamge_manager.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -36,9 +37,22 @@ class MyApp extends StatelessWidget {
           ),
         ],
         builder: (context) {
-          return const Scaffold(
-            body: Center(
-              child: Text('Title'),
+          final size = MediaQuery.of(context).size;
+          return Scaffold(
+            body: SizedBox(
+              width: size.width,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Pick image for test'),
+                  ElevatedButton(
+                    onPressed: () {
+                      ImageManager.pickAndSave();
+                    },
+                    child: const Text('Pick and save file'),
+                  )
+                ],
+              ),
             ),
           );
         },
