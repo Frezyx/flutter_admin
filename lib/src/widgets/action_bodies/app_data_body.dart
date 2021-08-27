@@ -59,7 +59,21 @@ class _AppDataBodyState extends State<AppDataBody> {
                 return CommonActionBody(
                   margin: const EdgeInsets.symmetric(
                       vertical: 5.0, horizontal: 10.0),
-                  child: Text('$f.path'),
+                  child: Row(
+                    children: [
+                      Expanded(child: Text('$f.path')),
+                      IconButton(
+                        onPressed: () {
+                          f.delete();
+                          _loadFilesList();
+                        },
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ],
+                  ),
                 );
               },
             ),
