@@ -13,6 +13,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _brightness = Brightness.light;
+  final _navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,7 @@ class _MyAppState extends State<MyApp> {
         brightness: _brightness,
         primarySwatch: Colors.blue,
       ),
+      navigatorKey: _navigatorKey,
       home: DebugFriendView(
         icon: const SizedBox(
           width: 50,
@@ -54,7 +56,7 @@ class _MyAppState extends State<MyApp> {
             title: 'Custom action - show dialog',
             onTap: () {
               showDialog(
-                context: context,
+                context: _navigatorKey.currentContext!,
                 builder: (BuildContext context) {
                   return const AlertDialog(
                     title: Text("Custom action"),
