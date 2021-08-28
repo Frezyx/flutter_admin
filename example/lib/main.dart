@@ -25,16 +25,16 @@ class MyApp extends StatelessWidget {
           ),
         ),
         customActions: [
-          ActionCard(
-            icon: const Icon(Icons.delete),
-            title: 'Clear app data',
-            onTap: () {},
-          ),
-          ActionCard(
-            icon: const Icon(Icons.dining),
-            title: 'Test',
-            onTap: () {},
-          ),
+          // ActionCard(
+          //   icon: const Icon(Icons.delete),
+          //   title: 'Clear app data',
+          //   onTap: () {},
+          // ),
+          // ActionCard(
+          //   icon: const Icon(Icons.dining),
+          //   title: 'Test',
+          //   onTap: () {},
+          // ),
         ],
         builder: (context) {
           final size = MediaQuery.of(context).size;

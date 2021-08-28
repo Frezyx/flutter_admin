@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:debug_friend/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class AppActionsBody extends StatelessWidget {
   const AppActionsBody({
@@ -33,6 +34,37 @@ class AppActionsBody extends StatelessWidget {
                 title: 'Close app',
                 icon: const Icon(
                   Icons.exit_to_app,
+                ),
+              ),
+              ActionCard(
+                onTap: () => debugPaintSizeEnabled = !debugPaintSizeEnabled,
+                title: 'Show paint sizes',
+                icon: const Icon(
+                  Icons.square_foot,
+                ),
+              ),
+              ActionCard(
+                onTap: () =>
+                    debugPaintBaselinesEnabled = !debugPaintBaselinesEnabled,
+                title: 'Show paint baselines',
+                icon: const Icon(
+                  Icons.text_format,
+                ),
+              ),
+              ActionCard(
+                onTap: () => debugPaintLayerBordersEnabled =
+                    !debugPaintLayerBordersEnabled,
+                title: 'Show paint layer borders',
+                icon: const Icon(
+                  Icons.border_style,
+                ),
+              ),
+              ActionCard(
+                onTap: () =>
+                    debugRepaintRainbowEnabled = !debugRepaintRainbowEnabled,
+                title: 'Show repaint rainbow',
+                icon: const Icon(
+                  Icons.palette,
                 ),
               ),
               ...?cards,
