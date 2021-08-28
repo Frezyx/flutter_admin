@@ -12,7 +12,7 @@ abstract class ImageManager {
 
   static Future<File> _pick() async {
     final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+        await ImagePicker().pickImage(source: ImageSource.camera);
     final File image = File(pickedFile!.path);
     return image;
   }
