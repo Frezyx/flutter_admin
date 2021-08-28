@@ -6,12 +6,20 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  var _brightness = Brightness.light;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
+        brightness: _brightness,
         primarySwatch: Colors.blue,
       ),
       home: DebugFriendView(
@@ -25,16 +33,37 @@ class MyApp extends StatelessWidget {
           ),
         ),
         customActions: [
-          // ActionCard(
-          //   icon: const Icon(Icons.delete),
-          //   title: 'Clear app data',
-          //   onTap: () {},
-          // ),
-          // ActionCard(
-          //   icon: const Icon(Icons.dining),
-          //   title: 'Test',
-          //   onTap: () {},
-          // ),
+          ActionCard(
+            icon: const Icon(Icons.delete),
+            title: 'Custom action - Clear storage data',
+            onTap: () {},
+          ),
+          ActionCard(
+            icon: const Icon(Icons.dark_mode),
+            title: 'Custom action - Enable dark mode',
+            onTap: () {
+              if (_brightness == Brightness.light) {
+                setState(() => _brightness = Brightness.dark);
+              } else {
+                setState(() => _brightness = Brightness.light);
+              }
+            },
+          ),
+          ActionCard(
+            icon: const Icon(Icons.notifications_active),
+            title: 'Custom action - show dialog',
+            onTap: () {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return const AlertDialog(
+                    title: Text("Custom action"),
+                    content: Text("Show dialog"),
+                  );
+                },
+              );
+            },
+          ),
         ],
         builder: (context) {
           final size = MediaQuery.of(context).size;

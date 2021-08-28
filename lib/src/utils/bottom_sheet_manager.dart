@@ -27,6 +27,7 @@ class BottomSheetManager {
             PackageInfoHeader(),
             AppDataHeader(),
             AppActionsHeader(),
+            CustomActionHeader(),
           ],
           bodies: [
             Expanded(
@@ -41,9 +42,10 @@ class BottomSheetManager {
               ),
             ),
             const AppDataBody(),
-            AppActionsBody(
+            const AppActionsBody(),
+            CustomActionBody(
               cards: customActionCards,
-            ),
+            )
           ],
         );
       },

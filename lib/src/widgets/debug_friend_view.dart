@@ -40,20 +40,22 @@ class DebugFriendView extends StatelessWidget {
     if (!enabled) {
       return builder(context);
     }
-    return Scaffold(
-      body: Stack(
-        children: [
-          builder(context),
-          DebugFriendButton(
-            onTap: () {
-              _bottomSheetManager.showDebugMenu(
-                context,
-                customActionCards: customActions,
-              );
-            },
-            child: icon,
-          ),
-        ],
+    return Material(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            builder(context),
+            DebugFriendButton(
+              onTap: () {
+                _bottomSheetManager.showDebugMenu(
+                  context,
+                  customActionCards: customActions,
+                );
+              },
+              child: icon,
+            ),
+          ],
+        ),
       ),
     );
   }

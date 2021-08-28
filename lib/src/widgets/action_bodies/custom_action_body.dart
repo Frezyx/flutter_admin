@@ -4,12 +4,15 @@ import 'package:flutter/material.dart';
 class CustomActionBody extends StatelessWidget {
   const CustomActionBody({Key? key, this.cards}) : super(key: key);
 
-  final List<ActionCard>? cards;
+  final List<Widget>? cards;
 
   @override
   Widget build(BuildContext context) {
     if (cards == null || cards!.isEmpty) {
-      return const Text('No custom actions');
+      return const Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Text('No custom actions'),
+      );
     }
     return Expanded(
       child: ListView.separated(

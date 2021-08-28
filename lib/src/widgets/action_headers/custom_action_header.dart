@@ -7,7 +7,7 @@ class CustomActionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const CommonActionHeader(
-      icon: Icon(Icons.palette),
+      icon: Icon(Icons.extension),
     );
   }
 }
