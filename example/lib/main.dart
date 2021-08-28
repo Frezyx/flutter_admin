@@ -1,12 +1,23 @@
+import 'dart:math';
+
 import 'package:debug_friend/debug_friend.dart';
 import 'package:example/utils/iamge_manager.dart';
+import 'package:example/utils/repository/shared_repository.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final repository = SharedRepository();
+  await repository.init();
+  runApp(MyApp(
+    repository: repository,
+  ));
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key, required this.repository}) : super(key: key);
+  final SharedRepository repository;
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -38,7 +49,9 @@ class _MyAppState extends State<MyApp> {
           ActionCard(
             icon: const Icon(Icons.delete),
             title: 'Custom action - Clear storage data',
-            onTap: () {},
+            onTap: () {
+              widget.repository.deleteValues();
+            },
           ),
           ActionCard(
             icon: const Icon(Icons.dark_mode),
@@ -69,20 +82,56 @@ class _MyAppState extends State<MyApp> {
         ],
         builder: (context) {
           final size = MediaQuery.of(context).size;
-          return Scaffold(
-            body: SizedBox(
-              width: size.width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Pick image for test'),
-                  ElevatedButton(
-                    onPressed: () {
-                      ImageManager.pickAndSave();
-                    },
-                    child: const Text('Pick and save file'),
-                  )
-                ],
+          return SafeArea(
+            child: Scaffold(
+              body: SizedBox(
+                width: size.width,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 40.0),
+                  child: Column(
+                    children: [
+                      const Text('Pick image for test'),
+                      ElevatedButton(
+                        onPressed: () {
+                          ImageManager.pickAndSave();
+                        },
+                        child: const Text('Pick and save file'),
+                      ),
+                      const Text('Shared repository data'),
+                      ElevatedButton(
+                        onPressed: () {
+                          widget.repository.addValue(Random().nextInt(100));
+                        },
+                        child: const Text('Add data'),
+                      ),
+                      StreamBuilder<List<int>>(
+                        stream: widget.repository.stream,
+                        initialData: const [],
+                        builder: (BuildContext context,
+                            AsyncSnapshot<List<int>> snapshot) {
+                          if (snapshot.data == null || snapshot.data!.isEmpty) {
+                            return const Text('No data in shared repository');
+                          }
+                          return Flexible(
+                            child: ListView.builder(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20.0),
+                              itemCount: snapshot.data!.length,
+                              itemBuilder: (ctx, i) {
+                                return Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text('${snapshot.data![i]}'),
+                                  ],
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
           );
