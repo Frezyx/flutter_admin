@@ -81,61 +81,76 @@ class _MyAppState extends State<MyApp> {
           ),
         ],
         builder: (context) {
-          final size = MediaQuery.of(context).size;
           return SafeArea(
             child: Scaffold(
-              body: SizedBox(
-                width: size.width,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 40.0),
-                  child: Column(
-                    children: [
-                      const Text('Pick image for test'),
-                      ElevatedButton(
-                        onPressed: () {
-                          ImageManager.pickAndSave();
-                        },
-                        child: const Text('Pick and save file'),
-                      ),
-                      const Text('Shared repository data'),
-                      ElevatedButton(
-                        onPressed: () {
-                          widget.repository.addValue(Random().nextInt(100));
-                        },
-                        child: const Text('Add data'),
-                      ),
-                      StreamBuilder<List<int>>(
-                        stream: widget.repository.stream,
-                        initialData: const [],
-                        builder: (BuildContext context,
-                            AsyncSnapshot<List<int>> snapshot) {
-                          if (snapshot.data == null || snapshot.data!.isEmpty) {
-                            return const Text('No data in shared repository');
-                          }
-                          return Flexible(
-                            child: ListView.builder(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20.0),
-                              itemCount: snapshot.data!.length,
-                              itemBuilder: (ctx, i) {
-                                return Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text('${snapshot.data![i]}'),
-                                  ],
-                                );
-                              },
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ),
+              body: _AppActionsBody(
+                repository: widget.repository,
               ),
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class _AppActionsBody extends StatelessWidget {
+  const _AppActionsBody({
+    Key? key,
+    required this.repository,
+  }) : super(key: key);
+
+  final SharedRepository repository;
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    return SizedBox(
+      width: size.width,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 40.0),
+        child: Column(
+          children: [
+            const Text('Pick image for test'),
+            ElevatedButton(
+              onPressed: () {
+                ImageManager.pickAndSave();
+              },
+              child: const Text('Pick and save file'),
+            ),
+            const Text('Shared repository data'),
+            ElevatedButton(
+              onPressed: () {
+                repository.addValue(Random().nextInt(100));
+              },
+              child: const Text('Add data'),
+            ),
+            StreamBuilder<List<int>>(
+              stream: repository.stream,
+              initialData: const [],
+              builder:
+                  (BuildContext context, AsyncSnapshot<List<int>> snapshot) {
+                if (snapshot.data == null || snapshot.data!.isEmpty) {
+                  return const Text('No data in shared repository');
+                }
+                return Flexible(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (ctx, i) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('${snapshot.data![i]}'),
+                        ],
+                      );
+                    },
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

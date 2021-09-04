@@ -1,19 +1,38 @@
-# debug_friend
+<div align="center">
+    <h1>Debug Friend</h1>
+</div>
+<h2 align="center">Flutter debug helper widget with common and custom actions</h2>
+<p align="center">
+    This helps you reduce the development and testing time of new features
+   <br>
+   <span style="font-size: 0.9em"> Show some ❤️ and <a href="https://github.com/Frezyx/debug_friend">star the repo</a> to support the project! </span>
+</p>
+<br>
 
-A new Flutter package project.
+| ![Image](example/repo_files/preview.gif) | ![Image](example/repo_files/s1.jpg) | ![Image](example/repo_files/s2.jpg) | ![Image](example/repo_files/s3.jpg) | ![Image](example/repo_files/s4.jpg) | 
+| :------------: | :------------: | :------------: | :------------: |  :------------: |
 
-## TODO:
+## Main features
 
-- App data list in card
-- App data deleting in card
+## Quickstart
 
-## Getting Started
+Wrap your MaterialApp's home or builder widget in a DebugFriend.
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+```dart
+import 'package:debug_friend/debug_friend.dart';
+import 'package:flutter/material.dart';
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+void main() {
+  runApp(
+    MaterialApp(
+      home: DebugFriendView(
+        builder: (context) {
+          return const Scaffold(
+            body: Text('Your app home widget'),
+          );
+        },
+      ),
+    ),
+  );
+}
+```

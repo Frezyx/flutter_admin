@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class DebugFriendView extends StatelessWidget {
   DebugFriendView({
     Key? key,
-    required this.icon,
+    this.icon = const Icon(Icons.bug_report),
     required this.builder,
     this.color,
     this.enabled = kDebugMode,
