@@ -1,4 +1,4 @@
-import 'package:debug_friend/debug_friend.dart';
+import 'package:debug_friend/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 class CustomActionHeader extends StatelessWidget {
