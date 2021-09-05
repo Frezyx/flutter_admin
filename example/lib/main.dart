@@ -5,7 +5,7 @@ import 'package:example/utils/iamge_manager.dart';
 import 'package:example/utils/repository/shared_repository.dart';
 import 'package:flutter/material.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final repository = SharedRepository();
   await repository.init();
