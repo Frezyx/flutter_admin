@@ -14,6 +14,11 @@
 
 ## Main features
 
+- Check device info & package info
+- Viewing and managing application cache
+- Flutter inspector features
+- Test your custom actions
+
 ## Quickstart
 
 Wrap your MaterialApp's home or builder widget in a DebugFriend.
