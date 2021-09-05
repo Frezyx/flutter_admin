@@ -1,4 +1,3 @@
-import 'package:debug_friend/debug_friend.dart';
 import 'package:debug_friend/src/theme/theme.dart';
 import 'package:flutter/material.dart';
 

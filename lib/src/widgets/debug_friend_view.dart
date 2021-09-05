@@ -4,12 +4,27 @@ import 'package:debug_friend/src/widgets/widgets.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+/// Wraps your application in the debug friend zone
+///
+/// {@tool snippet}
+///
+/// This sample shows how to define an app with a plugin.
+///
+/// ```dart
+///DebugFriendView(
+///  builder: (context) {
+///    return const Scaffold(
+///      body: Text('Your app home widget'),
+///    );
+///  },
+/// ),
+/// ```
+/// {@end-tool}
 class DebugFriendView extends StatelessWidget {
   DebugFriendView({
     Key? key,
     this.icon = const Icon(Icons.bug_report),
     required this.builder,
-    this.color,
     this.enabled = kDebugMode,
     this.customActions,
   })  : _bottomSheetManager = BottomSheetManager(
@@ -18,13 +33,10 @@ class DebugFriendView extends StatelessWidget {
         ),
         super(key: key);
 
-  /// Widget that displayed at main Button
+  /// Widget that displayed at DebugFriend action header
   final Widget icon;
 
-  /// Color of debug button
-  final Color? color;
-
-  /// Your app
+  /// Should return your application widget for which DebugFriend is applied
   final WidgetBuilder builder;
 
   /// When this field is [true] - debug friend is running in your app
@@ -33,6 +45,7 @@ class DebugFriendView extends StatelessWidget {
   final bool enabled;
 
   /// Custom actions menu items
+  /// They are shown on the 4th page of the menu
   final List<ActionCard>? customActions;
 
   final BottomSheetManager _bottomSheetManager;
