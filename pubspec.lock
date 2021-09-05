@@ -89,7 +89,7 @@ packages:
     source: sdk
     version: "0.0.0"
   lint:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: lint
       url: "https://pub.dartlang.org"

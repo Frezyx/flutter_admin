@@ -9,7 +9,7 @@
 </p>
 <br>
 
-| ![Image](example/repo_files/preview.gif) | ![Image](example/repo_files/s1.jpg) | ![Image](example/repo_files/s2.jpg) | ![Image](example/repo_files/s3.jpg) | ![Image](example/repo_files/s4.jpg) | 
+| ![Image](https://github.com/Frezyx/debug_friend/blob/main/example/repo_files/preview.gif?raw=true) | ![Image](https://github.com/Frezyx/debug_friend/blob/main/example/repo_files/s1.jpg?raw=true) | ![Image](https://github.com/Frezyx/debug_friend/blob/main/example/repo_files/s2.jpg?raw=true) | ![Image](https://github.com/Frezyx/debug_friend/blob/main/example/repo_files/s3.jpg?raw=true) | ![Image](https://github.com/Frezyx/debug_friend/blob/main/example/repo_files/s4.jpg?raw=true) | 
 | :------------: | :------------: | :------------: | :------------: |  :------------: |
 
 ## Main features
