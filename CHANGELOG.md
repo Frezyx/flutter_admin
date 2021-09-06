@@ -1,3 +1,7 @@
+## 0.2.1
+
+  - **FIX**: Update package logo
+
 ## 0.2.0
 
   - **FIX**: Migrate from package_info to package_info_plus
