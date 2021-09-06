@@ -1,4 +1,5 @@
 <div align="center">
+    <img src="https://github.com/Frezyx/debug_friend/blob/main/example/repo_files/logo.svg?raw=true" width=75px>
     <h1>Debug Friend</h1>
 </div>
 <h2 align="center">Flutter debug helper widget with common and custom actions</h2>
