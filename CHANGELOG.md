@@ -1,3 +1,9 @@
+## 0.3.0
+
+  - **FIX**: Remove deprecated flutter fields
+  - **UPDATE**: device_info -> device_info_plus
+  - **UPDATE**: package_info_plus, path_provider versions
+
 ## 0.2.1
 
   - **FIX**: Update package logo

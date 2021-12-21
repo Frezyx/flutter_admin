@@ -70,7 +70,9 @@ class _AppDataBodyState extends State<AppDataBody> {
                 final f = _files[i];
                 return CommonActionBody(
                   margin: const EdgeInsets.symmetric(
-                      vertical: 5.0, horizontal: 10.0),
+                    vertical: 5.0,
+                    horizontal: 10.0,
+                  ),
                   child: Row(
                     children: [
                       Expanded(child: Text('$f.path')),

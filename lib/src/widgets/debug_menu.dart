@@ -69,10 +69,12 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
                   children: widget.headers
                       .asMap()
                       .entries
-                      .map((e) => GestureDetector(
-                            onTap: () => setState(() => _selectedIndex = e.key),
-                            child: e.value,
-                          ))
+                      .map(
+                        (e) => GestureDetector(
+                          onTap: () => setState(() => _selectedIndex = e.key),
+                          child: e.value,
+                        ),
+                      )
                       .toList(),
                 ),
               ),

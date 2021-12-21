@@ -70,14 +70,6 @@ class AppActionsBody extends StatelessWidget {
           ),
         ),
         ActionCard(
-          onTap: () =>
-              debugCheckElevationsEnabled = !debugCheckElevationsEnabled,
-          title: 'Enable check elevations',
-          icon: const Icon(
-            Icons.elevator_outlined,
-          ),
-        ),
-        ActionCard(
           onTap: () => debugDisableClipLayers = !debugDisableClipLayers,
           title: 'Disable clip layers',
           icon: const Icon(
