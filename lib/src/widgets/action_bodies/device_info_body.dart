@@ -94,7 +94,9 @@ class _AndroidInfoBody extends StatelessWidget {
           KeyValueLine(k: 'Version:', v: _di.version.release ?? ''),
           KeyValueLine(k: 'Version codename:', v: _di.version.codename ?? ''),
           KeyValueLine(
-              k: 'Version incremental:', v: _di.version.incremental ?? ''),
+            k: 'Version incremental:',
+            v: _di.version.incremental ?? '',
+          ),
           KeyValueLine(
             k: 'Version securityPatch:',
             v: _di.version.securityPatch ?? '',
@@ -108,13 +110,16 @@ class _AndroidInfoBody extends StatelessWidget {
           // KeyValueLine(k: 'Identifier fro vendor:', v: _di.identifierForVendor),
           // KeyValueLine(k: 'Localized model:', v: _di.localizedModel),
           KeyValueLine(
-              k: 'Device foundation:',
-              v: (_di.isPhysicalDevice ?? false) ? 'Physical' : 'Emulator'),
+            k: 'Device foundation:',
+            v: (_di.isPhysicalDevice ?? false) ? 'Physical' : 'Emulator',
+          ),
         ]
-            .map((e) => Padding(
-                  padding: const EdgeInsets.only(bottom: 2.0),
-                  child: e,
-                ))
+            .map(
+              (e) => Padding(
+                padding: const EdgeInsets.only(bottom: 2.0),
+                child: e,
+              ),
+            )
             .toList(),
       ),
     );
@@ -167,10 +172,12 @@ class _IosInfoBody extends StatelessWidget {
             v: _di.isPhysicalDevice ? 'Physical' : 'Emulator',
           ),
         ]
-            .map((e) => Padding(
-                  padding: const EdgeInsets.only(bottom: 2.0),
-                  child: e,
-                ))
+            .map(
+              (e) => Padding(
+                padding: const EdgeInsets.only(bottom: 2.0),
+                child: e,
+              ),
+            )
             .toList(),
       ),
     );
