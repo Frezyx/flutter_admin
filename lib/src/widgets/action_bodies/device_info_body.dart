@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:debug_friend/src/services/device_info/service.dart';
 import 'package:debug_friend/src/widgets/action_bodies/action_bodies.dart';
 import 'package:debug_friend/src/widgets/widgets.dart';
-import 'package:device_info/device_info.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 
 class DeviceInfoBody extends StatefulWidget {
@@ -89,12 +89,13 @@ class _AndroidInfoBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          KeyValueLine(k: 'Device:', v: _di.device),
-          KeyValueLine(k: 'Model:', v: _di.model),
-          KeyValueLine(k: 'Product:', v: _di.product),
-          KeyValueLine(k: 'Version:', v: _di.version.release),
-          KeyValueLine(k: 'Version codename:', v: _di.version.codename),
-          KeyValueLine(k: 'Version incremental:', v: _di.version.incremental),
+          KeyValueLine(k: 'Device:', v: _di.device ?? ''),
+          KeyValueLine(k: 'Model:', v: _di.model ?? ''),
+          KeyValueLine(k: 'Product:', v: _di.product ?? ''),
+          KeyValueLine(k: 'Version:', v: _di.version.release ?? ''),
+          KeyValueLine(k: 'Version codename:', v: _di.version.codename ?? ''),
+          KeyValueLine(
+              k: 'Version incremental:', v: _di.version.incremental ?? ''),
           KeyValueLine(
             k: 'Version securityPatch:',
             v: _di.version.securityPatch ?? '',
@@ -109,7 +110,7 @@ class _AndroidInfoBody extends StatelessWidget {
           // KeyValueLine(k: 'Localized model:', v: _di.localizedModel),
           KeyValueLine(
               k: 'Device foundation:',
-              v: _di.isPhysicalDevice ? 'Physical' : 'Emulator'),
+              v: (_di.isPhysicalDevice ?? false) ? 'Physical' : 'Emulator'),
         ]
             .map((e) => Padding(
                   padding: const EdgeInsets.only(bottom: 2.0),
@@ -138,15 +139,34 @@ class _IosInfoBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          KeyValueLine(k: 'Model:', v: _di.model),
-          KeyValueLine(k: 'Name:', v: _di.name),
-          KeyValueLine(k: 'System name:', v: _di.systemName),
-          KeyValueLine(k: 'System version:', v: _di.systemVersion),
-          KeyValueLine(k: 'Identifier fro vendor:', v: _di.identifierForVendor),
-          KeyValueLine(k: 'Localized model:', v: _di.localizedModel),
           KeyValueLine(
-              k: 'Device foundation:',
-              v: _di.isPhysicalDevice ? 'Physical' : 'Emulator'),
+            k: 'Model:',
+            v: _di.model ?? '',
+          ),
+          KeyValueLine(
+            k: 'Name:',
+            v: _di.name ?? '',
+          ),
+          KeyValueLine(
+            k: 'System name:',
+            v: _di.systemName ?? '',
+          ),
+          KeyValueLine(
+            k: 'System version:',
+            v: _di.systemVersion ?? '',
+          ),
+          KeyValueLine(
+            k: 'Identifier fro vendor:',
+            v: _di.identifierForVendor ?? '',
+          ),
+          KeyValueLine(
+            k: 'Localized model:',
+            v: _di.localizedModel ?? '',
+          ),
+          KeyValueLine(
+            k: 'Device foundation:',
+            v: _di.isPhysicalDevice ? 'Physical' : 'Emulator',
+          ),
         ]
             .map((e) => Padding(
                   padding: const EdgeInsets.only(bottom: 2.0),

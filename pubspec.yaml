@@ -10,8 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  #TODO: to plus
-  device_info: ^2.0.2
+  device_info_plus: ^3.2.0
   package_info_plus: ^1.0.6
   path_provider: ^2.0.2
 
