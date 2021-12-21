@@ -65,7 +65,7 @@ class _DebugFriendButtonState extends State<DebugFriendButton>
         alignment: _dragAlignment,
         child: Container(
           decoration: BoxDecoration(
-            color: theme.accentColor,
+            color: theme.colorScheme.secondary,
             borderRadius: BorderRadius.circular(1000),
           ),
           child: widget.child,

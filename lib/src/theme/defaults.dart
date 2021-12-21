@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-abstract class Defaults {
+class Defaults {
+  Defaults._();
+
   static BoxShadow getShadow(ThemeData theme) {
     return BoxShadow(
       color: theme.shadowColor.withOpacity(0.12),

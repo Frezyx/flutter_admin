@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:debug_friend/src/services/device_info/service.dart';
-import 'package:debug_friend/src/widgets/action_bodies/action_bodies.dart';
 import 'package:debug_friend/src/widgets/widgets.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
