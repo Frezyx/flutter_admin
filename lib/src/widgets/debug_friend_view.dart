@@ -57,8 +57,9 @@ class _DebugFriendViewState extends State<DebugFriendView> {
   @override
   void initState() {
     if (widget.enabled) {
-      WidgetsBinding.instance!
-          .addPostFrameCallback((timeStamp) => _insertOverlay(context));
+      WidgetsBinding.instance!.addPostFrameCallback(
+        (timeStamp) => _insertOverlay(context),
+      );
     }
     super.initState();
   }
