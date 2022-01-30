@@ -24,10 +24,22 @@ class MyApp extends StatelessWidget {
           ),
         ),
         builder: (context) {
-          return const SafeArea(
+          return SafeArea(
             child: Scaffold(
-              body: Center(
+              body: const Center(
                 child: Text('DebugFriend'),
+              ),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const Scaffold(
+                        body: Text('Another screen'),
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           );
