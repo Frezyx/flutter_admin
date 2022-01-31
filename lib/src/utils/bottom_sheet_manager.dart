@@ -43,9 +43,7 @@ class BottomSheetManager {
             ),
             const AppDataBody(),
             const AppActionsBody(),
-            CustomActionBody(
-              cards: customActionCards,
-            )
+            CustomActionBody(cards: customActionCards),
           ],
         );
       },
