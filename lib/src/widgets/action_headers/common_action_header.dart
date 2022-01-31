@@ -5,9 +5,11 @@ class CommonActionHeader extends StatelessWidget {
   const CommonActionHeader({
     Key? key,
     required this.icon,
+    this.selected = false,
   }) : super(key: key);
 
   final Widget icon;
+  final bool selected;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class CommonActionHeader extends StatelessWidget {
       width: 45,
       height: 45,
       decoration: BoxDecoration(
-        color: theme.cardColor,
+        color: selected ? theme.primaryColor : theme.cardColor,
         borderRadius: BorderRadius.circular(10),
         boxShadow: [Defaults.getShadow(theme)],
       ),

@@ -19,7 +19,7 @@ import 'package:flutter/material.dart';
 /// ),
 /// ```
 /// {@end-tool}
-class DebugFriendView extends StatelessWidget {
+class DebugFriendView extends StatefulWidget {
   DebugFriendView({
     Key? key,
     this.icon = const Icon(Icons.bug_report),
@@ -50,24 +50,39 @@ class DebugFriendView extends StatelessWidget {
   final BottomSheetManager _bottomSheetManager;
 
   @override
-  Widget build(BuildContext context) {
-    if (!enabled) {
-      return builder(context);
+  State<DebugFriendView> createState() => _DebugFriendViewState();
+}
+
+class _DebugFriendViewState extends State<DebugFriendView> {
+  @override
+  void initState() {
+    if (widget.enabled) {
+      WidgetsBinding.instance!.addPostFrameCallback(
+        (timeStamp) => _insertOverlay(context),
+      );
     }
-    return Material(
-      child: Stack(
-        children: [
-          builder(context),
-          DebugFriendButton(
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return widget.builder.call(context);
+  }
+
+  void _insertOverlay(BuildContext context) {
+    return Overlay.of(context)!.insert(
+      OverlayEntry(
+        builder: (context) {
+          return DebugFriendButton(
             onTap: () {
-              _bottomSheetManager.showDebugMenu(
+              widget._bottomSheetManager.showDebugMenu(
                 context,
-                customActionCards: customActions,
+                customActionCards: widget.customActions,
               );
             },
-            child: icon,
-          ),
-        ],
+            child: widget.icon,
+          );
+        },
       ),
     );
   }

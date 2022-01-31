@@ -1,3 +1,7 @@
+## 0.4.0
+
+  - **FEAT**: Make debug friend button overlay of all app screens
+
 ## 0.3.0
 
   - **FIX**: Remove deprecated flutter fields

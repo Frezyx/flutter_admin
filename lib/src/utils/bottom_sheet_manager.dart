@@ -24,10 +24,10 @@ class BottomSheetManager {
       builder: (ctx) {
         return DebugFriendMenu(
           headers: const [
-            PackageInfoHeader(),
-            AppDataHeader(),
-            AppActionsHeader(),
-            CustomActionHeader(),
+            Icons.app_settings_alt,
+            Icons.folder_open,
+            Icons.touch_app,
+            Icons.extension,
           ],
           bodies: [
             Expanded(
@@ -43,9 +43,7 @@ class BottomSheetManager {
             ),
             const AppDataBody(),
             const AppActionsBody(),
-            CustomActionBody(
-              cards: customActionCards,
-            )
+            CustomActionBody(cards: customActionCards),
           ],
         );
       },
