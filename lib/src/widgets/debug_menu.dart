@@ -1,4 +1,5 @@
 import 'package:debug_friend/src/theme/theme.dart';
+import 'package:debug_friend/src/widgets/action_headers/action_headers.dart';
 import 'package:flutter/material.dart';
 
 class DebugFriendMenu extends StatefulWidget {
@@ -9,7 +10,7 @@ class DebugFriendMenu extends StatefulWidget {
   }) : super(key: key);
 
   final List<Widget> bodies;
-  final List<Widget> headers;
+  final List<IconData> headers;
 
   @override
   _DebugFriendMenuState createState() => _DebugFriendMenuState();
@@ -52,9 +53,7 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
                 ),
                 IconButton(
                   onPressed: () => _closeMenu(context),
-                  icon: const Icon(
-                    Icons.close,
-                  ),
+                  icon: const Icon(Icons.close),
                 ),
               ],
             ),
@@ -72,7 +71,15 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
                       .map(
                         (e) => GestureDetector(
                           onTap: () => setState(() => _selectedIndex = e.key),
-                          child: e.value,
+                          child: CommonActionHeader(
+                            selected: _selectedIndex == e.key,
+                            icon: Icon(
+                              e.value,
+                              color: _selectedIndex == e.key
+                                  ? Colors.white
+                                  : theme.primaryColor,
+                            ),
+                          ),
                         ),
                       )
                       .toList(),
