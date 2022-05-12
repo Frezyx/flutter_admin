@@ -1,3 +1,8 @@
+## 0.5.0
+  - **FEAT**: Update package to Flutter 3.0.0 release 
+  
+Thanks for [MaximilianFlechtner](https://github.com/MaximilianFlechtner)
+
 ## 0.4.0
 
   - **FEAT**: Make debug friend button overlay of all app screens
