@@ -76,6 +76,7 @@ class _DebugFriendViewState extends State<DebugFriendView> {
       OverlayEntry(
         builder: (context) {
           return DebugFriendButton(
+            theme: theme,
             onTap: () => _onButtonTap(context, theme),
             child: widget.icon,
           );

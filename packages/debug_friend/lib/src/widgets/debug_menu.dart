@@ -37,13 +37,11 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
           Container(
             width: size.width,
             transform: Matrix4.translationValues(0, -20, 0),
-            margin: const EdgeInsets.symmetric(horizontal: 10.0),
-            padding: const EdgeInsets.symmetric(vertical: 2.0),
+            margin: const EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(vertical: 2),
             decoration: BoxDecoration(
               color: widget.theme.cardColor,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(10),
-              ),
+              borderRadius: BorderRadius.circular(10),
               boxShadow: defaultShadow,
             ),
             child: Row(

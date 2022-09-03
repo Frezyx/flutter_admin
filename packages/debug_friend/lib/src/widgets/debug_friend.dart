@@ -1,3 +1,4 @@
+import 'package:debug_friend/debug_friend.dart';
 import 'package:debug_friend/src/utils/simulation_calculator.dart';
 import 'package:flutter/material.dart';
 
@@ -5,9 +6,11 @@ class DebugFriendButton extends StatefulWidget {
   const DebugFriendButton({
     required this.child,
     required this.onTap,
+    required this.theme,
   });
   final Widget child;
   final Function() onTap;
+  final DebugFriendTheme theme;
 
   @override
   _DebugFriendButtonState createState() => _DebugFriendButtonState();
@@ -49,7 +52,7 @@ class _DebugFriendButtonState extends State<DebugFriendButton>
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final t = Theme.of(context);
+
     return GestureDetector(
       onPanDown: (details) {
         _controller.stop();
@@ -65,8 +68,8 @@ class _DebugFriendButtonState extends State<DebugFriendButton>
         alignment: _dragAlignment,
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: t.colorScheme.secondary,
-            borderRadius: BorderRadius.circular(1000),
+            color: widget.theme.primaryColor,
+            shape: BoxShape.circle,
           ),
           child: widget.child,
         ),
