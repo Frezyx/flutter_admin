@@ -49,7 +49,7 @@ class _DebugFriendButtonState extends State<DebugFriendButton>
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final theme = Theme.of(context);
+    final t = Theme.of(context);
     return GestureDetector(
       onPanDown: (details) {
         _controller.stop();
@@ -65,7 +65,7 @@ class _DebugFriendButtonState extends State<DebugFriendButton>
         alignment: _dragAlignment,
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: theme.colorScheme.secondary,
+            color: t.colorScheme.secondary,
             borderRadius: BorderRadius.circular(1000),
           ),
           child: widget.child,

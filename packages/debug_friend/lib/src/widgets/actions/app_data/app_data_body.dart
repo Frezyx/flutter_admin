@@ -1,3 +1,4 @@
+import 'package:debug_friend/debug_friend.dart';
 import 'package:debug_friend/src/widgets/actions/app_data/app_data_controller.dart';
 import 'package:debug_friend/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,10 @@ import 'package:flutter/material.dart';
 class AppDataBody extends StatefulWidget {
   const AppDataBody({
     Key? key,
+    required this.theme,
   }) : super(key: key);
+
+  final DebugFriendTheme theme;
 
   @override
   _AppDataBodyState createState() => _AppDataBodyState();
@@ -24,7 +28,7 @@ class _AppDataBodyState extends State<AppDataBody> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final t = Theme.of(context);
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, _) {
@@ -43,7 +47,7 @@ class _AppDataBodyState extends State<AppDataBody> {
                       children: [
                         Text(
                           'App data',
-                          style: theme.textTheme.headline5,
+                          style: t.textTheme.headline5,
                         ),
                         Text(
                           'Total files count: ${_controller.files.length}',
@@ -69,6 +73,7 @@ class _AppDataBodyState extends State<AppDataBody> {
                   itemBuilder: (BuildContext ctx, i) {
                     final f = _controller.files[i];
                     return CommonActionBody(
+                      theme: widget.theme,
                       margin: const EdgeInsets.symmetric(
                         vertical: 5.0,
                         horizontal: 10.0,

@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
             size: 34,
           ),
         ),
+        theme: const DebugFriendTheme(),
         // customActions: [
         //   ActionCard(
         //     icon: const Icon(Icons.print_rounded),

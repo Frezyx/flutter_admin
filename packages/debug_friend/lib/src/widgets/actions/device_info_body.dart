@@ -1,12 +1,18 @@
 import 'dart:io';
 
+import 'package:debug_friend/debug_friend.dart';
 import 'package:debug_friend/src/services/device_info/service.dart';
 import 'package:debug_friend/src/widgets/widgets.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 
 class DeviceInfoBody extends StatefulWidget {
-  const DeviceInfoBody({Key? key}) : super(key: key);
+  const DeviceInfoBody({
+    Key? key,
+    required this.theme,
+  }) : super(key: key);
+
+  final DebugFriendTheme theme;
 
   @override
   _DeviceInfoBodyState createState() => _DeviceInfoBodyState();
@@ -38,7 +44,7 @@ class _DeviceInfoBodyState extends State<DeviceInfoBody> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final t = Theme.of(context);
     Widget? child;
 
     if (_androidDeviceInfo != null) {
@@ -60,10 +66,11 @@ class _DeviceInfoBodyState extends State<DeviceInfoBody> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
             'Device info',
-            style: theme.textTheme.headline5,
+            style: t.textTheme.headline5?.copyWith(color: Colors.white),
           ),
         ),
         CommonActionBody(
+          theme: widget.theme,
           child: child,
         ),
       ],

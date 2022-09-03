@@ -1,10 +1,13 @@
+import 'package:debug_friend/debug_friend.dart';
 import 'package:debug_friend/src/services/package_info/service.dart';
 import 'package:debug_friend/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class PackageInfoBody extends StatefulWidget {
-  const PackageInfoBody({Key? key}) : super(key: key);
+  const PackageInfoBody({Key? key, required this.theme}) : super(key: key);
+
+  final DebugFriendTheme theme;
 
   @override
   _PackageInfoBodyState createState() => _PackageInfoBodyState();
@@ -27,7 +30,7 @@ class _PackageInfoBodyState extends State<PackageInfoBody> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final theme = Theme.of(context);
+    final t = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -35,10 +38,11 @@ class _PackageInfoBodyState extends State<PackageInfoBody> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
             'Package info',
-            style: theme.textTheme.headline5,
+            style: t.textTheme.headline5?.copyWith(color: Colors.white),
           ),
         ),
         CommonActionBody(
+          theme: widget.theme,
           child: SizedBox(
             width: size.width,
             child: _PackageInfoBody(packageInfo: _packageInfo),

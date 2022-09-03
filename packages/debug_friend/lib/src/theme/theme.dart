@@ -16,6 +16,7 @@ class DebugFriendTheme {
   factory DebugFriendTheme.fromFlutterTheme(BuildContext context) {
     final t = Theme.of(context);
     return DebugFriendTheme(
+      primaryColor: t.primaryColor,
       backgroundColor: t.backgroundColor,
       cardColor: t.cardColor,
       lightCardColor: t.canvasColor,

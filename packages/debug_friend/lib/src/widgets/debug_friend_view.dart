@@ -76,42 +76,45 @@ class _DebugFriendViewState extends State<DebugFriendView> {
       OverlayEntry(
         builder: (context) {
           return DebugFriendButton(
-            onTap: () {
-              widget._bottomSheetManager.showBottomSheet(
-                context,
-                builder: (ctx) {
-                  return DebugFriendMenu(
-                    theme: theme,
-                    headers: const [
-                      Icons.app_settings_alt,
-                      Icons.folder_open,
-                      Icons.touch_app,
-                      // Icons.extension,
-                    ],
-                    bodies: [
-                      Expanded(
-                        child: ListView(
-                          physics: const BouncingScrollPhysics(),
-                          children: const [
-                            SizedBox(height: 10),
-                            DeviceInfoBody(),
-                            SizedBox(height: 10),
-                            PackageInfoBody(),
-                          ],
-                        ),
-                      ),
-                      const AppDataBody(),
-                      AppActionsBody(theme: theme),
-                      // CustomActionBody(cards: widget.customActions),
-                    ],
-                  );
-                },
-              );
-            },
+            onTap: () => _onButtonTap(context, theme),
             child: widget.icon,
           );
         },
       ),
+    );
+  }
+
+  void _onButtonTap(BuildContext context, DebugFriendTheme theme) {
+    widget._bottomSheetManager.showBottomSheet(
+      context,
+      theme: theme,
+      builder: (ctx) {
+        return DebugFriendMenu(
+          theme: theme,
+          headers: const [
+            Icons.app_settings_alt,
+            Icons.folder_open,
+            Icons.touch_app,
+            // Icons.extension,
+          ],
+          bodies: [
+            Expanded(
+              child: ListView(
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  const SizedBox(height: 10),
+                  DeviceInfoBody(theme: theme),
+                  const SizedBox(height: 10),
+                  PackageInfoBody(theme: theme),
+                ],
+              ),
+            ),
+            AppDataBody(theme: theme),
+            AppActionsBody(theme: theme),
+            // CustomActionBody(cards: widget.customActions),
+          ],
+        );
+      },
     );
   }
 }

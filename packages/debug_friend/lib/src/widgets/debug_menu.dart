@@ -41,7 +41,7 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
             margin: const EdgeInsets.symmetric(horizontal: 10.0),
             padding: const EdgeInsets.symmetric(vertical: 2.0),
             decoration: BoxDecoration(
-              color: t.cardColor,
+              color: widget.theme.cardColor,
               borderRadius: const BorderRadius.all(
                 Radius.circular(10),
               ),
@@ -52,7 +52,7 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
               children: [
                 _Title(
                   title: 'Debug Menu',
-                  style: t.textTheme.headline5,
+                  style: t.textTheme.headline5?.copyWith(color: Colors.white),
                 ),
                 IconButton(
                   onPressed: () => _closeMenu(context),
