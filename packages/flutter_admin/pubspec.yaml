@@ -1,7 +1,7 @@
 name: flutter_admin
-description: A new Flutter package project.
+description: Flutter application admin panel
 version: 0.1.0-dev.1
-homepage:
+homepage: https://github.com/Frezyx/flutter_admin
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
