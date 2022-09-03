@@ -26,73 +26,74 @@ class _AppDataBodyState extends State<AppDataBody> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return AnimatedBuilder(
-        animation: _controller,
-        builder: (context, _) {
-          return Flexible(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+      animation: _controller,
+      builder: (context, _) {
+        return Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 10),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'App data',
+                          style: theme.textTheme.headline5,
+                        ),
+                        Text(
+                          'Total files count: ${_controller.files.length}',
+                        ),
+                      ],
+                    ),
+                    IconButton(
+                      onPressed: _deleteFiles,
+                      icon: const Icon(
+                        Icons.delete,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  padding: const EdgeInsets.only(top: 10.0),
+                  itemCount: _controller.files.length,
+                  separatorBuilder: (_, __) => const SizedBox(height: 0),
+                  itemBuilder: (BuildContext ctx, i) {
+                    final f = _controller.files[i];
+                    return CommonActionBody(
+                      margin: const EdgeInsets.symmetric(
+                        vertical: 5.0,
+                        horizontal: 10.0,
+                      ),
+                      child: Row(
                         children: [
-                          Text(
-                            'App data',
-                            style: theme.textTheme.headline5,
-                          ),
-                          Text(
-                            'Total files count: ${_controller.files.length}',
+                          Expanded(child: Text('$f.path')),
+                          IconButton(
+                            onPressed: () => _deleteFile(i),
+                            icon: const Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
                           ),
                         ],
                       ),
-                      IconButton(
-                        onPressed: _deleteFiles,
-                        icon: const Icon(
-                          Icons.delete,
-                          color: Colors.red,
-                        ),
-                      ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
-                Expanded(
-                  child: ListView.separated(
-                    physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.only(top: 10.0),
-                    itemCount: _controller.files.length,
-                    separatorBuilder: (_, __) => const SizedBox(height: 0),
-                    itemBuilder: (BuildContext ctx, i) {
-                      final f = _controller.files[i];
-                      return CommonActionBody(
-                        margin: const EdgeInsets.symmetric(
-                          vertical: 5.0,
-                          horizontal: 10.0,
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(child: Text('$f.path')),
-                            IconButton(
-                              onPressed: () => _deleteFile(i),
-                              icon: const Icon(
-                                Icons.delete,
-                                color: Colors.red,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                )
-              ],
-            ),
-          );
-        });
+              )
+            ],
+          ),
+        );
+      },
+    );
   }
 
   void _deleteFiles() => _controller.deleteFiles();

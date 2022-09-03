@@ -1,4 +1,4 @@
-import 'package:debug_friend/src/theme/theme.dart';
+import 'package:debug_friend/src/theme/defaults.dart';
 import 'package:flutter/material.dart';
 
 class CommonActionBody extends StatelessWidget {
@@ -19,7 +19,7 @@ class CommonActionBody extends StatelessWidget {
       margin: margin ?? const EdgeInsets.all(10.0),
       decoration: BoxDecoration(
         color: theme.cardColor,
-        boxShadow: [Defaults.getShadow(theme)],
+        boxShadow: defaultShadow,
         borderRadius: BorderRadius.circular(10),
       ),
       child: child,

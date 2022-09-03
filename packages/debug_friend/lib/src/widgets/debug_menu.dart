@@ -1,4 +1,4 @@
-import 'package:debug_friend/src/theme/theme.dart';
+import 'package:debug_friend/src/theme/defaults.dart';
 import 'package:debug_friend/src/widgets/action_headers/action_headers.dart';
 import 'package:flutter/material.dart';
 
@@ -42,7 +42,7 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
               borderRadius: const BorderRadius.all(
                 Radius.circular(10),
               ),
-              boxShadow: [Defaults.getShadow(theme)],
+              boxShadow: defaultShadow,
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

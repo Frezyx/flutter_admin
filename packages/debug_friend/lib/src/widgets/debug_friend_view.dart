@@ -1,3 +1,4 @@
+import 'package:debug_friend/debug_friend.dart';
 import 'package:debug_friend/src/utils/utils.dart';
 import 'package:debug_friend/src/widgets/widgets.dart';
 import 'package:flutter/foundation.dart';
@@ -26,6 +27,7 @@ class DebugFriendView extends StatefulWidget {
     required this.builder,
     this.enabled = kDebugMode,
     this.customActions,
+    this.theme,
   })  : _bottomSheetManager = BottomSheetManager(
           items: [],
           commonItems: [],
@@ -46,6 +48,8 @@ class DebugFriendView extends StatefulWidget {
   /// Custom actions menu items
   /// They are shown on the 4th page of the menu
   final List<ActionCard>? customActions;
+
+  final DebugFlutterTheme? theme;
 
   final BottomSheetManager _bottomSheetManager;
 
