@@ -1,12 +1,21 @@
-name: Flutter Analyze Format Test
+name: debug_friend
+
 on:
   push:
-    branches: [ main, dev ]
+    paths:
+      - "packages/debug_friend/**"
+      - ".github/workflows/debug_friend.yaml"
+
   pull_request:
-    branches: [ main, dev ]
+    paths:
+      - "packages/debug_friend/**"
+      - ".github/workflows/debug_friend.yaml"
 
 jobs:
-  flutter_test:
+  test:
+    defaults:
+      run:
+        working-directory: packages/talker
     name: Run flutter test and analyze
     runs-on: ubuntu-latest
     steps:
@@ -20,4 +29,3 @@ jobs:
       - run: flutter pub get
       - run: flutter format --set-exit-if-changed .
       - run: flutter analyze
-#       - run: flutter test
