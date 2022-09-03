@@ -28,58 +28,79 @@ class AppActionsBody extends StatelessWidget {
         ActionCard(
           onTap: () => exit(0),
           title: 'Close app',
-          icon: const Icon(Icons.exit_to_app),
+          icon: const Icon(
+            Icons.exit_to_app,
+            color: Colors.white,
+          ),
           theme: theme,
         ),
         ActionCard(
           onTap: () => debugPaintSizeEnabled = !debugPaintSizeEnabled,
           title: 'Show paint sizes',
-          icon: const Icon(Icons.square_foot),
+          icon: const Icon(
+            Icons.square_foot,
+            color: Colors.white,
+          ),
           theme: theme,
         ),
         ActionCard(
           onTap: () => debugPaintBaselinesEnabled = !debugPaintBaselinesEnabled,
           title: 'Show paint baselines',
-          icon: const Icon(Icons.text_format),
+          icon: const Icon(
+            Icons.text_format,
+            color: Colors.white,
+          ),
           theme: theme,
         ),
         ActionCard(
           onTap: () =>
               debugPaintLayerBordersEnabled = !debugPaintLayerBordersEnabled,
           title: 'Show paint layer borders',
-          icon: const Icon(Icons.border_style),
+          icon: const Icon(
+            Icons.border_style,
+            color: Colors.white,
+          ),
           theme: theme,
         ),
         ActionCard(
           onTap: () => debugRepaintRainbowEnabled = !debugRepaintRainbowEnabled,
           title: 'Show repaint rainbow',
-          icon: const Icon(Icons.palette),
+          icon: const Icon(
+            Icons.palette,
+            color: Colors.white,
+          ),
           theme: theme,
         ),
         ActionCard(
           onTap: () =>
               debugRepaintTextRainbowEnabled = !debugRepaintTextRainbowEnabled,
           title: 'Show repaint text rainbow',
-          icon: const Icon(Icons.text_rotate_up),
+          icon: const Icon(
+            Icons.text_rotate_up,
+            color: Colors.white,
+          ),
           theme: theme,
         ),
         ActionCard(
           onTap: () => debugDisableClipLayers = !debugDisableClipLayers,
           title: 'Disable clip layers',
-          icon: const Icon(Icons.circle_outlined),
+          icon: const Icon(
+            Icons.circle_outlined,
+            color: Colors.white,
+          ),
           theme: theme,
         ),
         ActionCard(
           onTap: () => debugDisablePhysicalShapeLayers =
               !debugDisablePhysicalShapeLayers,
           title: 'Disable physical shape layers',
-          icon: const Icon(Icons.rounded_corner),
+          icon: const Icon(Icons.rounded_corner, color: Colors.white),
           theme: theme,
         ),
         ActionCard(
           onTap: () => debugDisableOpacityLayers = !debugDisableOpacityLayers,
           title: 'Disable opacity layers',
-          icon: const Icon(Icons.opacity),
+          icon: const Icon(Icons.opacity, color: Colors.white),
           theme: theme,
         ),
       ],

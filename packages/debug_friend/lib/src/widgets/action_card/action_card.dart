@@ -49,7 +49,7 @@ class ActionCard extends StatelessWidget {
             theme: theme,
           ),
           if (title != null) const SizedBox(width: 10),
-          if (title != null) Text(title!),
+          if (title != null) Text(title!, style: theme.bodyText),
         ],
       ),
     );
