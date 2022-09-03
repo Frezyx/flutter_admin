@@ -1,3 +1,4 @@
+import 'package:debug_friend/debug_friend.dart';
 import 'package:debug_friend/src/theme/defaults.dart';
 import 'package:debug_friend/src/widgets/action_headers/action_headers.dart';
 import 'package:flutter/material.dart';
@@ -7,10 +8,12 @@ class DebugFriendMenu extends StatefulWidget {
     Key? key,
     required this.bodies,
     required this.headers,
+    required this.theme,
   }) : super(key: key);
 
   final List<Widget> bodies;
   final List<IconData> headers;
+  final DebugFriendTheme theme;
 
   @override
   _DebugFriendMenuState createState() => _DebugFriendMenuState();
@@ -25,7 +28,7 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    final t = Theme.of(context);
     final size = MediaQuery.of(context).size;
     return SizedBox(
       height: size.height * 0.9,
@@ -38,7 +41,7 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
             margin: const EdgeInsets.symmetric(horizontal: 10.0),
             padding: const EdgeInsets.symmetric(vertical: 2.0),
             decoration: BoxDecoration(
-              color: theme.cardColor,
+              color: t.cardColor,
               borderRadius: const BorderRadius.all(
                 Radius.circular(10),
               ),
@@ -49,7 +52,7 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
               children: [
                 _Title(
                   title: 'Debug Menu',
-                  style: theme.textTheme.headline5,
+                  style: t.textTheme.headline5,
                 ),
                 IconButton(
                   onPressed: () => _closeMenu(context),
@@ -72,12 +75,13 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
                         (e) => GestureDetector(
                           onTap: () => setState(() => _selectedIndex = e.key),
                           child: CommonActionHeader(
+                            theme: widget.theme,
                             selected: _selectedIndex == e.key,
                             icon: Icon(
                               e.value,
                               color: _selectedIndex == e.key
                                   ? Colors.white
-                                  : theme.primaryColor,
+                                  : t.primaryColor,
                             ),
                           ),
                         ),

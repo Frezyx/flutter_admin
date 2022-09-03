@@ -23,13 +23,13 @@ class MyApp extends StatelessWidget {
             size: 34,
           ),
         ),
-        customActions: [
-          ActionCard(
-            icon: const Icon(Icons.print_rounded),
-            title: 'Print to console',
-            onTap: () => debugPrint('Print to console'),
-          ),
-        ],
+        // customActions: [
+        //   ActionCard(
+        //     icon: const Icon(Icons.print_rounded),
+        //     title: 'Print to console',
+        //     onTap: () => debugPrint('Print to console'),
+        //   ),
+        // ],
         builder: (context) {
           return const SafeArea(
             child: Scaffold(

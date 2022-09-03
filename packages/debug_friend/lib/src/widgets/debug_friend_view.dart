@@ -26,12 +26,9 @@ class DebugFriendView extends StatefulWidget {
     this.icon = const Icon(Icons.bug_report),
     required this.builder,
     this.enabled = kDebugMode,
-    this.customActions,
+    // this.customActions,
     this.theme,
-  })  : _bottomSheetManager = BottomSheetManager(
-          items: [],
-          commonItems: [],
-        ),
+  })  : _bottomSheetManager = BottomSheetManager(),
         super(key: key);
 
   /// Widget that displayed at DebugFriend action header
@@ -45,11 +42,11 @@ class DebugFriendView extends StatefulWidget {
   /// By default this field get value from const [kDebugMode]
   final bool enabled;
 
-  /// Custom actions menu items
-  /// They are shown on the 4th page of the menu
-  final List<ActionCard>? customActions;
+  // /// Custom actions menu items
+  // /// They are shown on the 4th page of the menu
+  // final List<ActionCard>? customActions;
 
-  final DebugFlutterTheme? theme;
+  final DebugFriendTheme? theme;
 
   final BottomSheetManager _bottomSheetManager;
 
@@ -74,14 +71,41 @@ class _DebugFriendViewState extends State<DebugFriendView> {
   }
 
   void _insertOverlay(BuildContext context) {
+    final theme = widget.theme ?? DebugFriendTheme.fromFlutterTheme(context);
     return Overlay.of(context)!.insert(
       OverlayEntry(
         builder: (context) {
           return DebugFriendButton(
             onTap: () {
-              widget._bottomSheetManager.showDebugMenu(
+              widget._bottomSheetManager.showBottomSheet(
                 context,
-                customActionCards: widget.customActions,
+                builder: (ctx) {
+                  return DebugFriendMenu(
+                    theme: theme,
+                    headers: const [
+                      Icons.app_settings_alt,
+                      Icons.folder_open,
+                      Icons.touch_app,
+                      // Icons.extension,
+                    ],
+                    bodies: [
+                      Expanded(
+                        child: ListView(
+                          physics: const BouncingScrollPhysics(),
+                          children: const [
+                            SizedBox(height: 10),
+                            DeviceInfoBody(),
+                            SizedBox(height: 10),
+                            PackageInfoBody(),
+                          ],
+                        ),
+                      ),
+                      const AppDataBody(),
+                      AppActionsBody(theme: theme),
+                      // CustomActionBody(cards: widget.customActions),
+                    ],
+                  );
+                },
               );
             },
             child: widget.icon,

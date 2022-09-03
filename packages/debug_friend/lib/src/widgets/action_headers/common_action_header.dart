@@ -1,20 +1,21 @@
+import 'package:debug_friend/debug_friend.dart';
 import 'package:debug_friend/src/theme/defaults.dart';
-import 'package:debug_friend/src/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class CommonActionHeader extends StatelessWidget {
   const CommonActionHeader({
     Key? key,
     required this.icon,
+    required this.theme,
     this.selected = false,
   }) : super(key: key);
 
+  final DebugFriendTheme theme;
   final Widget icon;
   final bool selected;
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Container(
       width: 45,
       height: 45,
