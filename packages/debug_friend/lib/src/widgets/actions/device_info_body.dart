@@ -50,10 +50,12 @@ class _DeviceInfoBodyState extends State<DeviceInfoBody> {
     if (_androidDeviceInfo != null) {
       child = _AndroidInfoBody(
         androidDeviceInfo: _androidDeviceInfo!,
+        theme: widget.theme,
       );
     } else if (_iosDeviceInfo != null) {
       child = _IosInfoBody(
         iosDeviceInfo: _iosDeviceInfo!,
+        theme: widget.theme,
       );
     } else {
       child = const SizedBox();
@@ -82,10 +84,12 @@ class _AndroidInfoBody extends StatelessWidget {
   const _AndroidInfoBody({
     Key? key,
     required AndroidDeviceInfo androidDeviceInfo,
-  })  : _di = androidDeviceInfo,
+    required this.theme,
+  })  : _deviceInfo = androidDeviceInfo,
         super(key: key);
 
-  final AndroidDeviceInfo _di;
+  final DebugFriendTheme theme;
+  final AndroidDeviceInfo _deviceInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -95,30 +99,60 @@ class _AndroidInfoBody extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          KeyValueLine(k: 'Device:', v: _di.device ?? ''),
-          KeyValueLine(k: 'Model:', v: _di.model ?? ''),
-          KeyValueLine(k: 'Product:', v: _di.product ?? ''),
-          KeyValueLine(k: 'Version:', v: _di.version.release ?? ''),
-          KeyValueLine(k: 'Version codename:', v: _di.version.codename ?? ''),
+          KeyValueLine(
+            k: 'Device:',
+            v: _deviceInfo.device ?? '',
+            theme: theme,
+          ),
+          KeyValueLine(
+            k: 'Model:',
+            v: _deviceInfo.model ?? '',
+            theme: theme,
+          ),
+          KeyValueLine(
+            k: 'Product:',
+            v: _deviceInfo.product ?? '',
+            theme: theme,
+          ),
+          KeyValueLine(
+            k: 'Version:',
+            v: _deviceInfo.version.release ?? '',
+            theme: theme,
+          ),
+          KeyValueLine(
+            k: 'Version codename:',
+            v: _deviceInfo.version.codename ?? '',
+            theme: theme,
+          ),
           KeyValueLine(
             k: 'Version incremental:',
-            v: _di.version.incremental ?? '',
+            v: _deviceInfo.version.incremental ?? '',
+            theme: theme,
           ),
           KeyValueLine(
             k: 'Version securityPatch:',
-            v: _di.version.securityPatch ?? '',
+            v: _deviceInfo.version.securityPatch ?? '',
+            theme: theme,
           ),
           KeyValueLine(
             k: 'Version previewSdkInt:',
-            v: '${_di.version.previewSdkInt}',
+            v: '${_deviceInfo.version.previewSdkInt}',
+            theme: theme,
           ),
-          KeyValueLine(k: 'Version baseOS:', v: _di.version.baseOS ?? ''),
+          KeyValueLine(
+            k: 'Version baseOS:',
+            v: _deviceInfo.version.baseOS ?? '',
+            theme: theme,
+          ),
 
           // KeyValueLine(k: 'Identifier fro vendor:', v: _di.identifierForVendor),
           // KeyValueLine(k: 'Localized model:', v: _di.localizedModel),
           KeyValueLine(
             k: 'Device foundation:',
-            v: (_di.isPhysicalDevice ?? false) ? 'Physical' : 'Emulator',
+            v: (_deviceInfo.isPhysicalDevice ?? false)
+                ? 'Physical'
+                : 'Emulator',
+            theme: theme,
           ),
         ]
             .map(
@@ -137,10 +171,12 @@ class _IosInfoBody extends StatelessWidget {
   const _IosInfoBody({
     Key? key,
     required IosDeviceInfo iosDeviceInfo,
-  })  : _di = iosDeviceInfo,
+    required this.theme,
+  })  : _deviceInfo = iosDeviceInfo,
         super(key: key);
 
-  final IosDeviceInfo _di;
+  final IosDeviceInfo _deviceInfo;
+  final DebugFriendTheme theme;
 
   @override
   Widget build(BuildContext context) {
@@ -152,31 +188,38 @@ class _IosInfoBody extends StatelessWidget {
         children: [
           KeyValueLine(
             k: 'Model:',
-            v: _di.model ?? '',
+            v: _deviceInfo.model ?? '',
+            theme: theme,
           ),
           KeyValueLine(
             k: 'Name:',
-            v: _di.name ?? '',
+            v: _deviceInfo.name ?? '',
+            theme: theme,
           ),
           KeyValueLine(
             k: 'System name:',
-            v: _di.systemName ?? '',
+            v: _deviceInfo.systemName ?? '',
+            theme: theme,
           ),
           KeyValueLine(
             k: 'System version:',
-            v: _di.systemVersion ?? '',
+            v: _deviceInfo.systemVersion ?? '',
+            theme: theme,
           ),
           KeyValueLine(
             k: 'Identifier fro vendor:',
-            v: _di.identifierForVendor ?? '',
+            v: _deviceInfo.identifierForVendor ?? '',
+            theme: theme,
           ),
           KeyValueLine(
             k: 'Localized model:',
-            v: _di.localizedModel ?? '',
+            v: _deviceInfo.localizedModel ?? '',
+            theme: theme,
           ),
           KeyValueLine(
             k: 'Device foundation:',
-            v: _di.isPhysicalDevice ? 'Physical' : 'Emulator',
+            v: _deviceInfo.isPhysicalDevice ? 'Physical' : 'Emulator',
+            theme: theme,
           ),
         ]
             .map(

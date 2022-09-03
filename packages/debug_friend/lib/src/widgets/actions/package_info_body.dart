@@ -45,7 +45,10 @@ class _PackageInfoBodyState extends State<PackageInfoBody> {
           theme: widget.theme,
           child: SizedBox(
             width: size.width,
-            child: _PackageInfoBody(packageInfo: _packageInfo),
+            child: _PackageInfoBody(
+              packageInfo: _packageInfo,
+              theme: widget.theme,
+            ),
           ),
         ),
       ],
@@ -57,10 +60,12 @@ class _PackageInfoBody extends StatelessWidget {
   const _PackageInfoBody({
     Key? key,
     required PackageInfo? packageInfo,
+    required this.theme,
   })  : _packageInfo = packageInfo,
         super(key: key);
 
   final PackageInfo? _packageInfo;
+  final DebugFriendTheme theme;
 
   @override
   Widget build(BuildContext context) {
@@ -70,10 +75,10 @@ class _PackageInfoBody extends StatelessWidget {
     final pi = _packageInfo!;
     return Column(
       children: [
-        KeyValueLine(k: 'App name:', v: pi.appName),
-        KeyValueLine(k: 'Vaerion:', v: pi.version),
-        KeyValueLine(k: 'Build number:', v: pi.buildNumber),
-        KeyValueLine(k: 'Package name:', v: pi.packageName),
+        KeyValueLine(k: 'App name:', v: pi.appName, theme: theme),
+        KeyValueLine(k: 'Vaerion:', v: pi.version, theme: theme),
+        KeyValueLine(k: 'Build number:', v: pi.buildNumber, theme: theme),
+        KeyValueLine(k: 'Package name:', v: pi.packageName, theme: theme),
       ],
     );
   }

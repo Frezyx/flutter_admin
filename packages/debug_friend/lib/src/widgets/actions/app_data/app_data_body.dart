@@ -47,7 +47,9 @@ class _AppDataBodyState extends State<AppDataBody> {
                       children: [
                         Text(
                           'App data',
-                          style: t.textTheme.headline5,
+                          style: t.textTheme.headline5?.copyWith(
+                            color: Colors.white,
+                          ),
                         ),
                         Text(
                           'Total files count: ${_controller.files.length}',
