@@ -1,3 +1,6 @@
+## 1.0.0-dev.2
+  - **FIX**: README.md assets paths
+  
 ## 1.0.0-dev.1
   - **BREAKING**: Temporarily remove the ability to edit custom actions
   - **FEAT**: Upgrade UI and theming of elements

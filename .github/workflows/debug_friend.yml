@@ -3,12 +3,14 @@ name: debug_friend
 on:
   push:
     paths:
-      - "packages/debug_friend/**"
+      - "packages/debug_friend/lib/**"
+      - "packages/debug_friend/test/**"
       - ".github/workflows/debug_friend.yaml"
 
   pull_request:
     paths:
-      - "packages/debug_friend/**"
+      - "packages/debug_friend/lib/**"
+      - "packages/debug_friend/test/**"
       - ".github/workflows/debug_friend.yaml"
 
 jobs:
