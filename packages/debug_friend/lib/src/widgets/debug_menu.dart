@@ -56,7 +56,10 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
                 ),
                 IconButton(
                   onPressed: () => _closeMenu(context),
-                  icon: const Icon(Icons.close),
+                  icon: const Icon(
+                    Icons.close,
+                    color: Colors.white,
+                  ),
                 ),
               ],
             ),
@@ -77,12 +80,7 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
                           child: CommonActionHeader(
                             theme: widget.theme,
                             selected: _selectedIndex == e.key,
-                            icon: Icon(
-                              e.value,
-                              color: _selectedIndex == e.key
-                                  ? Colors.white
-                                  : t.primaryColor,
-                            ),
+                            icon: Icon(e.value, color: Colors.white),
                           ),
                         ),
                       )
@@ -92,8 +90,9 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
             ),
           ),
           Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 10.0).copyWith(top: 6.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 10.0,
+            ).copyWith(top: 6.0),
             child: const Divider(height: 0),
           ),
           widget.bodies[_selectedIndex],
