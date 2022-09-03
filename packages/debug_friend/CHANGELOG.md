@@ -1,3 +1,10 @@
+## 1.0.0-dev.1
+  - **BREAKING**: Temporarily remove the ability to edit custom actions
+  - **FEAT**: Upgrade UI and theming of elements
+  - **FEAT**: Implement self widgets theme
+  - **FEAT**: Add error handling via [talker](https://github.com/Frezyx/talker) for device app data interactions
+  - **FIX**: Refactor app stored data list loading and interaction
+
 ## 0.5.0
   - **FEAT**: Update package to Flutter 3.0.0 release 
   
