@@ -28,7 +28,6 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
 
   @override
   Widget build(BuildContext context) {
-    final t = Theme.of(context);
     final size = MediaQuery.of(context).size;
     return SizedBox(
       height: size.height * 0.9,
