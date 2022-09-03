@@ -15,7 +15,6 @@ class AppActionsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = Theme.of(context);
     return CustomActionBody(
       cards: [
         // const SizedBox(height: 10),
@@ -23,7 +22,7 @@ class AppActionsBody extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
             'Debug actions',
-            style: t.textTheme.headline5?.copyWith(color: Colors.white),
+            style: theme.headerStyle,
           ),
         ),
         ActionCard(

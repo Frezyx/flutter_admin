@@ -30,7 +30,6 @@ class _PackageInfoBodyState extends State<PackageInfoBody> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final t = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -38,7 +37,7 @@ class _PackageInfoBodyState extends State<PackageInfoBody> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
             'Package info',
-            style: t.textTheme.headline5?.copyWith(color: Colors.white),
+            style: widget.theme.headerStyle,
           ),
         ),
         CommonActionBody(

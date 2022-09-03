@@ -28,7 +28,6 @@ class _AppDataBodyState extends State<AppDataBody> {
 
   @override
   Widget build(BuildContext context) {
-    final t = Theme.of(context);
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, _) {
@@ -47,12 +46,11 @@ class _AppDataBodyState extends State<AppDataBody> {
                       children: [
                         Text(
                           'App data',
-                          style: t.textTheme.headline5?.copyWith(
-                            color: Colors.white,
-                          ),
+                          style: widget.theme.headerStyle,
                         ),
                         Text(
                           'Total files count: ${_controller.files.length}',
+                          style: widget.theme.bodyText,
                         ),
                       ],
                     ),
@@ -77,12 +75,17 @@ class _AppDataBodyState extends State<AppDataBody> {
                     return CommonActionBody(
                       theme: widget.theme,
                       margin: const EdgeInsets.symmetric(
-                        vertical: 5.0,
-                        horizontal: 10.0,
+                        vertical: 10,
+                        horizontal: 10,
                       ),
                       child: Row(
                         children: [
-                          Expanded(child: Text('$f.path')),
+                          Expanded(
+                            child: Text(
+                              f.path,
+                              style: widget.theme.subtitleText,
+                            ),
+                          ),
                           IconButton(
                             onPressed: () => _deleteFile(i),
                             icon: const Icon(

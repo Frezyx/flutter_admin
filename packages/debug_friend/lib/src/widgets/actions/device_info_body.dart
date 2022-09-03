@@ -44,7 +44,6 @@ class _DeviceInfoBodyState extends State<DeviceInfoBody> {
 
   @override
   Widget build(BuildContext context) {
-    final t = Theme.of(context);
     Widget? child;
 
     if (_androidDeviceInfo != null) {
@@ -68,7 +67,7 @@ class _DeviceInfoBodyState extends State<DeviceInfoBody> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
             'Device info',
-            style: t.textTheme.headline5?.copyWith(color: Colors.white),
+            style: widget.theme.headerStyle,
           ),
         ),
         CommonActionBody(

@@ -52,7 +52,7 @@ class _DebugFriendMenuState extends State<DebugFriendMenu> {
               children: [
                 _Title(
                   title: 'Debug Menu',
-                  style: t.textTheme.headline5?.copyWith(color: Colors.white),
+                  style: widget.theme.headerStyle,
                 ),
                 IconButton(
                   onPressed: () => _closeMenu(context),
