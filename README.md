@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://github.com/Frezyx/debug_friend/blob/main/example/repo_files/logo.svg?raw=true" width=75px>
+    <img src="https://github.com/Frezyx/flutter_admin/blob/main/packages/debug_friend/example/repo_files/logo.svg?raw=true" width=75px>
     <h1>Debug Friend</h1>
 </div>
 <h2 align="center">Flutter debug helper widget with common and custom actions</h2>
@@ -10,7 +10,7 @@
 </p>
 <br>
 
-| ![Image](https://github.com/Frezyx/debug_friend/blob/main/example/repo_files/preview.gif?raw=true) | ![Image](https://github.com/Frezyx/debug_friend/blob/main/example/repo_files/s1.jpg?raw=true) | ![Image](https://github.com/Frezyx/debug_friend/blob/main/example/repo_files/s2.jpg?raw=true) | ![Image](https://github.com/Frezyx/debug_friend/blob/main/example/repo_files/s3.jpg?raw=true) | ![Image](https://github.com/Frezyx/debug_friend/blob/main/example/repo_files/s4.jpg?raw=true) | 
+| ![Image](https://github.com/Frezyx/flutter_admin/blob/main/packages/debug_friend/example/repo_files/preview.gif?raw=true) | ![Image](https://github.com/Frezyx/flutter_admin/blob/main/packages/debug_friend/example/repo_files/s1.jpg?raw=true) | ![Image](https://github.com/Frezyx/flutter_admin/blob/main/packages/debug_friend/example/repo_files/s2.jpg?raw=true) | ![Image](https://github.com/Frezyx/flutter_admin/blob/main/packages/debug_friend/example/repo_files/s3.jpg?raw=true) | ![Image](https://github.com/Frezyx/flutter_admin/blob/main/packages/debug_friend/example/repo_files/s4.jpg?raw=true) | 
 | :------------: | :------------: | :------------: | :------------: |  :------------: |
 
 ## Main features
