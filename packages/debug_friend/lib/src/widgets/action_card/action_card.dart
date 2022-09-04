@@ -25,6 +25,7 @@ class ActionCard extends StatelessWidget {
     required this.icon,
     this.title,
     required this.theme,
+    this.selected = false,
   }) : super(key: key);
 
   /// Icon of your custom action card
@@ -38,6 +39,8 @@ class ActionCard extends StatelessWidget {
 
   final DebugFriendTheme theme;
 
+  final bool selected;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -47,6 +50,7 @@ class ActionCard extends StatelessWidget {
           CommonActionHeader(
             icon: icon,
             theme: theme,
+            selected: selected,
           ),
           if (title != null) const SizedBox(width: 10),
           if (title != null) Text(title!, style: theme.bodyText),
