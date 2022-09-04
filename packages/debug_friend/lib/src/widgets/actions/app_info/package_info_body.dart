@@ -1,35 +1,20 @@
 import 'package:debug_friend/debug_friend.dart';
-import 'package:debug_friend/src/services/package_info/service.dart';
 import 'package:debug_friend/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-class PackageInfoBody extends StatefulWidget {
-  const PackageInfoBody({Key? key, required this.theme}) : super(key: key);
+class PackageInfoBody extends StatelessWidget {
+  const PackageInfoBody({
+    Key? key,
+    required this.theme,
+    this.packageInfo,
+  }) : super(key: key);
 
   final DebugFriendTheme theme;
-
-  @override
-  _PackageInfoBodyState createState() => _PackageInfoBodyState();
-}
-
-class _PackageInfoBodyState extends State<PackageInfoBody> {
-  PackageInfo? _packageInfo;
-
-  @override
-  void initState() {
-    _loadPackageInfo();
-    super.initState();
-  }
-
-  Future<void> _loadPackageInfo() async {
-    final d = await PackageInfoService.getInfo();
-    setState(() => _packageInfo = d);
-  }
+  final PackageInfo? packageInfo;
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -37,16 +22,16 @@ class _PackageInfoBodyState extends State<PackageInfoBody> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
             'Package info',
-            style: widget.theme.headerStyle,
+            style: theme.headerStyle,
           ),
         ),
         CommonActionBody(
-          theme: widget.theme,
+          theme: theme,
           child: SizedBox(
-            width: size.width,
+            width: double.infinity,
             child: _PackageInfoBody(
-              packageInfo: _packageInfo,
-              theme: widget.theme,
+              packageInfo: packageInfo,
+              theme: theme,
             ),
           ),
         ),
