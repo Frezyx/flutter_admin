@@ -5,7 +5,7 @@ import 'package:debug_friend/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class AppActionsBody extends StatelessWidget {
+class AppActionsBody extends StatefulWidget {
   const AppActionsBody({
     Key? key,
     required this.theme,
@@ -14,15 +14,21 @@ class AppActionsBody extends StatelessWidget {
   final DebugFriendTheme theme;
 
   @override
+  State<AppActionsBody> createState() => _AppActionsBodyState();
+}
+
+class _AppActionsBodyState extends State<AppActionsBody> {
+  final _controller = AppActionsController();
+
+  @override
   Widget build(BuildContext context) {
     return CustomActionBody(
       cards: [
-        // const SizedBox(height: 10),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
             'Debug actions',
-            style: theme.headerStyle,
+            style: widget.theme.headerStyle,
           ),
         ),
         ActionCard(
@@ -32,7 +38,7 @@ class AppActionsBody extends StatelessWidget {
             Icons.exit_to_app,
             color: Colors.white,
           ),
-          theme: theme,
+          theme: widget.theme,
         ),
         ActionCard(
           onTap: () => debugPaintSizeEnabled = !debugPaintSizeEnabled,
@@ -41,7 +47,7 @@ class AppActionsBody extends StatelessWidget {
             Icons.square_foot,
             color: Colors.white,
           ),
-          theme: theme,
+          theme: widget.theme,
         ),
         ActionCard(
           onTap: () => debugPaintBaselinesEnabled = !debugPaintBaselinesEnabled,
@@ -50,7 +56,7 @@ class AppActionsBody extends StatelessWidget {
             Icons.text_format,
             color: Colors.white,
           ),
-          theme: theme,
+          theme: widget.theme,
         ),
         ActionCard(
           onTap: () =>
@@ -60,7 +66,7 @@ class AppActionsBody extends StatelessWidget {
             Icons.border_style,
             color: Colors.white,
           ),
-          theme: theme,
+          theme: widget.theme,
         ),
         ActionCard(
           onTap: () => debugRepaintRainbowEnabled = !debugRepaintRainbowEnabled,
@@ -69,7 +75,7 @@ class AppActionsBody extends StatelessWidget {
             Icons.palette,
             color: Colors.white,
           ),
-          theme: theme,
+          theme: widget.theme,
         ),
         ActionCard(
           onTap: () =>
@@ -79,7 +85,7 @@ class AppActionsBody extends StatelessWidget {
             Icons.text_rotate_up,
             color: Colors.white,
           ),
-          theme: theme,
+          theme: widget.theme,
         ),
         ActionCard(
           onTap: () => debugDisableClipLayers = !debugDisableClipLayers,
@@ -88,20 +94,20 @@ class AppActionsBody extends StatelessWidget {
             Icons.circle_outlined,
             color: Colors.white,
           ),
-          theme: theme,
+          theme: widget.theme,
         ),
         ActionCard(
           onTap: () => debugDisablePhysicalShapeLayers =
               !debugDisablePhysicalShapeLayers,
           title: 'Disable physical shape layers',
           icon: const Icon(Icons.rounded_corner, color: Colors.white),
-          theme: theme,
+          theme: widget.theme,
         ),
         ActionCard(
           onTap: () => debugDisableOpacityLayers = !debugDisableOpacityLayers,
           title: 'Disable opacity layers',
           icon: const Icon(Icons.opacity, color: Colors.white),
-          theme: theme,
+          theme: widget.theme,
         ),
       ],
     );
