@@ -99,17 +99,7 @@ class _DebugFriendViewState extends State<DebugFriendView> {
             // Icons.extension,
           ],
           bodies: [
-            Expanded(
-              child: ListView(
-                physics: const BouncingScrollPhysics(),
-                children: [
-                  const SizedBox(height: 10),
-                  DeviceInfoBody(theme: theme),
-                  const SizedBox(height: 10),
-                  PackageInfoBody(theme: theme),
-                ],
-              ),
-            ),
+            AppInfoBody(theme: theme),
             AppDataBody(theme: theme),
             AppActionsBody(theme: theme),
             // CustomActionBody(cards: widget.customActions),

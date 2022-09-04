@@ -1,60 +1,33 @@
-import 'dart:io';
-
 import 'package:debug_friend/debug_friend.dart';
-import 'package:debug_friend/src/services/device_info/service.dart';
 import 'package:debug_friend/src/widgets/widgets.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 
-class DeviceInfoBody extends StatefulWidget {
+class DeviceInfoBody extends StatelessWidget {
   const DeviceInfoBody({
     Key? key,
     required this.theme,
+    this.androidDeviceInfo,
+    this.iosDeviceInfo,
   }) : super(key: key);
 
   final DebugFriendTheme theme;
-
-  @override
-  _DeviceInfoBodyState createState() => _DeviceInfoBodyState();
-}
-
-class _DeviceInfoBodyState extends State<DeviceInfoBody> {
-  AndroidDeviceInfo? _androidDeviceInfo;
-  IosDeviceInfo? _iosDeviceInfo;
-
-  @override
-  void initState() {
-    if (Platform.isIOS) {
-      _setIosInfo();
-    } else if (Platform.isAndroid) {
-      _setAndroidInfo();
-    }
-    super.initState();
-  }
-
-  Future<void> _setIosInfo() async {
-    final d = await DeviceInfoService.getIos();
-    setState(() => _iosDeviceInfo = d);
-  }
-
-  Future<void> _setAndroidInfo() async {
-    final d = await DeviceInfoService.getAndroid();
-    setState(() => _androidDeviceInfo = d);
-  }
+  final AndroidDeviceInfo? androidDeviceInfo;
+  final IosDeviceInfo? iosDeviceInfo;
 
   @override
   Widget build(BuildContext context) {
     Widget? child;
 
-    if (_androidDeviceInfo != null) {
+    if (androidDeviceInfo != null) {
       child = _AndroidInfoBody(
-        androidDeviceInfo: _androidDeviceInfo!,
-        theme: widget.theme,
+        androidDeviceInfo: androidDeviceInfo!,
+        theme: theme,
       );
-    } else if (_iosDeviceInfo != null) {
+    } else if (iosDeviceInfo != null) {
       child = _IosInfoBody(
-        iosDeviceInfo: _iosDeviceInfo!,
-        theme: widget.theme,
+        iosDeviceInfo: iosDeviceInfo!,
+        theme: theme,
       );
     } else {
       child = const SizedBox();
@@ -67,11 +40,11 @@ class _DeviceInfoBodyState extends State<DeviceInfoBody> {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
             'Device info',
-            style: widget.theme.headerStyle,
+            style: theme.headerStyle,
           ),
         ),
         CommonActionBody(
-          theme: widget.theme,
+          theme: theme,
           child: child,
         ),
       ],
