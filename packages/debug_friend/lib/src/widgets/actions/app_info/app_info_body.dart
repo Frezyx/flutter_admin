@@ -34,7 +34,11 @@ class _AppInfoBodyState extends State<AppInfoBody> {
             physics: const BouncingScrollPhysics(),
             children: [
               const SizedBox(height: 10),
-              DeviceInfoBody(theme: widget.theme),
+              DeviceInfoBody(
+                theme: widget.theme,
+                androidDeviceInfo: _contorller.androidDeviceInfo,
+                iosDeviceInfo: _contorller.iosDeviceInfo,
+              ),
               const SizedBox(height: 10),
               PackageInfoBody(
                 theme: widget.theme,
