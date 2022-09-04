@@ -1,3 +1,11 @@
+## 1.0.0
+  - **BREAKING**: Temporarily remove the ability to edit custom actions
+  - **FEAT**: Upgrade UI and theming of elements
+  - **FEAT**: Implement self widgets theme
+  - **FEAT**: Add error handling via [talker](https://github.com/Frezyx/talker) for device app data interactions
+  - **FIX**: Refactor app stored data list loading and interaction
+  - **FEAT**: Refactor all actions interction to controllers
+
 ## 1.0.0-dev.2
   - **FIX**: README.md assets paths
   
