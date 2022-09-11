@@ -41,6 +41,7 @@ class _FlutterAdminWrapperState extends State<FlutterAdminWrapper> {
                     builder: (context, _) {
                       final hiddenBar =
                           _controller.viewType == FlutterAdminViewType.hiden;
+
                       if (hiddenBar) {
                         return FlutterAdminButton(
                           theme: widget.theme,
@@ -108,19 +109,7 @@ class _FlutterAdminBody extends StatelessWidget {
               ),
               GestureDetector(
                 onVerticalDragUpdate: (details) {
-                  controller.barHeight -= details.delta.dy;
-                  if (controller.barHeight >= ((fullHeight / 2) + 100) &&
-                      details.delta.direction < 0) {
-                    controller.barHeight = fullHeight;
-                    return;
-                  }
-
-                  if (controller.barHeight <= ((fullHeight / 2) - 100) &&
-                      details.delta.direction > 0) {
-                    controller.barHeight =
-                        FlutterAdminController.defaultBarHeight;
-                    return;
-                  }
+                  _onVerticalDragUpdate(details, fullHeight);
                 },
                 child: FlutterAdminBar(
                   theme: theme,
@@ -133,5 +122,22 @@ class _FlutterAdminBody extends StatelessWidget {
         );
       },
     );
+  }
+
+  void _onVerticalDragUpdate(DragUpdateDetails details, double fullHeight) {
+    controller.barHeight -= details.delta.dy;
+    if (controller.barHeight >= ((fullHeight / 2) + 100) &&
+        details.delta.direction < 0) {
+      controller.barHeight = fullHeight;
+      controller.viewType = FlutterAdminViewType.expanded;
+      return;
+    }
+
+    if (controller.barHeight <= ((fullHeight / 2) - 100) &&
+        details.delta.direction > 0) {
+      controller.barHeight = FlutterAdminController.defaultBarHeight;
+      controller.viewType = FlutterAdminViewType.collapsed;
+      return;
+    }
   }
 }
