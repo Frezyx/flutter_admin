@@ -17,6 +17,7 @@ class FlutterAdminTheme {
       fontSize: 13,
       fontWeight: FontWeight.w400,
     ),
+    this.iconTheme = const IconThemeData(color: Colors.white),
   });
 
   final Color primaryColor;
@@ -26,6 +27,7 @@ class FlutterAdminTheme {
   final TextStyle bodyText;
   final TextStyle subtitleText;
   final TextStyle headerStyle;
+  final IconThemeData iconTheme;
 
   factory FlutterAdminTheme.fromFlutterTheme(BuildContext context) {
     final t = Theme.of(context);

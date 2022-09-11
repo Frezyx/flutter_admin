@@ -22,47 +22,57 @@ class _FlutterAdminWrapperState extends State<FlutterAdminWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    return MediaQueryIjector(
-      child: Builder(
-        builder: (context) {
-          final mq = MediaQuery.of(context);
-          final fullHeight =
-              mq.size.height - mq.padding.top - mq.padding.bottom - 150;
-          final appBorderRadius = fullHeight / _barHeight * 1.5;
-          return Container(
-            decoration: BoxDecoration(color: widget.theme.backgroundColor),
-            child: Column(
-              children: [
-                Expanded(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(appBorderRadius),
-                    child: widget.builder.call(context),
-                  ),
-                ),
-                GestureDetector(
-                  onVerticalDragUpdate: (details) {
-                    setState(() => _barHeight -= details.delta.dy);
-                    if (_barHeight >= ((fullHeight / 2) + 100) &&
-                        details.delta.direction < 0) {
-                      setState(() => _barHeight = fullHeight);
-                      return;
-                    }
+    return Material(
+      child: MediaQueryIjector(
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: Builder(
+            builder: (context) {
+              final mq = MediaQuery.of(context);
+              final fullHeight =
+                  mq.size.height - mq.padding.top - mq.padding.bottom - 150;
+              var appBorderRadius = fullHeight / _barHeight * 1.5;
+              if (appBorderRadius > 15) {
+                appBorderRadius = 15;
+              }
+              return Container(
+                decoration: BoxDecoration(color: widget.theme.backgroundColor),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.vertical(
+                          bottom: Radius.circular(appBorderRadius),
+                        ),
+                        child: widget.builder.call(context),
+                      ),
+                    ),
+                    GestureDetector(
+                      onVerticalDragUpdate: (details) {
+                        setState(() => _barHeight -= details.delta.dy);
+                        if (_barHeight >= ((fullHeight / 2) + 100) &&
+                            details.delta.direction < 0) {
+                          setState(() => _barHeight = fullHeight);
+                          return;
+                        }
 
-                    if (_barHeight <= ((fullHeight / 2) - 100) &&
-                        details.delta.direction > 0) {
-                      setState(() => _barHeight = _defaultBarHeight);
-                      return;
-                    }
-                  },
-                  child: FlutterAdminBar(
-                    theme: widget.theme,
-                    height: _barHeight,
-                  ),
+                        if (_barHeight <= ((fullHeight / 2) - 100) &&
+                            details.delta.direction > 0) {
+                          setState(() => _barHeight = _defaultBarHeight);
+                          return;
+                        }
+                      },
+                      child: FlutterAdminBar(
+                        theme: widget.theme,
+                        height: _barHeight,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          );
-        },
+              );
+            },
+          ),
+        ),
       ),
     );
   }

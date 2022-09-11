@@ -6,10 +6,12 @@ class FlutterAdminBar extends StatelessWidget {
     Key? key,
     required this.theme,
     this.height = 60,
+    this.borderRadius = BorderRadius.zero,
   }) : super(key: key);
 
   final FlutterAdminTheme theme;
   final double height;
+  final BorderRadius borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,8 @@ class FlutterAdminBar extends StatelessWidget {
       decoration: BoxDecoration(color: theme.backgroundColor),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
+        child: Stack(
+          alignment: Alignment.topCenter,
           children: [
             Container(
               height: 6,
@@ -28,6 +31,26 @@ class FlutterAdminBar extends StatelessWidget {
               decoration: BoxDecoration(
                 color: theme.lightCardColor,
                 borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Icons.remove_red_eye_outlined,
+                      color: theme.iconTheme.color,
+                    ),
+                  ),
+                  Text(
+                    'application v4.5.66',
+                    style: theme.subtitleText,
+                  ),
+                ],
               ),
             )
           ],
