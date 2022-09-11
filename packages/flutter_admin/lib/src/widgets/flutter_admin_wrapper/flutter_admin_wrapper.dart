@@ -45,14 +45,12 @@ class _FlutterAdminWrapperState extends State<FlutterAdminWrapper> {
                     if (_barHeight >= ((fullHeight / 2) + 100) &&
                         details.delta.direction < 0) {
                       setState(() => _barHeight = fullHeight);
-                      print('asdasdasdasdasdasdasdasd');
                       return;
                     }
 
                     if (_barHeight <= ((fullHeight / 2) - 100) &&
                         details.delta.direction > 0) {
                       setState(() => _barHeight = _defaultBarHeight);
-                      print('UUUUUUUUUUU');
                       return;
                     }
                   },
