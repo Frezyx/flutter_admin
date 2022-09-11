@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/flutter_admin.dart';
+import 'package:flutter_admin/src/controller/controller.dart';
 
 class FlutterAdminBar extends StatelessWidget {
   const FlutterAdminBar({
@@ -7,14 +8,21 @@ class FlutterAdminBar extends StatelessWidget {
     required this.theme,
     this.height = 60,
     this.borderRadius = BorderRadius.zero,
+    required this.controller,
   }) : super(key: key);
 
   final FlutterAdminTheme theme;
   final double height;
   final BorderRadius borderRadius;
+  final FlutterAdminController controller;
 
   @override
   Widget build(BuildContext context) {
+    final enabledBar = controller.viewType != FlutterAdminViewType.hiden &&
+        controller.viewType != FlutterAdminViewType.disabled;
+    if (!enabledBar) {
+      return const SizedBox();
+    }
     return AnimatedContainer(
       duration: const Duration(milliseconds: 50),
       height: height,
@@ -40,7 +48,9 @@ class FlutterAdminBar extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      controller.viewType = FlutterAdminViewType.hiden;
+                    },
                     icon: Icon(
                       Icons.remove_red_eye_outlined,
                       color: theme.iconTheme.color,

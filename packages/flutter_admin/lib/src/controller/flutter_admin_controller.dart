@@ -1,3 +1,26 @@
 import 'package:flutter/material.dart';
 
-class FlutterAdminController extends ChangeNotifier {}
+enum FlutterAdminViewType {
+  expanded,
+  collapsed,
+  hiden,
+  disabled,
+}
+
+class FlutterAdminController extends ChangeNotifier {
+  static const defaultBarHeight = 60.0;
+
+  var _barHeight = defaultBarHeight;
+  double get barHeight => _barHeight;
+  set barHeight(double val) {
+    _barHeight = val;
+    notifyListeners();
+  }
+
+  var _viewType = FlutterAdminViewType.collapsed;
+  FlutterAdminViewType get viewType => _viewType;
+  set viewType(FlutterAdminViewType val) {
+    _viewType = val;
+    notifyListeners();
+  }
+}
