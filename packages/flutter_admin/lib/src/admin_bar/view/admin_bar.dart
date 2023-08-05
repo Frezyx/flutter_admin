@@ -81,7 +81,11 @@ class FlutterAdminBar extends StatelessWidget {
                         builder: (context, data) {
                           final errors = [
                             ...data.whereType<TalkerError>(),
-                            ...data.whereType<TalkerException>()
+                            ...data.where(
+                              (e) =>
+                                  e.runtimeType == TalkerError ||
+                                  e.logLevel == LogLevel.error,
+                            ),
                           ];
                           return TextButton(
                             onPressed: () {},
@@ -103,7 +107,7 @@ class FlutterAdminBar extends StatelessWidget {
                     ],
                   ),
                   Text(
-                    'v4.5.66',
+                    'v${controller.packageInfo?.version ?? 'x.x.x'}',
                     style: adminTheme.subtitleText,
                   ),
                 ],

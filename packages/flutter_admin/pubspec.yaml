@@ -13,6 +13,8 @@ dependencies:
   talker_flutter: #^3.2.4
     path:
       ../../../../../talker/packages/talker_flutter
+  package_info_plus: ^4.1.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

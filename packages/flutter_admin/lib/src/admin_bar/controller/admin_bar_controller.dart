@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 enum FlutterAdminViewType {
   expanded,
@@ -8,16 +9,29 @@ enum FlutterAdminViewType {
 }
 
 class FlutterAdminBarController extends ChangeNotifier {
+  FlutterAdminBarController() {
+    _initPackageInfo();
+  }
+
+  var _viewType = FlutterAdminViewType.collapsed;
+  var _barHeight = defaultBarHeight;
+  PackageInfo? _packageInfo;
+
+  Future<void> _initPackageInfo() async {
+    _packageInfo = await PackageInfo.fromPlatform();
+    notifyListeners();
+  }
+
+  PackageInfo? get packageInfo => _packageInfo;
+
   static const defaultBarHeight = 60.0;
 
-  var _barHeight = defaultBarHeight;
   double get barHeight => _barHeight;
   set barHeight(double val) {
     _barHeight = val;
     notifyListeners();
   }
 
-  var _viewType = FlutterAdminViewType.collapsed;
   FlutterAdminViewType get viewType => _viewType;
   set viewType(FlutterAdminViewType val) {
     _viewType = val;
