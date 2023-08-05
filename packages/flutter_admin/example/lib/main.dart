@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlutterAdminWrapper(
+    return FlutterAdmin(
       builder: (context) => MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

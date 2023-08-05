@@ -3,23 +3,34 @@ import 'package:flutter_admin/flutter_admin.dart';
 import 'package:flutter_admin/src/controller/flutter_admin_controller.dart';
 import 'package:flutter_admin/src/widgets/buttons/buttons.dart';
 import 'package:flutter_admin/src/widgets/helpers/helpers.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
-class FlutterAdminWrapper extends StatefulWidget {
-  const FlutterAdminWrapper({
+class FlutterAdmin extends StatefulWidget {
+  const FlutterAdmin({
     Key? key,
     required this.builder,
     this.theme = const FlutterAdminTheme(),
+    this.talker,
   }) : super(key: key);
 
   final FlutterAdminTheme theme;
   final WidgetBuilder builder;
+  final Talker? talker;
 
   @override
-  State<FlutterAdminWrapper> createState() => _FlutterAdminWrapperState();
+  State<FlutterAdmin> createState() => _FlutterAdminState();
 }
 
-class _FlutterAdminWrapperState extends State<FlutterAdminWrapper> {
+class _FlutterAdminState extends State<FlutterAdmin> {
   final _controller = FlutterAdminController();
+
+  @override
+  void initState() {
+    _talker = widget.talker ?? Talker();
+    super.initState();
+  }
+
+  late final Talker _talker;
 
   @override
   Widget build(BuildContext context) {

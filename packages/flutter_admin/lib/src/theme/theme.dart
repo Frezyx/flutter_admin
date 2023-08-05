@@ -33,7 +33,7 @@ class FlutterAdminTheme {
     final t = Theme.of(context);
     return FlutterAdminTheme(
       primaryColor: t.primaryColor,
-      backgroundColor: t.backgroundColor,
+      backgroundColor: t.canvasColor,
       cardColor: t.cardColor,
       lightCardColor: t.canvasColor,
     );
