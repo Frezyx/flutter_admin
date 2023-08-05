@@ -31,7 +31,7 @@ class FlutterAdminBar extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(color: adminTheme.backgroundColor),
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8).copyWith(right: 0),
         child: Stack(
           alignment: Alignment.topCenter,
           children: [
@@ -106,9 +106,13 @@ class FlutterAdminBar extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Text(
-                    'v${controller.packageInfo?.version ?? 'x.x.x'}',
-                    style: adminTheme.subtitleText,
+                  TextButton(
+                    onPressed: () {},
+                    child: Text(
+                      '${controller.packageInfo?.appName ?? ''} '
+                      'v${controller.packageInfo?.version ?? 'x.x.x'}',
+                      style: adminTheme.subtitleText,
+                    ),
                   ),
                 ],
               ),
