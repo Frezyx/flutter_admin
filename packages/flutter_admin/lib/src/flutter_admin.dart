@@ -9,13 +9,15 @@ class FlutterAdmin extends StatefulWidget {
   const FlutterAdmin({
     Key? key,
     required this.builder,
-    this.theme = const FlutterAdminTheme(),
+    this.adminTheme = const FlutterAdminTheme(),
     this.talker,
+    this.theme,
   }) : super(key: key);
 
-  final FlutterAdminTheme theme;
+  final FlutterAdminTheme adminTheme;
   final WidgetBuilder builder;
   final Talker? talker;
+  final ThemeData? theme;
 
   @override
   State<FlutterAdmin> createState() => _FlutterAdminState();
@@ -34,47 +36,49 @@ class _FlutterAdminState extends State<FlutterAdmin> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: MediaQueryIjector(
-        child: Directionality(
-          textDirection: TextDirection.ltr,
-          child: Builder(
-            builder: (context) {
-              return Stack(
-                children: [
-                  _FlutterAdminBody(
-                    controller: _controller,
-                    theme: widget.theme,
-                    builder: widget.builder,
-                  ),
-                  AnimatedBuilder(
-                    animation: _controller,
-                    builder: (context, _) {
-                      final hiddenBar =
-                          _controller.viewType == FlutterAdminViewType.hiden;
-
-                      if (hiddenBar) {
-                        return FlutterAdminButton(
-                          theme: widget.theme,
-                          onTap: () {},
-                          child: IconButton(
-                            onPressed: () {
-                              _controller.viewType =
-                                  FlutterAdminViewType.expanded;
-                            },
-                            icon: Icon(
-                              Icons.bug_report,
-                              color: widget.theme.iconTheme.color,
+    return Theme(
+      data: widget.theme ?? ThemeData(),
+      child: Material(
+        child: MediaQueryIjector(
+          child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: Builder(
+              builder: (context) {
+                return Stack(
+                  children: [
+                    _FlutterAdminBody(
+                      controller: _controller,
+                      theme: widget.adminTheme,
+                      builder: widget.builder,
+                      talker: _talker,
+                    ),
+                    AnimatedBuilder(
+                      animation: _controller,
+                      builder: (context, _) {
+                        final hiddenBar =
+                            _controller.viewType == FlutterAdminViewType.hiden;
+                        if (hiddenBar) {
+                          return FlutterAdminButton(
+                            theme: widget.adminTheme,
+                            child: IconButton(
+                              onPressed: () {
+                                _controller.viewType =
+                                    FlutterAdminViewType.expanded;
+                              },
+                              icon: Icon(
+                                Icons.bug_report,
+                                color: widget.adminTheme.iconTheme.color,
+                              ),
                             ),
-                          ),
-                        );
-                      }
-                      return const SizedBox();
-                    },
-                  ),
-                ],
-              );
-            },
+                          );
+                        }
+                        return const SizedBox();
+                      },
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),
@@ -88,11 +92,13 @@ class _FlutterAdminBody extends StatelessWidget {
     required this.controller,
     required this.theme,
     required this.builder,
+    required this.talker,
   }) : super(key: key);
 
   final FlutterAdminController controller;
   final FlutterAdminTheme theme;
   final WidgetBuilder builder;
+  final Talker talker;
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +129,8 @@ class _FlutterAdminBody extends StatelessWidget {
                   _onVerticalDragUpdate(details, fullHeight);
                 },
                 child: FlutterAdminBar(
-                  theme: theme,
+                  adminTheme: theme,
+                  talker: talker,
                   height: controller.barHeight,
                   controller: controller,
                 ),

@@ -5,13 +5,15 @@ import 'package:flutter_admin/src/controller/controller.dart';
 class FlutterAdminBar extends StatelessWidget {
   const FlutterAdminBar({
     Key? key,
-    required this.theme,
+    required this.talker,
+    required this.adminTheme,
     this.height = 60,
     this.borderRadius = BorderRadius.zero,
     required this.controller,
   }) : super(key: key);
 
-  final FlutterAdminTheme theme;
+  final Talker talker;
+  final FlutterAdminTheme adminTheme;
   final double height;
   final BorderRadius borderRadius;
   final FlutterAdminController controller;
@@ -27,7 +29,7 @@ class FlutterAdminBar extends StatelessWidget {
       duration: const Duration(milliseconds: 50),
       height: height,
       width: double.infinity,
-      decoration: BoxDecoration(color: theme.backgroundColor),
+      decoration: BoxDecoration(color: adminTheme.backgroundColor),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Stack(
@@ -37,7 +39,7 @@ class FlutterAdminBar extends StatelessWidget {
               height: 6,
               width: 60,
               decoration: BoxDecoration(
-                color: theme.lightCardColor,
+                color: adminTheme.lightCardColor,
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
@@ -47,18 +49,69 @@ class FlutterAdminBar extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                    onPressed: () {
-                      controller.viewType = FlutterAdminViewType.hiden;
-                    },
-                    icon: Icon(
-                      Icons.remove_red_eye_outlined,
-                      color: theme.iconTheme.color,
-                    ),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: _hideMenuBar,
+                        icon: Icon(
+                          Icons.remove_red_eye_outlined,
+                          color: adminTheme.iconTheme.color,
+                        ),
+                      ),
+                      TalkerBuilder(
+                        talker: talker,
+                        builder: (context, data) => TextButton(
+                          onPressed: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (context) => TalkerScreen(
+                                talker: talker,
+                              ),
+                            );
+                          },
+                          child: RichText(
+                            text: TextSpan(
+                              text: '${data.length} ',
+                              style: const TextStyle(color: Colors.green),
+                              children: const [
+                                TextSpan(
+                                  text: 'Logs',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      TalkerBuilder(
+                        talker: talker,
+                        builder: (context, data) {
+                          final errors = [
+                            ...data.whereType<TalkerError>(),
+                            ...data.whereType<TalkerException>()
+                          ];
+                          return TextButton(
+                            onPressed: () {},
+                            child: RichText(
+                              text: TextSpan(
+                                text: '${errors.length} ',
+                                style: const TextStyle(color: Colors.red),
+                                children: const [
+                                  TextSpan(
+                                    text: 'Errors',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                   Text(
-                    'application v4.5.66',
-                    style: theme.subtitleText,
+                    'v4.5.66',
+                    style: adminTheme.subtitleText,
                   ),
                 ],
               ),
@@ -67,5 +120,9 @@ class FlutterAdminBar extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _hideMenuBar() {
+    controller.viewType = FlutterAdminViewType.hiden;
   }
 }

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/flutter_admin.dart';
 
+final talker = TalkerFlutter.init();
+
 void main() {
   runApp(const MyApp());
 }
+
+final theme = ThemeData(useMaterial3: true);
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -11,12 +15,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlutterAdmin(
+      theme: theme,
+      adminTheme: FlutterAdminTheme(primaryColor: theme.primaryColor),
+      talker: talker,
       builder: (context) => MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const MyHomePage(title: 'Flutter Demo Home Page'),
+        theme: theme,
+        home: const MyHomePage(title: 'Flutter Admin demo'),
       ),
     );
   }
@@ -35,27 +40,24 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+    setState(() => _counter++);
+    talker.good("Count incremented $_counter");
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+      appBar: AppBar(title: Text(widget.title)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: [
             const Text(
               'You have pushed the button this many times:',
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),

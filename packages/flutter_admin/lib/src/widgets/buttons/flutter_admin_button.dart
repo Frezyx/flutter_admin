@@ -6,12 +6,11 @@ class FlutterAdminButton extends StatefulWidget {
   const FlutterAdminButton({
     Key? key,
     required this.child,
-    required this.onTap,
     required this.theme,
   }) : super(key: key);
 
   final Widget child;
-  final Function() onTap;
+
   final FlutterAdminTheme theme;
 
   @override
@@ -31,7 +30,7 @@ class _FlutterAdminButtonState extends State<FlutterAdminButton>
         end: _dragAlignment,
       ),
     );
-    _setSide();
+    _moveToSide();
 
     final simulation =
         _simulationCalculator.calculateSimulation(pixelsPerSecond, size);
@@ -42,7 +41,7 @@ class _FlutterAdminButtonState extends State<FlutterAdminButton>
   void initState() {
     super.initState();
     _controller = AnimationController(vsync: this);
-    _setSide();
+    _moveToSide();
   }
 
   @override
@@ -56,16 +55,10 @@ class _FlutterAdminButtonState extends State<FlutterAdminButton>
     final size = MediaQuery.of(context).size;
 
     return GestureDetector(
-      onPanDown: (details) {
-        _controller.stop();
-      },
-      onPanUpdate: (DragUpdateDetails details) {
-        _setPosition(details, size);
-      },
-      onPanEnd: (details) {
-        _runAnimation(details.velocity.pixelsPerSecond, size);
-      },
-      onTap: widget.onTap,
+      onPanDown: _onPanDown,
+      onPanUpdate: (DragUpdateDetails details) => _setPosition(details, size),
+      onPanEnd: (details) =>
+          _runAnimation(details.velocity.pixelsPerSecond, size),
       child: Align(
         alignment: _dragAlignment,
         child: Container(
@@ -79,23 +72,20 @@ class _FlutterAdminButtonState extends State<FlutterAdminButton>
     );
   }
 
-  void _setSide() {
-    final isLeft = _dragAlignment.x < 0.0;
-    if (isLeft) {
-      setState(() {
-        _dragAlignment = Alignment(
-          -0.95,
-          _dragAlignment.y,
-        );
-      });
-    } else {
-      setState(() {
-        _dragAlignment = Alignment(
-          0.95,
-          _dragAlignment.y,
-        );
-      });
+  void _onPanDown(DragDownDetails details) {
+    _controller.stop();
+  }
+
+  void _moveToSide() {
+    var y = _dragAlignment.y;
+    if (y > 1) {
+      y = 0.95;
+    } else if (y < -1) {
+      y = -0.95;
     }
+    final isOnLeftSide = _dragAlignment.x < 0.0;
+    var x = isOnLeftSide ? -0.95 : 0.95;
+    setState(() => _dragAlignment = Alignment(x, y));
   }
 
   void _setPosition(DragUpdateDetails details, Size size) {
