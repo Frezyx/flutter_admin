@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/flutter_admin.dart';
-import 'package:flutter_admin/src/controller/flutter_admin_controller.dart';
+import 'package:flutter_admin/src/admin_bar/controller/admin_bar_controller.dart';
 import 'package:flutter_admin/src/widgets/buttons/buttons.dart';
 import 'package:flutter_admin/src/widgets/helpers/helpers.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 class FlutterAdmin extends StatefulWidget {
   const FlutterAdmin({
@@ -11,20 +10,18 @@ class FlutterAdmin extends StatefulWidget {
     required this.builder,
     this.adminTheme = const FlutterAdminTheme(),
     this.talker,
-    this.theme,
   }) : super(key: key);
 
   final FlutterAdminTheme adminTheme;
   final WidgetBuilder builder;
   final Talker? talker;
-  final ThemeData? theme;
 
   @override
   State<FlutterAdmin> createState() => _FlutterAdminState();
 }
 
 class _FlutterAdminState extends State<FlutterAdmin> {
-  final _controller = FlutterAdminController();
+  final _controller = FlutterAdminBarController();
 
   @override
   void initState() {
@@ -36,49 +33,46 @@ class _FlutterAdminState extends State<FlutterAdmin> {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: widget.theme ?? ThemeData(),
-      child: Material(
-        child: MediaQueryIjector(
-          child: Directionality(
-            textDirection: TextDirection.ltr,
-            child: Builder(
-              builder: (context) {
-                return Stack(
-                  children: [
-                    _FlutterAdminBody(
-                      controller: _controller,
-                      theme: widget.adminTheme,
-                      builder: widget.builder,
-                      talker: _talker,
-                    ),
-                    AnimatedBuilder(
-                      animation: _controller,
-                      builder: (context, _) {
-                        final hiddenBar =
-                            _controller.viewType == FlutterAdminViewType.hiden;
-                        if (hiddenBar) {
-                          return FlutterAdminButton(
-                            theme: widget.adminTheme,
-                            child: IconButton(
-                              onPressed: () {
-                                _controller.viewType =
-                                    FlutterAdminViewType.expanded;
-                              },
-                              icon: Icon(
-                                Icons.bug_report,
-                                color: widget.adminTheme.iconTheme.color,
-                              ),
+    return Material(
+      child: MediaQueryIjector(
+        child: Directionality(
+          textDirection: TextDirection.ltr,
+          child: Builder(
+            builder: (context) {
+              return Stack(
+                children: [
+                  _FlutterAdminBody(
+                    controller: _controller,
+                    theme: widget.adminTheme,
+                    builder: widget.builder,
+                    talker: _talker,
+                  ),
+                  AnimatedBuilder(
+                    animation: _controller,
+                    builder: (context, _) {
+                      final hiddenBar =
+                          _controller.viewType == FlutterAdminViewType.hiden;
+                      if (hiddenBar) {
+                        return FlutterAdminButton(
+                          theme: widget.adminTheme,
+                          child: IconButton(
+                            onPressed: () {
+                              _controller.viewType =
+                                  FlutterAdminViewType.expanded;
+                            },
+                            icon: Icon(
+                              Icons.bug_report,
+                              color: widget.adminTheme.iconTheme.color,
                             ),
-                          );
-                        }
-                        return const SizedBox();
-                      },
-                    ),
-                  ],
-                );
-              },
-            ),
+                          ),
+                        );
+                      }
+                      return const SizedBox();
+                    },
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),
@@ -95,7 +89,7 @@ class _FlutterAdminBody extends StatelessWidget {
     required this.talker,
   }) : super(key: key);
 
-  final FlutterAdminController controller;
+  final FlutterAdminBarController controller;
   final FlutterAdminTheme theme;
   final WidgetBuilder builder;
   final Talker talker;
@@ -153,7 +147,7 @@ class _FlutterAdminBody extends StatelessWidget {
 
     if (controller.barHeight <= ((fullHeight / 2) - 100) &&
         details.delta.direction > 0) {
-      controller.barHeight = FlutterAdminController.defaultBarHeight;
+      controller.barHeight = FlutterAdminBarController.defaultBarHeight;
       controller.viewType = FlutterAdminViewType.collapsed;
       return;
     }

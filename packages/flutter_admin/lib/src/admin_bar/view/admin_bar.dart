@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/flutter_admin.dart';
-import 'package:flutter_admin/src/controller/controller.dart';
+import 'package:flutter_admin/src/admin_bar/controller/admin_bar_controller.dart';
 
 class FlutterAdminBar extends StatelessWidget {
   const FlutterAdminBar({
@@ -16,7 +16,7 @@ class FlutterAdminBar extends StatelessWidget {
   final FlutterAdminTheme adminTheme;
   final double height;
   final BorderRadius borderRadius;
-  final FlutterAdminController controller;
+  final FlutterAdminBarController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -61,14 +61,7 @@ class FlutterAdminBar extends StatelessWidget {
                       TalkerBuilder(
                         talker: talker,
                         builder: (context, data) => TextButton(
-                          onPressed: () {
-                            showModalBottomSheet(
-                              context: context,
-                              builder: (context) => TalkerScreen(
-                                talker: talker,
-                              ),
-                            );
-                          },
+                          onPressed: () => _openLogs(context),
                           child: RichText(
                             text: TextSpan(
                               text: '${data.length} ',
@@ -118,6 +111,33 @@ class FlutterAdminBar extends StatelessWidget {
             )
           ],
         ),
+      ),
+    );
+  }
+
+  void _openLogs(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: adminTheme.backgroundColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.95,
+        maxChildSize: 0.95,
+        minChildSize: 0.5,
+        expand: false,
+        builder: (context, scrollController) {
+          return TalkerView(
+            talker: talker,
+            scrollController: scrollController,
+            theme: TalkerScreenTheme(
+              backgroundColor: adminTheme.backgroundColor,
+            ),
+          );
+        },
       ),
     );
   }

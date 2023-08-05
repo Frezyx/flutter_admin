@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/flutter_admin.dart';
 
@@ -14,14 +16,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlutterAdmin(
+    return MaterialApp(
+      title: 'Flutter Demo',
       theme: theme,
-      adminTheme: FlutterAdminTheme(primaryColor: theme.primaryColor),
-      talker: talker,
-      builder: (context) => MaterialApp(
-        title: 'Flutter Demo',
-        theme: theme,
-        home: const MyHomePage(title: 'Flutter Admin demo'),
+      home: FlutterAdmin(
+        adminTheme: FlutterAdminTheme(primaryColor: theme.primaryColor),
+        talker: talker,
+        builder: (context) => const MyHomePage(title: 'Flutter Admin demo'),
       ),
     );
   }
@@ -39,9 +40,23 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  @override
+  void initState() {
+    talker.warning('The pizza is over 😥');
+    talker.debug('Thinking about order new one 🤔');
+    talker.error('The restaurant is closed ❌');
+    talker.info('Ordering from other restaurant...');
+    talker.info('Payment started...');
+    talker.good('Payment completed! Waiting for pizza 🍕');
+    super.initState();
+  }
+
   void _incrementCounter() {
     setState(() => _counter++);
-    talker.good("Count incremented $_counter");
+    talker.log(
+      "Count incremented $_counter",
+      logLevel: LogLevel.values[Random().nextInt(LogLevel.values.length - 1)],
+    );
   }
 
   @override

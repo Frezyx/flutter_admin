@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
-import 'package:flutter_admin/src/theme/theme.dart';
+import 'package:flutter_admin/src/theme.dart';
 
 class FlutterAdminButton extends StatefulWidget {
   const FlutterAdminButton({

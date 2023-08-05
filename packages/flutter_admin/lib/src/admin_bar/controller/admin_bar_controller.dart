@@ -7,7 +7,7 @@ enum FlutterAdminViewType {
   disabled,
 }
 
-class FlutterAdminController extends ChangeNotifier {
+class FlutterAdminBarController extends ChangeNotifier {
   static const defaultBarHeight = 60.0;
 
   var _barHeight = defaultBarHeight;

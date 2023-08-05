@@ -1,1 +1,1 @@
-export 'flutter_admin_bar/flutter_admin_bar.dart';
+export '../admin_bar/view/admin_bar.dart';
