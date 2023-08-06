@@ -33,50 +33,40 @@ class _FlutterAdminState extends State<FlutterAdmin> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: MediaQueryIjector(
-        child: Directionality(
-          textDirection: TextDirection.ltr,
-          child: Builder(
-            builder: (context) {
-              return Stack(
-                children: [
-                  _FlutterAdminBody(
-                    controller: _controller,
-                    theme: widget.adminTheme,
-                    builder: widget.builder,
-                    talker: _talker,
-                  ),
-                  AnimatedBuilder(
-                    animation: _controller,
-                    builder: (context, _) {
-                      final hiddenBar =
-                          _controller.viewType == FlutterAdminViewType.hiden;
-                      if (hiddenBar) {
-                        return FlutterAdminButton(
-                          theme: widget.adminTheme,
-                          child: IconButton(
-                            onPressed: () {
-                              _controller.viewType =
-                                  FlutterAdminViewType.expanded;
-                            },
-                            icon: Icon(
-                              Icons.bug_report,
-                              color: widget.adminTheme.iconTheme.color,
-                            ),
-                          ),
-                        );
-                      }
-                      return const SizedBox();
+    return Builder(builder: (context) {
+      return Stack(
+        children: [
+          _FlutterAdminBody(
+            controller: _controller,
+            theme: widget.adminTheme,
+            builder: widget.builder,
+            talker: _talker,
+          ),
+          AnimatedBuilder(
+            animation: _controller,
+            builder: (context, _) {
+              final hiddenBar =
+                  _controller.viewType == FlutterAdminViewType.hiden;
+              if (hiddenBar) {
+                return FlutterAdminButton(
+                  theme: widget.adminTheme,
+                  child: IconButton(
+                    onPressed: () {
+                      _controller.viewType = FlutterAdminViewType.expanded;
                     },
+                    icon: Icon(
+                      Icons.bug_report,
+                      color: widget.adminTheme.iconTheme.color,
+                    ),
                   ),
-                ],
-              );
+                );
+              }
+              return const SizedBox();
             },
           ),
-        ),
-      ),
-    );
+        ],
+      );
+    });
   }
 }
 
