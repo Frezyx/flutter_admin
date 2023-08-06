@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/flutter_admin.dart';
 import 'package:flutter_admin/src/admin_bar/controller/admin_bar_controller.dart';
@@ -6,11 +7,13 @@ import 'package:flutter_admin/src/widgets/buttons/buttons.dart';
 class FlutterAdmin extends StatefulWidget {
   const FlutterAdmin({
     Key? key,
+    this.enabled = kDebugMode,
     required this.builder,
     this.adminTheme = const FlutterAdminTheme(),
     this.talker,
   }) : super(key: key);
 
+  final bool enabled;
   final FlutterAdminTheme adminTheme;
   final WidgetBuilder builder;
   final Talker? talker;
@@ -32,40 +35,39 @@ class _FlutterAdminState extends State<FlutterAdmin> {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(builder: (context) {
-      return Stack(
-        children: [
-          _FlutterAdminBody(
-            controller: _controller,
-            theme: widget.adminTheme,
-            builder: widget.builder,
-            talker: _talker,
-          ),
-          AnimatedBuilder(
-            animation: _controller,
-            builder: (context, _) {
-              final hiddenBar =
-                  _controller.viewType == FlutterAdminViewType.hiden;
-              if (hiddenBar) {
-                return FlutterAdminButton(
-                  theme: widget.adminTheme,
-                  child: IconButton(
-                    onPressed: () {
-                      _controller.viewType = FlutterAdminViewType.expanded;
-                    },
-                    icon: Icon(
-                      Icons.bug_report,
-                      color: widget.adminTheme.iconTheme.color,
-                    ),
+    if (!widget.enabled) return widget.builder.call(context);
+    return Stack(
+      children: [
+        _FlutterAdminBody(
+          controller: _controller,
+          theme: widget.adminTheme,
+          builder: widget.builder,
+          talker: _talker,
+        ),
+        AnimatedBuilder(
+          animation: _controller,
+          builder: (context, _) {
+            final hiddenBar =
+                _controller.viewType == FlutterAdminViewType.hiden;
+            if (hiddenBar) {
+              return FlutterAdminButton(
+                theme: widget.adminTheme,
+                child: IconButton(
+                  onPressed: () {
+                    _controller.viewType = FlutterAdminViewType.expanded;
+                  },
+                  icon: Icon(
+                    Icons.bug_report,
+                    color: widget.adminTheme.iconTheme.color,
                   ),
-                );
-              }
-              return const SizedBox();
-            },
-          ),
-        ],
-      );
-    });
+                ),
+              );
+            }
+            return const SizedBox();
+          },
+        ),
+      ],
+    );
   }
 }
 
