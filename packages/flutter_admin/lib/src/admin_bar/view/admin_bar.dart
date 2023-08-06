@@ -110,9 +110,7 @@ class FlutterAdminBar extends StatelessWidget {
                     ],
                   ),
                   TextButton(
-                    onPressed: () {
-                      controller.toggleExpanded(expandedHeigh);
-                    },
+                    onPressed: _toggleExpanded,
                     child: Text(
                       '${controller.packageInfo?.appName ?? ''} '
                       'v${controller.packageInfo?.version ?? 'x.x.x'}',
@@ -126,6 +124,10 @@ class FlutterAdminBar extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _toggleExpanded() {
+    controller.toggleExpanded(expandedHeigh);
   }
 
   void _openLogs(BuildContext context) {
