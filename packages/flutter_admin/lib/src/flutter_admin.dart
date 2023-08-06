@@ -108,14 +108,15 @@ class _FlutterAdminBody extends StatelessWidget {
                 ),
               ),
               GestureDetector(
+                onDoubleTap: () => controller.toggleExpanded(fullHeight),
                 onVerticalDragUpdate: (details) {
                   _onVerticalDragUpdate(details, fullHeight);
                 },
                 child: FlutterAdminBar(
                   adminTheme: theme,
                   talker: talker,
-                  height: controller.barHeight,
                   controller: controller,
+                  expandedHeigh: fullHeight,
                 ),
               ),
             ],

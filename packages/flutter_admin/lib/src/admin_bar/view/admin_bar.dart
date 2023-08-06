@@ -7,16 +7,18 @@ class FlutterAdminBar extends StatelessWidget {
     Key? key,
     required this.talker,
     required this.adminTheme,
-    this.height = 60,
     this.borderRadius = BorderRadius.zero,
     required this.controller,
+    required this.expandedHeigh,
   }) : super(key: key);
 
   final Talker talker;
   final FlutterAdminTheme adminTheme;
-  final double height;
+
   final BorderRadius borderRadius;
   final FlutterAdminBarController controller;
+
+  final double expandedHeigh;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class FlutterAdminBar extends StatelessWidget {
     }
     return AnimatedContainer(
       duration: const Duration(milliseconds: 50),
-      height: height,
+      height: controller.barHeight,
       width: double.infinity,
       decoration: BoxDecoration(color: adminTheme.backgroundColor),
       child: Padding(
@@ -84,7 +86,8 @@ class FlutterAdminBar extends StatelessWidget {
                             ...data.where(
                               (e) =>
                                   e.runtimeType == TalkerError ||
-                                  e.logLevel == LogLevel.error,
+                                  e.logLevel == LogLevel.error ||
+                                  e.logLevel == LogLevel.critical,
                             ),
                           ];
                           return TextButton(
@@ -107,7 +110,9 @@ class FlutterAdminBar extends StatelessWidget {
                     ],
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      controller.toggleExpanded(expandedHeigh);
+                    },
                     child: Text(
                       '${controller.packageInfo?.appName ?? ''} '
                       'v${controller.packageInfo?.version ?? 'x.x.x'}',

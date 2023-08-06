@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-enum FlutterAdminViewType {
-  expanded,
-  collapsed,
-  hiden,
-  disabled,
-}
+enum FlutterAdminViewType { expanded, collapsed, hiden, disabled }
 
 class FlutterAdminBarController extends ChangeNotifier {
   FlutterAdminBarController() {
@@ -35,6 +30,15 @@ class FlutterAdminBarController extends ChangeNotifier {
   FlutterAdminViewType get viewType => _viewType;
   set viewType(FlutterAdminViewType val) {
     _viewType = val;
+    notifyListeners();
+  }
+
+  void toggleExpanded(double expandedHeight) {
+    if (_barHeight == defaultBarHeight) {
+      _barHeight = expandedHeight;
+    } else {
+      _barHeight = defaultBarHeight;
+    }
     notifyListeners();
   }
 }
