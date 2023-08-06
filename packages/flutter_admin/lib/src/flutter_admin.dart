@@ -36,37 +36,39 @@ class _FlutterAdminState extends State<FlutterAdmin> {
   @override
   Widget build(BuildContext context) {
     if (!widget.enabled) return widget.builder.call(context);
-    return Stack(
-      children: [
-        _FlutterAdminBody(
-          controller: _controller,
-          theme: widget.adminTheme,
-          builder: widget.builder,
-          talker: _talker,
-        ),
-        AnimatedBuilder(
-          animation: _controller,
-          builder: (context, _) {
-            final hiddenBar =
-                _controller.viewType == FlutterAdminViewType.hiden;
-            if (hiddenBar) {
-              return FlutterAdminButton(
-                theme: widget.adminTheme,
-                child: IconButton(
-                  onPressed: () {
-                    _controller.viewType = FlutterAdminViewType.expanded;
-                  },
-                  icon: Icon(
-                    Icons.bug_report,
-                    color: widget.adminTheme.iconTheme.color,
+    return Material(
+      child: Stack(
+        children: [
+          _FlutterAdminBody(
+            controller: _controller,
+            theme: widget.adminTheme,
+            builder: widget.builder,
+            talker: _talker,
+          ),
+          AnimatedBuilder(
+            animation: _controller,
+            builder: (context, _) {
+              final hiddenBar =
+                  _controller.viewType == FlutterAdminViewType.hiden;
+              if (hiddenBar) {
+                return FlutterAdminButton(
+                  theme: widget.adminTheme,
+                  child: IconButton(
+                    onPressed: () {
+                      _controller.viewType = FlutterAdminViewType.expanded;
+                    },
+                    icon: Icon(
+                      Icons.bug_report,
+                      color: widget.adminTheme.iconTheme.color,
+                    ),
                   ),
-                ),
-              );
-            }
-            return const SizedBox();
-          },
-        ),
-      ],
+                );
+              }
+              return const SizedBox();
+            },
+          ),
+        ],
+      ),
     );
   }
 }
@@ -98,6 +100,7 @@ class _FlutterAdminBody extends StatelessWidget {
       animation: controller,
       builder: (context, _) {
         return Container(
+          padding: EdgeInsets.only(bottom: mq.viewPadding.bottom / 2),
           decoration: BoxDecoration(color: theme.backgroundColor),
           child: Column(
             children: [

@@ -351,9 +351,10 @@ packages:
   talker_flutter:
     dependency: transitive
     description:
-      path: "../../../../../../talker/packages/talker_flutter"
-      relative: true
-    source: path
+      name: talker_flutter
+      sha256: "011c0c9ab9ad6af46cb34c5a5021502bd39e012b6acb5e610ee55587bb5c7ad9"
+      url: "https://pub.dev"
+    source: hosted
     version: "3.2.6"
   talker_logger:
     dependency: transitive
