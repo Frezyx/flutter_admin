@@ -19,11 +19,30 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: theme,
-      home: FlutterAdmin(
-        adminTheme: FlutterAdminTheme(primaryColor: theme.primaryColor),
-        talker: talker,
-        builder: (context) => const MyHomePage(title: 'Flutter Admin demo'),
-      ),
+      routes: {
+        '/': (context) => const MyHomePage(title: 'Flutter Admin demo'),
+      },
+      builder: (context, child) {
+        return NewWidget(child: child!);
+      },
+    );
+  }
+}
+
+class NewWidget extends StatelessWidget {
+  const NewWidget({
+    super.key,
+    required this.child,
+  });
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return FlutterAdmin(
+      adminTheme: FlutterAdminTheme(primaryColor: theme.primaryColor),
+      talker: talker,
+      builder: (context) => child,
     );
   }
 }
@@ -57,6 +76,8 @@ class _MyHomePageState extends State<MyHomePage> {
       "Count incremented $_counter",
       logLevel: LogLevel.values[Random().nextInt(LogLevel.values.length - 1)],
     );
+    showModalBottomSheet(
+        context: context, builder: (context) => const SizedBox());
   }
 
   @override
