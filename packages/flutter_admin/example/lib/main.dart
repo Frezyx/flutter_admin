@@ -23,26 +23,12 @@ class MyApp extends StatelessWidget {
         '/': (context) => const MyHomePage(title: 'Flutter Admin demo'),
       },
       builder: (context, child) {
-        return NewWidget(child: child!);
+        return FlutterAdmin(
+          adminTheme: FlutterAdminTheme(primaryColor: theme.primaryColor),
+          talker: talker,
+          builder: (context) => child!,
+        );
       },
-    );
-  }
-}
-
-class NewWidget extends StatelessWidget {
-  const NewWidget({
-    super.key,
-    required this.child,
-  });
-
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context) {
-    return FlutterAdmin(
-      adminTheme: FlutterAdminTheme(primaryColor: theme.primaryColor),
-      talker: talker,
-      builder: (context) => child,
     );
   }
 }
