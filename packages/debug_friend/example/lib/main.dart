@@ -13,35 +13,33 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'DebugFriend',
       theme: ThemeData(primaryColor: Colors.black),
-      home: const SafeArea(
-        child: Scaffold(
-          body: Center(
-            child: Text('DebugFriend'),
+
+      home: DebugFriendView(
+        icon: const SizedBox(
+          width: 50,
+          height: 50,
+          child: Icon(
+            Icons.bug_report,
+            color: Colors.white,
+            size: 34,
+          ),
+        ),
+        theme: const DebugFriendTheme(),
+        builder: (context) => const SafeArea(
+          child: Scaffold(
+            body: Center(
+              child: Text('DebugFriend'),
+            ),
           ),
         ),
       ),
-      builder: (context, child) {
-        return DebugFriendView(
-          icon: const SizedBox(
-            width: 50,
-            height: 50,
-            child: Icon(
-              Icons.bug_report,
-              color: Colors.white,
-              size: 34,
-            ),
-          ),
-          theme: const DebugFriendTheme(),
-          builder: (context) => child!,
-        );
-        // customActions: [
-        //   ActionCard(
-        //     icon: const Icon(Icons.print_rounded),
-        //     title: 'Print to console',
-        //     onTap: () => debugPrint('Print to console'),
-        //   ),
-        // ],
-      },
+      // customActions: [
+      //   ActionCard(
+      //     icon: const Icon(Icons.print_rounded),
+      //     title: 'Print to console',
+      //     onTap: () => debugPrint('Print to console'),
+      //   ),
+      // ],
     );
   }
 }
