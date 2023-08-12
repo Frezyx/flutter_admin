@@ -27,8 +27,6 @@ class _FlutterAdminState extends State<FlutterAdmin> {
   final _controller = FlutterAdminBarController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
-  var _sheetOpened = false;
-
   @override
   void initState() {
     _talker = widget.talker ?? Talker();
@@ -40,64 +38,41 @@ class _FlutterAdminState extends State<FlutterAdmin> {
   @override
   Widget build(BuildContext context) {
     if (!widget.enabled) return widget.builder.call(context);
-    return Material(
-      child: Stack(
-        children: [
-          _FlutterAdminBody(
-            controller: _controller,
-            theme: widget.adminTheme,
-            builder: widget.builder,
-            talker: _talker,
-            onLogsTap: () => _openLogs(context, widget.adminTheme),
-          ),
-          AnimatedBuilder(
-            animation: _controller,
-            builder: (context, _) {
-              final hiddenBar =
-                  _controller.viewType == FlutterAdminViewType.hiden;
-              if (hiddenBar) {
-                return FlutterAdminButton(
-                  theme: widget.adminTheme,
-                  child: IconButton(
-                    onPressed: () {
-                      _controller.viewType = FlutterAdminViewType.expanded;
-                    },
-                    icon: Icon(
-                      Icons.bug_report,
-                      color: widget.adminTheme.iconTheme.color,
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Navigator(
+        onGenerateInitialRoutes: (navigator, name) {
+          return [
+            MaterialPageRoute(
+              builder: (context) => Material(
+                child: Stack(
+                  children: [
+                    _FlutterAdminBody(
+                      controller: _controller,
+                      theme: widget.adminTheme,
+                      builder: widget.builder,
+                      talker: _talker,
+                      onLogsTap: () => _openLogs(context, widget.adminTheme),
                     ),
-                  ),
-                );
-              }
-              return const SizedBox();
-            },
-          ),
-          Positioned.fill(
-            child: IgnorePointer(
-              ignoring: !_sheetOpened,
-              child: Navigator(
-                onGenerateInitialRoutes: (navigator, name) {
-                  return [
-                    MaterialPageRoute(
-                      builder: (context) => Scaffold(
-                        key: scaffoldKey,
-                        backgroundColor: Colors.transparent,
-                      ),
+                    _FlutterAdminButton(
+                      controller: _controller,
+                      adminTheme: widget.adminTheme,
                     ),
-                  ];
-                },
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ];
+        },
       ),
     );
   }
 
   Future<void> _openLogs(BuildContext context, FlutterAdminTheme theme) async {
-    setState(() => _sheetOpened = true);
-    final controller = scaffoldKey.currentState!.showBottomSheet(
-      (context) => DraggableScrollableSheet(
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => DraggableScrollableSheet(
         initialChildSize: 0.95,
         maxChildSize: 0.95,
         minChildSize: 0.5,
@@ -106,9 +81,7 @@ class _FlutterAdminState extends State<FlutterAdmin> {
           return TalkerView(
             talker: _talker,
             scrollController: scrollController,
-            theme: TalkerScreenTheme(
-              backgroundColor: theme.backgroundColor,
-            ),
+            theme: TalkerScreenTheme(backgroundColor: theme.backgroundColor),
           );
         },
       ),
@@ -118,8 +91,65 @@ class _FlutterAdminState extends State<FlutterAdmin> {
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
     );
-    await controller.closed;
-    setState(() => _sheetOpened = false);
+    // setState(() => _sheetOpened = true);
+    // final controller = scaffoldKey.currentState!.showBottomSheet(
+    //   (context) => DraggableScrollableSheet(
+    //     initialChildSize: 0.95,
+    //     maxChildSize: 0.95,
+    //     minChildSize: 0.5,
+    //     expand: false,
+    //     builder: (context, scrollController) {
+    //       return TalkerView(
+    //         talker: _talker,
+    //         scrollController: scrollController,
+    //         theme: TalkerScreenTheme(backgroundColor: theme.backgroundColor),
+    //       );
+    //     },
+    //   ),
+    //   backgroundColor: theme.backgroundColor,
+    //   shape: const RoundedRectangleBorder(
+    //     borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    //   ),
+    //   clipBehavior: Clip.antiAliasWithSaveLayer,
+    // );
+    // await controller.closed;
+    // setState(() => _sheetOpened = false);
+  }
+}
+
+class _FlutterAdminButton extends StatelessWidget {
+  const _FlutterAdminButton({
+    Key? key,
+    required FlutterAdminBarController controller,
+    required this.adminTheme,
+  })  : _controller = controller,
+        super(key: key);
+
+  final FlutterAdminBarController _controller;
+  final FlutterAdminTheme adminTheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, _) {
+        final hiddenBar = _controller.viewType == FlutterAdminViewType.hiden;
+        if (hiddenBar) {
+          return FlutterAdminButton(
+            theme: adminTheme,
+            child: IconButton(
+              onPressed: _expand,
+              icon: Icon(Icons.bug_report, color: adminTheme.iconTheme.color),
+            ),
+          );
+        }
+        return const SizedBox();
+      },
+    );
+  }
+
+  void _expand() {
+    _controller.viewType = FlutterAdminViewType.expanded;
   }
 }
 
@@ -145,10 +175,6 @@ class _FlutterAdminBody extends StatelessWidget {
     final mq = MediaQuery.of(context);
     final fullHeight =
         mq.size.height - mq.padding.top - mq.padding.bottom - 150;
-    var appBorderRadius = fullHeight / controller.barHeight * 1.5;
-    if (appBorderRadius > 15) {
-      appBorderRadius = 15;
-    }
     return AnimatedBuilder(
       animation: controller,
       builder: (context, _) {
@@ -159,8 +185,8 @@ class _FlutterAdminBody extends StatelessWidget {
             children: [
               Expanded(
                 child: ClipRRect(
-                  borderRadius: BorderRadius.vertical(
-                    bottom: Radius.circular(appBorderRadius),
+                  borderRadius: const BorderRadius.vertical(
+                    bottom: Radius.circular(15),
                   ),
                   child: builder.call(context),
                 ),
@@ -176,6 +202,7 @@ class _FlutterAdminBody extends StatelessWidget {
                   controller: controller,
                   expandedHeigh: fullHeight,
                   onLogsTap: onLogsTap,
+                  onErrorTap: () {},
                 ),
               ),
             ],
