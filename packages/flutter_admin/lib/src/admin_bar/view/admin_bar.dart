@@ -10,6 +10,7 @@ class FlutterAdminBar extends StatelessWidget {
     this.borderRadius = BorderRadius.zero,
     required this.controller,
     required this.expandedHeigh,
+    required this.onLogsTap,
   }) : super(key: key);
 
   final Talker talker;
@@ -19,6 +20,8 @@ class FlutterAdminBar extends StatelessWidget {
   final FlutterAdminBarController controller;
 
   final double expandedHeigh;
+
+  final VoidCallback onLogsTap;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +66,7 @@ class FlutterAdminBar extends StatelessWidget {
                       TalkerBuilder(
                         talker: talker,
                         builder: (context, data) => TextButton(
-                          onPressed: () => _openLogs(context),
+                          onPressed: onLogsTap,
                           child: RichText(
                             text: TextSpan(
                               text: '${data.length} ',
@@ -128,33 +131,6 @@ class FlutterAdminBar extends StatelessWidget {
 
   void _toggleExpanded() {
     controller.toggleExpanded(expandedHeigh);
-  }
-
-  void _openLogs(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: adminTheme.backgroundColor,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.95,
-        maxChildSize: 0.95,
-        minChildSize: 0.5,
-        expand: false,
-        builder: (context, scrollController) {
-          return TalkerView(
-            talker: talker,
-            scrollController: scrollController,
-            theme: TalkerScreenTheme(
-              backgroundColor: adminTheme.backgroundColor,
-            ),
-          );
-        },
-      ),
-    );
   }
 
   void _hideMenuBar() {

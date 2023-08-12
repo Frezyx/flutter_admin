@@ -65,14 +65,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
-  cupertino_icons:
-    dependency: "direct main"
-    description:
-      name: cupertino_icons
-      sha256: e35129dc44c9118cee2a5603506d823bab99c68393879edb440e0090d07586be
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.5"
   fake_async:
     dependency: transitive
     description:
@@ -93,10 +85,10 @@ packages:
     dependency: transitive
     description:
       name: file
-      sha256: "5fc22d7c25582e38ad9a8515372cd9a93834027aacf1801cf01164dac0ffa08c"
+      sha256: "1b92bec4fc2a72f59a8e15af5f52cd441e4a7860b49499d69dfa817af20e925d"
       url: "https://pub.dev"
     source: hosted
-    version: "7.0.0"
+    version: "6.1.4"
   flutter:
     dependency: "direct main"
     description: flutter
@@ -352,10 +344,10 @@ packages:
     dependency: transitive
     description:
       name: talker_flutter
-      sha256: "011c0c9ab9ad6af46cb34c5a5021502bd39e012b6acb5e610ee55587bb5c7ad9"
+      sha256: "7a48d24084015fd986d7908c4a5c1b36b091ae951f86ff780b34c20f023b64d2"
       url: "https://pub.dev"
     source: hosted
-    version: "3.2.6"
+    version: "3.2.7"
   talker_logger:
     dependency: transitive
     description:

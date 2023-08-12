@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 import 'package:flutter_admin/flutter_admin.dart';
 import 'package:flutter_admin/src/admin_bar/controller/admin_bar_controller.dart';
 import 'package:flutter_admin/src/widgets/buttons/buttons.dart';
@@ -24,6 +25,9 @@ class FlutterAdmin extends StatefulWidget {
 
 class _FlutterAdminState extends State<FlutterAdmin> {
   final _controller = FlutterAdminBarController();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  var _sheetOpened = false;
 
   @override
   void initState() {
@@ -44,6 +48,7 @@ class _FlutterAdminState extends State<FlutterAdmin> {
             theme: widget.adminTheme,
             builder: widget.builder,
             talker: _talker,
+            onLogsTap: () => _openLogs(context, widget.adminTheme),
           ),
           AnimatedBuilder(
             animation: _controller,
@@ -67,9 +72,54 @@ class _FlutterAdminState extends State<FlutterAdmin> {
               return const SizedBox();
             },
           ),
+          Positioned.fill(
+            child: IgnorePointer(
+              ignoring: !_sheetOpened,
+              child: Navigator(
+                onGenerateInitialRoutes: (navigator, name) {
+                  return [
+                    MaterialPageRoute(
+                      builder: (context) => Scaffold(
+                        key: scaffoldKey,
+                        backgroundColor: Colors.transparent,
+                      ),
+                    ),
+                  ];
+                },
+              ),
+            ),
+          ),
         ],
       ),
     );
+  }
+
+  Future<void> _openLogs(BuildContext context, FlutterAdminTheme theme) async {
+    setState(() => _sheetOpened = true);
+    final controller = scaffoldKey.currentState!.showBottomSheet(
+      (context) => DraggableScrollableSheet(
+        initialChildSize: 0.95,
+        maxChildSize: 0.95,
+        minChildSize: 0.5,
+        expand: false,
+        builder: (context, scrollController) {
+          return TalkerView(
+            talker: _talker,
+            scrollController: scrollController,
+            theme: TalkerScreenTheme(
+              backgroundColor: theme.backgroundColor,
+            ),
+          );
+        },
+      ),
+      backgroundColor: theme.backgroundColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+    );
+    await controller.closed;
+    setState(() => _sheetOpened = false);
   }
 }
 
@@ -80,12 +130,15 @@ class _FlutterAdminBody extends StatelessWidget {
     required this.theme,
     required this.builder,
     required this.talker,
+    required this.onLogsTap,
   }) : super(key: key);
 
   final FlutterAdminBarController controller;
   final FlutterAdminTheme theme;
   final WidgetBuilder builder;
   final Talker talker;
+
+  final VoidCallback onLogsTap;
 
   @override
   Widget build(BuildContext context) {
@@ -122,6 +175,7 @@ class _FlutterAdminBody extends StatelessWidget {
                   talker: talker,
                   controller: controller,
                   expandedHeigh: fullHeight,
+                  onLogsTap: onLogsTap,
                 ),
               ),
             ],
