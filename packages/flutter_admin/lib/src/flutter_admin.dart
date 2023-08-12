@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/flutter_admin.dart';
 import 'package:flutter_admin/src/admin_bar/controller/admin_bar_controller.dart';
 import 'package:flutter_admin/src/admin_bar/view/view.dart';
-import 'package:flutter_admin/src/widgets/buttons/buttons.dart';
 
 class FlutterAdmin extends StatefulWidget {
   const FlutterAdmin({
@@ -53,7 +52,14 @@ class _FlutterAdminState extends State<FlutterAdmin> {
                       theme: widget.adminTheme,
                       builder: widget.builder,
                       talker: _talker,
-                      onLogsTap: () => _openLogs(context, widget.adminTheme),
+                      onLogsTap: () => _openLogs(
+                        context,
+                        widget.adminTheme,
+                      ),
+                      onErrorsTap: () => _openErrors(
+                        context,
+                        widget.adminTheme,
+                      ),
                     ),
                     _FlutterAdminButton(
                       controller: _controller,
@@ -78,10 +84,11 @@ class _FlutterAdminState extends State<FlutterAdmin> {
         maxChildSize: 0.95,
         minChildSize: 0.5,
         expand: false,
-        builder: (context, scrollController) {
+        builder: (context, controller) {
           return TalkerView(
             talker: _talker,
-            scrollController: scrollController,
+            scrollController: controller,
+            appBarTitle: 'App logs',
             theme: TalkerScreenTheme(backgroundColor: theme.backgroundColor),
           );
         },
@@ -92,29 +99,34 @@ class _FlutterAdminState extends State<FlutterAdmin> {
       ),
       clipBehavior: Clip.antiAliasWithSaveLayer,
     );
-    // setState(() => _sheetOpened = true);
-    // final controller = scaffoldKey.currentState!.showBottomSheet(
-    //   (context) => DraggableScrollableSheet(
-    //     initialChildSize: 0.95,
-    //     maxChildSize: 0.95,
-    //     minChildSize: 0.5,
-    //     expand: false,
-    //     builder: (context, scrollController) {
-    //       return TalkerView(
-    //         talker: _talker,
-    //         scrollController: scrollController,
-    //         theme: TalkerScreenTheme(backgroundColor: theme.backgroundColor),
-    //       );
-    //     },
-    //   ),
-    //   backgroundColor: theme.backgroundColor,
-    //   shape: const RoundedRectangleBorder(
-    //     borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-    //   ),
-    //   clipBehavior: Clip.antiAliasWithSaveLayer,
-    // );
-    // await controller.closed;
-    // setState(() => _sheetOpened = false);
+  }
+
+  Future<void> _openErrors(
+    BuildContext context,
+    FlutterAdminTheme theme,
+  ) async {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: theme.backgroundColor,
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.95,
+        maxChildSize: 0.95,
+        minChildSize: 0.5,
+        expand: false,
+        builder: (context, controller) {
+          return TalkerErrorView(
+            talker: _talker,
+            scrollController: controller,
+            theme: theme,
+          );
+        },
+      ),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+    );
   }
 }
 
@@ -162,6 +174,7 @@ class _FlutterAdminBody extends StatelessWidget {
     required this.builder,
     required this.talker,
     required this.onLogsTap,
+    required this.onErrorsTap,
   }) : super(key: key);
 
   final FlutterAdminBarController controller;
@@ -170,6 +183,7 @@ class _FlutterAdminBody extends StatelessWidget {
   final Talker talker;
 
   final VoidCallback onLogsTap;
+  final VoidCallback onErrorsTap;
 
   @override
   Widget build(BuildContext context) {
@@ -203,7 +217,7 @@ class _FlutterAdminBody extends StatelessWidget {
                   controller: controller,
                   expandedHeigh: fullHeight,
                   onLogsTap: onLogsTap,
-                  onErrorTap: () {},
+                  onErrorsTap: onErrorsTap,
                 ),
               ),
             ],

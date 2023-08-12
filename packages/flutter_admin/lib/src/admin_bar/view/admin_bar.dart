@@ -11,7 +11,7 @@ class FlutterAdminBar extends StatelessWidget {
     required this.controller,
     required this.expandedHeigh,
     required this.onLogsTap,
-    required this.onErrorTap,
+    required this.onErrorsTap,
   }) : super(key: key);
 
   final Talker talker;
@@ -23,7 +23,7 @@ class FlutterAdminBar extends StatelessWidget {
   final double expandedHeigh;
 
   final VoidCallback onLogsTap;
-  final VoidCallback onErrorTap;
+  final VoidCallback onErrorsTap;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +87,7 @@ class FlutterAdminBar extends StatelessWidget {
                         talker: talker,
                         builder: (context, errors) {
                           return TextButton(
-                            onPressed: onErrorTap,
+                            onPressed: onErrorsTap,
                             child: RichText(
                               text: TextSpan(
                                 text: '${errors.length} ',

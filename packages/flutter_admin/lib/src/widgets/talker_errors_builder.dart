@@ -9,8 +9,10 @@ class TalkerErrorsBuilder extends StatelessWidget {
   }) : super(key: key);
 
   final Talker talker;
-  final Widget Function(BuildContext context, List<TalkerDataInterface> errors)
-      builder;
+  final Widget Function(
+    BuildContext context,
+    List<TalkerDataInterface> errors,
+  ) builder;
 
   @override
   Widget build(BuildContext context) {
