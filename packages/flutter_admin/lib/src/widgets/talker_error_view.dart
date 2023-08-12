@@ -23,26 +23,22 @@ class TalkerErrorView extends StatelessWidget {
           children: [
             AppBar(
               backgroundColor: theme.backgroundColor,
+              centerTitle: false,
               title: const Text(
                 'App errors',
                 style: TextStyle(color: Colors.white),
               ),
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: UnconstrainedBox(
-                    child: IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(
-                        Icons.close_rounded,
-                        color: Colors.white,
-                      ),
-                    ),
+              leading: UnconstrainedBox(
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(
+                    Icons.close_rounded,
+                    color: Colors.white,
                   ),
                 ),
-              ],
+              ),
             ),
             Expanded(
               child: CustomScrollView(

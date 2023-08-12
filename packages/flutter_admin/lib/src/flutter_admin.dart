@@ -89,6 +89,17 @@ class _FlutterAdminState extends State<FlutterAdmin> {
             talker: _talker,
             scrollController: controller,
             appBarTitle: 'App logs',
+            appBarLeading: UnconstrainedBox(
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  Icons.close_rounded,
+                  color: Colors.white,
+                ),
+              ),
+            ),
             theme: TalkerScreenTheme(backgroundColor: theme.backgroundColor),
           );
         },
