@@ -83,18 +83,9 @@ class FlutterAdminBar extends StatelessWidget {
                           ),
                         ),
                       ),
-                      TalkerBuilder(
+                      TalkerErrorsBuilder(
                         talker: talker,
-                        builder: (context, data) {
-                          final errors = [
-                            ...data.whereType<TalkerError>(),
-                            ...data.where(
-                              (e) =>
-                                  e.runtimeType == TalkerError ||
-                                  e.logLevel == LogLevel.error ||
-                                  e.logLevel == LogLevel.critical,
-                            ),
-                          ];
+                        builder: (context, errors) {
                           return TextButton(
                             onPressed: onErrorTap,
                             child: RichText(
