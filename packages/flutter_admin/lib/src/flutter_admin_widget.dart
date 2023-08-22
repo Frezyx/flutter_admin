@@ -168,10 +168,7 @@ class _FlutterAdminBody extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: const Icon(
-                  Icons.close_rounded,
-                  color: Colors.white,
-                ),
+                icon: const Icon(Icons.close_rounded, color: Colors.white),
               ),
             ),
             theme: TalkerScreenTheme(

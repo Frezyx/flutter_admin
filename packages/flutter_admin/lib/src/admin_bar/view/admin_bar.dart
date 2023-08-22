@@ -70,12 +70,8 @@ class FlutterAdminBar extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             _LogsButton(onTap: onLogsTap),
-                            _ErrorsButton(
-                              onTap: onErrorsTap,
-                            ),
-                            _HttpButton(
-                              onTap: onHttpTap,
-                            ),
+                            _ErrorsButton(onTap: onErrorsTap),
+                            _HttpButton(onTap: onHttpTap),
                           ],
                         ),
                       ),
@@ -91,6 +87,18 @@ class FlutterAdminBar extends StatelessWidget {
                       ),
                     ),
                   ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: FlutterAdminBarController.defaultBarHeight,
+              ),
+              child: SizedBox(
+                height: controller.barHeight -
+                    FlutterAdminBarController.defaultBarHeight,
+                child: const CustomScrollView(
+                  slivers: [],
                 ),
               ),
             ),
