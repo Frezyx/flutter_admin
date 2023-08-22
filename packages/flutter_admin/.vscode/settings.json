@@ -1,0 +1,18 @@
+{
+    "editor.rulers": [
+        80
+    ],
+    "dart.lineLength": 80,
+    "[dart]": {
+        "editor.rulers": [
+            80
+        ],
+    },
+    "dart.previewLsp": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true,
+        "source.organizeImports": true,
+    },
+    "editor.formatOnSave": true,
+    "cmake.sourceDirectory": "${workspaceFolder}/windows/runner"
+}

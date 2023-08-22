@@ -24,6 +24,7 @@ class FlutterAdminTheme {
   final Color backgroundColor;
   final Color cardColor;
   final Color lightCardColor;
+
   final TextStyle bodyText;
   final TextStyle subtitleText;
   final TextStyle headerStyle;

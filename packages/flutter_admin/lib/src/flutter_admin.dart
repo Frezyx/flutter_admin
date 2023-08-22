@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_admin/flutter_admin.dart';
 import 'package:flutter_admin/src/admin_bar/controller/admin_bar_controller.dart';
 import 'package:flutter_admin/src/admin_bar/view/view.dart';
@@ -157,7 +156,7 @@ class _FlutterAdminButton extends StatelessWidget {
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, _) {
-        if (_controller.barShowing) {
+        if (!_controller.barShowing) {
           return FlutterAdminButton(
             theme: adminTheme,
             child: IconButton(
@@ -226,6 +225,7 @@ class _FlutterAdminBody extends StatelessWidget {
                   expandedHeigh: fullHeight,
                   onLogsTap: onLogsTap,
                   onErrorsTap: onErrorsTap,
+                  onHttpTap: () {},
                 ),
               ),
             ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/flutter_admin.dart';
 import 'package:flutter_admin/src/admin_bar/controller/admin_bar_controller.dart';
+import 'package:flutter_admin/src/admin_bar/view/widgets/widgets.dart';
 
 class FlutterAdminBar extends StatelessWidget {
   const FlutterAdminBar({
@@ -12,6 +13,7 @@ class FlutterAdminBar extends StatelessWidget {
     required this.expandedHeigh,
     required this.onLogsTap,
     required this.onErrorsTap,
+    required this.onHttpTap,
   }) : super(key: key);
 
   final Talker talker;
@@ -24,19 +26,17 @@ class FlutterAdminBar extends StatelessWidget {
 
   final VoidCallback onLogsTap;
   final VoidCallback onErrorsTap;
+  final VoidCallback onHttpTap;
 
   @override
   Widget build(BuildContext context) {
-    if (controller.barShowing) {
-      return const SizedBox();
-    }
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 50),
-      height: controller.barHeight,
+      duration: const Duration(milliseconds: 200),
+      height: controller.barShowing ? controller.barHeight : 0,
       width: double.infinity,
       decoration: BoxDecoration(color: adminTheme.backgroundColor),
       child: Padding(
-        padding: const EdgeInsets.all(8).copyWith(right: 0),
+        padding: const EdgeInsets.symmetric(vertical: 8),
         child: Stack(
           alignment: Alignment.topCenter,
           children: [
@@ -49,7 +49,6 @@ class FlutterAdminBar extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: double.infinity,
               height: 50,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -63,89 +62,174 @@ class FlutterAdminBar extends StatelessWidget {
                           color: adminTheme.iconTheme.color,
                         ),
                       ),
-                      TalkerBuilder(
-                        talker: talker,
-                        builder: (context, data) => TextButton(
-                          onPressed: onLogsTap,
-                          child: RichText(
-                            text: TextSpan(
-                              text: '${data.length} ',
-                              style: const TextStyle(color: Colors.green),
-                              children: const [
-                                TextSpan(
-                                  text: 'Logs',
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                              ],
-                            ),
+                      const VerticalDivider(width: 1),
+                    ],
+                  ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12)
+                          .copyWith(top: 12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          _LogsButton(
+                            talker: talker,
+                            adminTheme: adminTheme,
+                            onTap: onLogsTap,
                           ),
-                        ),
-                      ),
-                      TalkerErrorsBuilder(
-                        talker: talker,
-                        builder: (context, errors) {
-                          return TextButton(
-                            onPressed: onErrorsTap,
-                            child: RichText(
-                              text: TextSpan(
-                                text: '${errors.length} ',
-                                style: const TextStyle(color: Colors.red),
-                                children: const [
-                                  TextSpan(
-                                    text: 'Errors',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                      TextButton(
-                        onPressed: onLogsTap,
-                        child: RichText(
-                          text: const TextSpan(
-                            text: '21 ',
-                            style: TextStyle(color: Colors.green),
-                            children: [
-                              TextSpan(
-                                text: 'http',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ],
+                          _ErrorsButton(
+                            talker: talker,
+                            adminTheme: adminTheme,
+                            onTap: onErrorsTap,
                           ),
+                          _HttpButton(
+                            adminTheme: adminTheme,
+                            onTap: onHttpTap,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      const VerticalDivider(width: 1),
+                      IconButton(
+                        onPressed: _toggleExpanded,
+                        icon: Icon(
+                          Icons.expand_less,
+                          size: 32,
+                          color: adminTheme.iconTheme.color,
                         ),
                       ),
                     ],
                   ),
-                  // TextButton(
-                  //   onPressed: _toggleExpanded,
-                  //   child: Text(
-                  //     '${controller.packageInfo?.appName ?? ''} '
-                  //     'v${controller.packageInfo?.version ?? 'x.x.x'}',
-                  //     style: adminTheme.subtitleText,
-                  //   ),
-                  // ),
-                  IconButton(
-                    onPressed: _toggleExpanded,
-                    icon: Icon(
-                      Icons.expand_less,
-                      size: 36,
-                      color: adminTheme.iconTheme.color,
-                    ),
-                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
     );
   }
 
-  void _toggleExpanded() {
-    controller.toggleExpanded(expandedHeigh);
-  }
+  void _toggleExpanded() => controller.toggleExpanded(expandedHeigh);
 
   void _hideMenuBar() => controller.hideBar();
+}
+
+class _HttpButton extends StatelessWidget {
+  const _HttpButton({
+    Key? key,
+    required this.adminTheme,
+    required this.onTap,
+  }) : super(key: key);
+
+  final FlutterAdminTheme adminTheme;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return BarButton(
+      adminTheme: adminTheme,
+      onPressed: onTap,
+      child: RichText(
+        text: const TextSpan(
+          text: '21 ',
+          style: TextStyle(
+            color: Colors.green,
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+          ),
+          children: [
+            TextSpan(
+              text: 'Http',
+              style: TextStyle(color: Colors.white),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _ErrorsButton extends StatelessWidget {
+  const _ErrorsButton({
+    Key? key,
+    required this.talker,
+    required this.adminTheme,
+    required this.onTap,
+  }) : super(key: key);
+
+  final Talker talker;
+  final FlutterAdminTheme adminTheme;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return TalkerErrorsBuilder(
+      talker: talker,
+      builder: (context, errors) {
+        return BarButton(
+          adminTheme: adminTheme,
+          onPressed: onTap,
+          child: RichText(
+            text: TextSpan(
+              text: '${errors.length} ',
+              style: const TextStyle(
+                color: Colors.red,
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+              ),
+              children: const [
+                TextSpan(
+                  text: 'Error',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _LogsButton extends StatelessWidget {
+  const _LogsButton({
+    Key? key,
+    required this.talker,
+    required this.adminTheme,
+    required this.onTap,
+  }) : super(key: key);
+
+  final Talker talker;
+  final FlutterAdminTheme adminTheme;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return TalkerBuilder(
+      talker: talker,
+      builder: (context, data) => BarButton(
+        adminTheme: adminTheme,
+        onPressed: onTap,
+        child: RichText(
+          text: TextSpan(
+            text: '${data.length} ',
+            style: const TextStyle(
+              color: Colors.green,
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
+            ),
+            children: const [
+              TextSpan(
+                text: 'Log',
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }

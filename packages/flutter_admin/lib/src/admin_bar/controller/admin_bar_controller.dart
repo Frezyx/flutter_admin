@@ -5,10 +5,10 @@ enum FlutterAdminViewType { expanded, hiden }
 class FlutterAdminBarController extends ChangeNotifier {
   FlutterAdminBarController();
 
-  var _barShowing = false;
+  var _barShowing = true;
   var _barHeight = defaultBarHeight;
 
-  static const defaultBarHeight = 60.0;
+  static const defaultBarHeight = 70.0;
 
   double get barHeight => _barHeight;
   set barHeight(double val) {
@@ -18,12 +18,12 @@ class FlutterAdminBarController extends ChangeNotifier {
 
   bool get barShowing => _barShowing;
   void hideBar() {
-    _barShowing = true;
+    _barShowing = false;
     notifyListeners();
   }
 
   void showBar() {
-    _barShowing = false;
+    _barShowing = true;
     notifyListeners();
   }
 
