@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/flutter_admin.dart';
 import 'package:flutter_admin/src/admin_bar/controller/admin_bar_controller.dart';
 import 'package:flutter_admin/src/admin_bar/view/view.dart';
+import 'package:flutter_admin/src/flutter_admin_provider.dart';
 
 class FlutterAdmin extends StatefulWidget {
   const FlutterAdmin({
@@ -27,115 +28,39 @@ class _FlutterAdminState extends State<FlutterAdmin> {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
-  void initState() {
-    _talker = widget.talker ?? Talker();
-    super.initState();
-  }
-
-  late final Talker _talker;
-
-  @override
   Widget build(BuildContext context) {
     if (!widget.enabled) return widget.builder.call(context);
-    return Directionality(
-      textDirection: TextDirection.ltr,
-      child: Navigator(
-        onGenerateInitialRoutes: (navigator, name) {
-          return [
-            MaterialPageRoute(
-              builder: (context) => Material(
-                child: Stack(
-                  children: [
-                    _FlutterAdminBody(
-                      controller: _controller,
-                      theme: widget.adminTheme,
-                      builder: widget.builder,
-                      talker: _talker,
-                      onLogsTap: () => _openLogs(
-                        context,
-                        widget.adminTheme,
+    return FlutterAdminProvider(
+      options: FlutterAdminOptions(
+        talker: widget.talker,
+        theme: widget.adminTheme,
+      ),
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Navigator(
+          onGenerateInitialRoutes: (navigator, name) {
+            return [
+              MaterialPageRoute(
+                builder: (context) => Material(
+                  child: Stack(
+                    children: [
+                      _FlutterAdminBody(
+                        controller: _controller,
+                        theme: widget.adminTheme,
+                        builder: widget.builder,
                       ),
-                      onErrorsTap: () => _openErrors(
-                        context,
-                        widget.adminTheme,
+                      _FlutterAdminButton(
+                        controller: _controller,
+                        adminTheme: widget.adminTheme,
                       ),
-                    ),
-                    _FlutterAdminButton(
-                      controller: _controller,
-                      adminTheme: widget.adminTheme,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ];
-        },
+            ];
+          },
+        ),
       ),
-    );
-  }
-
-  Future<void> _openLogs(BuildContext context, FlutterAdminTheme theme) async {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.95,
-        maxChildSize: 0.95,
-        minChildSize: 0.5,
-        expand: false,
-        builder: (context, controller) {
-          return TalkerView(
-            talker: _talker,
-            scrollController: controller,
-            appBarTitle: 'App logs',
-            appBarLeading: UnconstrainedBox(
-              child: IconButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                icon: const Icon(
-                  Icons.close_rounded,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            theme: TalkerScreenTheme(backgroundColor: theme.backgroundColor),
-          );
-        },
-      ),
-      backgroundColor: theme.backgroundColor,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-    );
-  }
-
-  Future<void> _openErrors(
-    BuildContext context,
-    FlutterAdminTheme theme,
-  ) async {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: theme.backgroundColor,
-      builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.95,
-        maxChildSize: 0.95,
-        minChildSize: 0.5,
-        expand: false,
-        builder: (context, controller) {
-          return TalkerErrorView(
-            talker: _talker,
-            scrollController: controller,
-            theme: theme,
-          );
-        },
-      ),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      clipBehavior: Clip.antiAliasWithSaveLayer,
     );
   }
 }
@@ -179,24 +104,18 @@ class _FlutterAdminBody extends StatelessWidget {
     required this.controller,
     required this.theme,
     required this.builder,
-    required this.talker,
-    required this.onLogsTap,
-    required this.onErrorsTap,
   }) : super(key: key);
 
   final FlutterAdminBarController controller;
   final FlutterAdminTheme theme;
   final WidgetBuilder builder;
-  final Talker talker;
-
-  final VoidCallback onLogsTap;
-  final VoidCallback onErrorsTap;
 
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context);
     final fullHeight =
         mq.size.height - mq.padding.top - mq.padding.bottom - 150;
+    final options = FlutterAdminProvider.of(context);
     return AnimatedBuilder(
       animation: controller,
       builder: (context, _) {
@@ -220,11 +139,11 @@ class _FlutterAdminBody extends StatelessWidget {
                 },
                 child: FlutterAdminBar(
                   adminTheme: theme,
-                  talker: talker,
+                  talker: options.talker,
                   controller: controller,
                   expandedHeigh: fullHeight,
-                  onLogsTap: onLogsTap,
-                  onErrorsTap: onErrorsTap,
+                  onLogsTap: () => _openLogs(context, theme),
+                  onErrorsTap: () => _openErrors(context, theme),
                   onHttpTap: () {},
                 ),
               ),
@@ -232,6 +151,73 @@ class _FlutterAdminBody extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Future<void> _openLogs(BuildContext context, FlutterAdminTheme theme) async {
+    final options = FlutterAdminProvider.of(context);
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.95,
+        maxChildSize: 0.95,
+        minChildSize: 0.5,
+        expand: false,
+        builder: (context, controller) {
+          return TalkerView(
+            talker: options.talker,
+            scrollController: controller,
+            appBarTitle: 'App logs',
+            appBarLeading: UnconstrainedBox(
+              child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  Icons.close_rounded,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            theme: TalkerScreenTheme(backgroundColor: theme.backgroundColor),
+          );
+        },
+      ),
+      backgroundColor: theme.backgroundColor,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+    );
+  }
+
+  Future<void> _openErrors(
+    BuildContext context,
+    FlutterAdminTheme theme,
+  ) async {
+    final options = FlutterAdminProvider.of(context);
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: theme.backgroundColor,
+      builder: (context) => DraggableScrollableSheet(
+        initialChildSize: 0.95,
+        maxChildSize: 0.95,
+        minChildSize: 0.5,
+        expand: false,
+        builder: (context, controller) {
+          return TalkerErrorView(
+            talker: options.talker,
+            scrollController: controller,
+            theme: theme,
+          );
+        },
+      ),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
     );
   }
 
