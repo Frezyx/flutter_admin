@@ -27,9 +27,7 @@ class FlutterAdminBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final enabledBar = controller.viewType != FlutterAdminViewType.hiden &&
-        controller.viewType != FlutterAdminViewType.disabled;
-    if (!enabledBar) {
+    if (controller.barShowing) {
       return const SizedBox();
     }
     return AnimatedContainer(
@@ -103,14 +101,37 @@ class FlutterAdminBar extends StatelessWidget {
                           );
                         },
                       ),
+                      TextButton(
+                        onPressed: onLogsTap,
+                        child: RichText(
+                          text: const TextSpan(
+                            text: '21 ',
+                            style: TextStyle(color: Colors.green),
+                            children: [
+                              TextSpan(
+                                text: 'http',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                  TextButton(
+                  // TextButton(
+                  //   onPressed: _toggleExpanded,
+                  //   child: Text(
+                  //     '${controller.packageInfo?.appName ?? ''} '
+                  //     'v${controller.packageInfo?.version ?? 'x.x.x'}',
+                  //     style: adminTheme.subtitleText,
+                  //   ),
+                  // ),
+                  IconButton(
                     onPressed: _toggleExpanded,
-                    child: Text(
-                      '${controller.packageInfo?.appName ?? ''} '
-                      'v${controller.packageInfo?.version ?? 'x.x.x'}',
-                      style: adminTheme.subtitleText,
+                    icon: Icon(
+                      Icons.expand_less,
+                      size: 36,
+                      color: adminTheme.iconTheme.color,
                     ),
                   ),
                 ],
@@ -126,7 +147,5 @@ class FlutterAdminBar extends StatelessWidget {
     controller.toggleExpanded(expandedHeigh);
   }
 
-  void _hideMenuBar() {
-    controller.viewType = FlutterAdminViewType.hiden;
-  }
+  void _hideMenuBar() => controller.hideBar();
 }

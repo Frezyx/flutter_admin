@@ -157,8 +157,7 @@ class _FlutterAdminButton extends StatelessWidget {
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, _) {
-        final hiddenBar = _controller.viewType == FlutterAdminViewType.hiden;
-        if (hiddenBar) {
+        if (_controller.barShowing) {
           return FlutterAdminButton(
             theme: adminTheme,
             child: IconButton(
@@ -172,9 +171,7 @@ class _FlutterAdminButton extends StatelessWidget {
     );
   }
 
-  void _expand() {
-    _controller.viewType = FlutterAdminViewType.expanded;
-  }
+  void _expand() => _controller.showBar();
 }
 
 class _FlutterAdminBody extends StatelessWidget {
@@ -243,14 +240,12 @@ class _FlutterAdminBody extends StatelessWidget {
     if (controller.barHeight >= ((fullHeight / 2) + 100) &&
         details.delta.direction < 0) {
       controller.barHeight = fullHeight;
-      controller.viewType = FlutterAdminViewType.expanded;
       return;
     }
 
     if (controller.barHeight <= ((fullHeight / 2) - 100) &&
         details.delta.direction > 0) {
       controller.barHeight = FlutterAdminBarController.defaultBarHeight;
-      controller.viewType = FlutterAdminViewType.collapsed;
       return;
     }
   }

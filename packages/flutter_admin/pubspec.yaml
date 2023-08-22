@@ -13,7 +13,7 @@ dependencies:
   talker_flutter: ^3.2.9
   package_info_plus: ^4.1.0
   device_info_plus: ^9.0.3
-  path_provider: ^2.0.15
+  path_provider: ^2.1.0
   
 dev_dependencies:
   flutter_test:
