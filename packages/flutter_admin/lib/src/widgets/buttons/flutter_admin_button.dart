@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
-import 'package:flutter_admin/src/theme.dart';
+import 'package:flutter_admin/src/flutter_admin_provider.dart';
 
 class FlutterAdminButton extends StatefulWidget {
   const FlutterAdminButton({
     Key? key,
     required this.child,
-    required this.theme,
   }) : super(key: key);
 
   final Widget child;
-
-  final FlutterAdminTheme theme;
 
   @override
   State<FlutterAdminButton> createState() => _FlutterAdminButtonState();
@@ -53,7 +50,7 @@ class _FlutterAdminButtonState extends State<FlutterAdminButton>
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
+    final options = FlutterAdminProvider.of(context);
     return GestureDetector(
       onPanDown: _onPanDown,
       onPanUpdate: (DragUpdateDetails details) => _setPosition(details, size),
@@ -63,7 +60,7 @@ class _FlutterAdminButtonState extends State<FlutterAdminButton>
         alignment: _dragAlignment,
         child: Container(
           decoration: BoxDecoration(
-            color: widget.theme.lightCardColor,
+            color: options.theme.lightCardColor,
             shape: BoxShape.circle,
           ),
           child: widget.child,

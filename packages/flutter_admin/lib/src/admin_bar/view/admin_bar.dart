@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/flutter_admin.dart';
 import 'package:flutter_admin/src/admin_bar/controller/admin_bar_controller.dart';
 import 'package:flutter_admin/src/admin_bar/view/widgets/widgets.dart';
+import 'package:flutter_admin/src/flutter_admin_provider.dart';
 
 class FlutterAdminBar extends StatelessWidget {
   const FlutterAdminBar({
     Key? key,
-    required this.talker,
-    required this.adminTheme,
     this.borderRadius = BorderRadius.zero,
     required this.controller,
     required this.expandedHeigh,
@@ -15,9 +14,6 @@ class FlutterAdminBar extends StatelessWidget {
     required this.onErrorsTap,
     required this.onHttpTap,
   }) : super(key: key);
-
-  final Talker talker;
-  final FlutterAdminTheme adminTheme;
 
   final BorderRadius borderRadius;
   final FlutterAdminBarController controller;
@@ -30,11 +26,12 @@ class FlutterAdminBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final options = FlutterAdminProvider.of(context);
     return AnimatedContainer(
       duration: const Duration(milliseconds: 200),
       height: controller.barShowing ? controller.barHeight : 0,
       width: double.infinity,
-      decoration: BoxDecoration(color: adminTheme.backgroundColor),
+      decoration: BoxDecoration(color: options.theme.backgroundColor),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: Stack(
@@ -44,7 +41,7 @@ class FlutterAdminBar extends StatelessWidget {
               height: 6,
               width: 60,
               decoration: BoxDecoration(
-                color: adminTheme.lightCardColor,
+                color: options.theme.lightCardColor,
                 borderRadius: BorderRadius.circular(10),
               ),
             ),
@@ -58,10 +55,10 @@ class FlutterAdminBar extends StatelessWidget {
                     GestureDetector(
                       onTap: _hideMenuBar,
                       child: BaseCard(
-                        adminTheme: adminTheme,
+                        adminTheme: options.theme,
                         child: Icon(
                           Icons.remove_red_eye_outlined,
-                          color: adminTheme.iconTheme.color,
+                          color: options.theme.iconTheme.color,
                         ),
                       ),
                     ),
@@ -72,18 +69,11 @@ class FlutterAdminBar extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            _LogsButton(
-                              talker: talker,
-                              adminTheme: adminTheme,
-                              onTap: onLogsTap,
-                            ),
+                            _LogsButton(onTap: onLogsTap),
                             _ErrorsButton(
-                              talker: talker,
-                              adminTheme: adminTheme,
                               onTap: onErrorsTap,
                             ),
                             _HttpButton(
-                              adminTheme: adminTheme,
                               onTap: onHttpTap,
                             ),
                           ],
@@ -93,10 +83,10 @@ class FlutterAdminBar extends StatelessWidget {
                     GestureDetector(
                       onTap: _toggleExpanded,
                       child: BaseCard(
-                        adminTheme: adminTheme,
+                        adminTheme: options.theme,
                         child: Icon(
                           Icons.expand_less,
-                          color: adminTheme.iconTheme.color,
+                          color: options.theme.iconTheme.color,
                         ),
                       ),
                     ),
@@ -118,17 +108,16 @@ class FlutterAdminBar extends StatelessWidget {
 class _HttpButton extends StatelessWidget {
   const _HttpButton({
     Key? key,
-    required this.adminTheme,
     required this.onTap,
   }) : super(key: key);
 
-  final FlutterAdminTheme adminTheme;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
+    final options = FlutterAdminProvider.of(context);
     return BarButton(
-      adminTheme: adminTheme,
+      adminTheme: options.theme,
       onPressed: onTap,
       child: RichText(
         text: const TextSpan(
@@ -153,22 +142,19 @@ class _HttpButton extends StatelessWidget {
 class _ErrorsButton extends StatelessWidget {
   const _ErrorsButton({
     Key? key,
-    required this.talker,
-    required this.adminTheme,
     required this.onTap,
   }) : super(key: key);
 
-  final Talker talker;
-  final FlutterAdminTheme adminTheme;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
+    final options = FlutterAdminProvider.of(context);
     return TalkerErrorsBuilder(
-      talker: talker,
+      talker: options.talker,
       builder: (context, errors) {
         return BarButton(
-          adminTheme: adminTheme,
+          adminTheme: options.theme,
           onPressed: onTap,
           child: RichText(
             text: TextSpan(
@@ -195,21 +181,18 @@ class _ErrorsButton extends StatelessWidget {
 class _LogsButton extends StatelessWidget {
   const _LogsButton({
     Key? key,
-    required this.talker,
-    required this.adminTheme,
     required this.onTap,
   }) : super(key: key);
 
-  final Talker talker;
-  final FlutterAdminTheme adminTheme;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
+    final options = FlutterAdminProvider.of(context);
     return TalkerBuilder(
-      talker: talker,
+      talker: options.talker,
       builder: (context, data) => BarButton(
-        adminTheme: adminTheme,
+        adminTheme: options.theme,
         onPressed: onTap,
         child: RichText(
           text: TextSpan(

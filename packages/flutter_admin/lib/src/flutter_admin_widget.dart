@@ -46,13 +46,9 @@ class _FlutterAdminState extends State<FlutterAdmin> {
                     children: [
                       _FlutterAdminBody(
                         controller: _controller,
-                        theme: widget.adminTheme,
                         builder: widget.builder,
                       ),
-                      _FlutterAdminButton(
-                        controller: _controller,
-                        adminTheme: widget.adminTheme,
-                      ),
+                      _FlutterAdminButton(controller: _controller),
                     ],
                   ),
                 ),
@@ -69,24 +65,25 @@ class _FlutterAdminButton extends StatelessWidget {
   const _FlutterAdminButton({
     Key? key,
     required FlutterAdminBarController controller,
-    required this.adminTheme,
   })  : _controller = controller,
         super(key: key);
 
   final FlutterAdminBarController _controller;
-  final FlutterAdminTheme adminTheme;
 
   @override
   Widget build(BuildContext context) {
+    final options = FlutterAdminProvider.of(context);
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, _) {
         if (!_controller.barShowing) {
           return FlutterAdminButton(
-            theme: adminTheme,
             child: IconButton(
               onPressed: _expand,
-              icon: Icon(Icons.bug_report, color: adminTheme.iconTheme.color),
+              icon: Icon(
+                Icons.bug_report,
+                color: options.theme.iconTheme.color,
+              ),
             ),
           );
         }
@@ -102,12 +99,10 @@ class _FlutterAdminBody extends StatelessWidget {
   const _FlutterAdminBody({
     Key? key,
     required this.controller,
-    required this.theme,
     required this.builder,
   }) : super(key: key);
 
   final FlutterAdminBarController controller;
-  final FlutterAdminTheme theme;
   final WidgetBuilder builder;
 
   @override
@@ -115,13 +110,14 @@ class _FlutterAdminBody extends StatelessWidget {
     final mq = MediaQuery.of(context);
     final fullHeight =
         mq.size.height - mq.padding.top - mq.padding.bottom - 150;
+
     final options = FlutterAdminProvider.of(context);
     return AnimatedBuilder(
       animation: controller,
       builder: (context, _) {
         return Container(
           padding: EdgeInsets.only(bottom: mq.viewPadding.bottom / 2),
-          decoration: BoxDecoration(color: theme.backgroundColor),
+          decoration: BoxDecoration(color: options.theme.backgroundColor),
           child: Column(
             children: [
               Expanded(
@@ -138,12 +134,10 @@ class _FlutterAdminBody extends StatelessWidget {
                   _onVerticalDragUpdate(details, fullHeight);
                 },
                 child: FlutterAdminBar(
-                  adminTheme: theme,
-                  talker: options.talker,
                   controller: controller,
                   expandedHeigh: fullHeight,
-                  onLogsTap: () => _openLogs(context, theme),
-                  onErrorsTap: () => _openErrors(context, theme),
+                  onLogsTap: () => _openLogs(context),
+                  onErrorsTap: () => _openErrors(context),
                   onHttpTap: () {},
                 ),
               ),
@@ -154,7 +148,7 @@ class _FlutterAdminBody extends StatelessWidget {
     );
   }
 
-  Future<void> _openLogs(BuildContext context, FlutterAdminTheme theme) async {
+  Future<void> _openLogs(BuildContext context) async {
     final options = FlutterAdminProvider.of(context);
     showModalBottomSheet(
       context: context,
@@ -180,11 +174,12 @@ class _FlutterAdminBody extends StatelessWidget {
                 ),
               ),
             ),
-            theme: TalkerScreenTheme(backgroundColor: theme.backgroundColor),
+            theme: TalkerScreenTheme(
+                backgroundColor: options.theme.backgroundColor),
           );
         },
       ),
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: options.theme.backgroundColor,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
@@ -194,13 +189,12 @@ class _FlutterAdminBody extends StatelessWidget {
 
   Future<void> _openErrors(
     BuildContext context,
-    FlutterAdminTheme theme,
   ) async {
     final options = FlutterAdminProvider.of(context);
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: theme.backgroundColor,
+      backgroundColor: options.theme.backgroundColor,
       builder: (context) => DraggableScrollableSheet(
         initialChildSize: 0.95,
         maxChildSize: 0.95,
@@ -210,7 +204,7 @@ class _FlutterAdminBody extends StatelessWidget {
           return TalkerErrorView(
             talker: options.talker,
             scrollController: controller,
-            theme: theme,
+            theme: options.theme,
           );
         },
       ),
