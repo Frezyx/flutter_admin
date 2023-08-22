@@ -19,8 +19,10 @@ class BarButton extends StatelessWidget {
       height: 24,
       child: ElevatedButton(
         style: ButtonStyle(
-          padding: const MaterialStatePropertyAll(EdgeInsets.zero),
-          maximumSize: const MaterialStatePropertyAll(Size.fromWidth(120)),
+          padding: const MaterialStatePropertyAll(
+            EdgeInsets.symmetric(horizontal: 4),
+          ),
+          maximumSize: const MaterialStatePropertyAll(Size.fromWidth(150)),
           backgroundColor: MaterialStatePropertyAll(adminTheme.lightCardColor),
         ),
         onPressed: onPressed,

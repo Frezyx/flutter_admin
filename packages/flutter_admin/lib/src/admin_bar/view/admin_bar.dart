@@ -50,60 +50,58 @@ class FlutterAdminBar extends StatelessWidget {
             ),
             SizedBox(
               height: 50,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: _hideMenuBar,
-                        icon: Icon(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap: _hideMenuBar,
+                      child: BaseCard(
+                        adminTheme: adminTheme,
+                        child: Icon(
                           Icons.remove_red_eye_outlined,
                           color: adminTheme.iconTheme.color,
                         ),
                       ),
-                      const VerticalDivider(width: 1),
-                    ],
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12)
-                          .copyWith(top: 12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _LogsButton(
-                            talker: talker,
-                            adminTheme: adminTheme,
-                            onTap: onLogsTap,
-                          ),
-                          _ErrorsButton(
-                            talker: talker,
-                            adminTheme: adminTheme,
-                            onTap: onErrorsTap,
-                          ),
-                          _HttpButton(
-                            adminTheme: adminTheme,
-                            onTap: onHttpTap,
-                          ),
-                        ],
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12)
+                            .copyWith(top: 12),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            _LogsButton(
+                              talker: talker,
+                              adminTheme: adminTheme,
+                              onTap: onLogsTap,
+                            ),
+                            _ErrorsButton(
+                              talker: talker,
+                              adminTheme: adminTheme,
+                              onTap: onErrorsTap,
+                            ),
+                            _HttpButton(
+                              adminTheme: adminTheme,
+                              onTap: onHttpTap,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                  Row(
-                    children: [
-                      const VerticalDivider(width: 1),
-                      IconButton(
-                        onPressed: _toggleExpanded,
-                        icon: Icon(
+                    GestureDetector(
+                      onTap: _toggleExpanded,
+                      child: BaseCard(
+                        adminTheme: adminTheme,
+                        child: Icon(
                           Icons.expand_less,
-                          size: 32,
                           color: adminTheme.iconTheme.color,
                         ),
                       ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
