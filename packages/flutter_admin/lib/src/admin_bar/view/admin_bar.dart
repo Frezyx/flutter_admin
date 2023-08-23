@@ -33,7 +33,7 @@ class FlutterAdminBar extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(color: options.theme.backgroundColor),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 10),
         child: Stack(
           alignment: Alignment.topCenter,
           children: [
@@ -58,6 +58,7 @@ class FlutterAdminBar extends StatelessWidget {
                         adminTheme: options.theme,
                         child: Icon(
                           Icons.remove_red_eye_outlined,
+                          size: 28,
                           color: options.theme.iconTheme.color,
                         ),
                       ),
@@ -65,14 +66,19 @@ class FlutterAdminBar extends StatelessWidget {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12)
-                            .copyWith(top: 12),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            _LogsButton(onTap: onLogsTap),
-                            _ErrorsButton(onTap: onErrorsTap),
-                            _HttpButton(onTap: onHttpTap),
-                          ],
+                            .copyWith(top: 16),
+                        child: SizedBox(
+                          height: 28,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              _LogsButton(onTap: onLogsTap),
+                              const SizedBox(width: 8),
+                              _ErrorsButton(onTap: onErrorsTap),
+                              const SizedBox(width: 8),
+                              _HttpButton(onTap: onHttpTap),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -82,6 +88,7 @@ class FlutterAdminBar extends StatelessWidget {
                         adminTheme: options.theme,
                         child: Icon(
                           Icons.expand_less,
+                          size: 28,
                           color: options.theme.iconTheme.color,
                         ),
                       ),

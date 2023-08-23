@@ -15,14 +15,17 @@ class BarButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 24,
+    return Expanded(
       child: ElevatedButton(
         style: ButtonStyle(
           padding: const MaterialStatePropertyAll(
             EdgeInsets.symmetric(horizontal: 4),
           ),
-          maximumSize: const MaterialStatePropertyAll(Size.fromWidth(150)),
+          shape: MaterialStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
           backgroundColor: MaterialStatePropertyAll(adminTheme.lightCardColor),
         ),
         onPressed: onPressed,
