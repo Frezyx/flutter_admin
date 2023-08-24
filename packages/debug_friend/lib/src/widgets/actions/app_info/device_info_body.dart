@@ -121,9 +121,7 @@ class _AndroidInfoBody extends StatelessWidget {
           // KeyValueLine(k: 'Localized model:', v: _di.localizedModel),
           KeyValueLine(
             k: 'Device foundation:',
-            v: (_deviceInfo.isPhysicalDevice ?? false)
-                ? 'Physical'
-                : 'Emulator',
+            v: (_deviceInfo.isPhysicalDevice) ? 'Physical' : 'Emulator',
             theme: theme,
           ),
         ]
@@ -160,22 +158,22 @@ class _IosInfoBody extends StatelessWidget {
         children: [
           KeyValueLine(
             k: 'Model:',
-            v: _deviceInfo.model ?? '',
+            v: _deviceInfo.model,
             theme: theme,
           ),
           KeyValueLine(
             k: 'Name:',
-            v: _deviceInfo.name ?? '',
+            v: _deviceInfo.name,
             theme: theme,
           ),
           KeyValueLine(
             k: 'System name:',
-            v: _deviceInfo.systemName ?? '',
+            v: _deviceInfo.systemName,
             theme: theme,
           ),
           KeyValueLine(
             k: 'System version:',
-            v: _deviceInfo.systemVersion ?? '',
+            v: _deviceInfo.systemVersion,
             theme: theme,
           ),
           KeyValueLine(
@@ -185,7 +183,7 @@ class _IosInfoBody extends StatelessWidget {
           ),
           KeyValueLine(
             k: 'Localized model:',
-            v: _deviceInfo.localizedModel ?? '',
+            v: _deviceInfo.localizedModel,
             theme: theme,
           ),
           KeyValueLine(

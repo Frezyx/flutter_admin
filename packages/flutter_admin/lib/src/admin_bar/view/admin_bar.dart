@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_admin/flutter_admin.dart';
 import 'package:flutter_admin/src/admin_bar/controller/admin_bar_controller.dart';
 import 'package:flutter_admin/src/admin_bar/view/widgets/widgets.dart';
+import 'package:flutter_admin/src/device_info/device_info.dart';
 import 'package:flutter_admin/src/flutter_admin_provider.dart';
 
 class FlutterAdminBar extends StatelessWidget {
@@ -104,9 +105,7 @@ class FlutterAdminBar extends StatelessWidget {
               child: SizedBox(
                 height: controller.barHeight -
                     FlutterAdminBarController.defaultBarHeight,
-                child: const CustomScrollView(
-                  slivers: [],
-                ),
+                child: const DeviceInfoView(),
               ),
             ),
           ],
