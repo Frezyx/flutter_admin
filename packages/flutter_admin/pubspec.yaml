@@ -11,7 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  talker_flutter: ^3.2.9
+  talker_flutter: #^3.2.9
+    path:
+      ../../../../../talker/packages/talker_flutter
   package_info_plus: ^4.1.0
   device_info_plus: ^9.0.3
   path_provider: ^2.1.0

@@ -172,7 +172,9 @@ class _FlutterAdminBody extends StatelessWidget {
               ),
             ),
             theme: TalkerScreenTheme(
-                backgroundColor: options.theme.backgroundColor),
+              cardColor: options.theme.cardColor,
+              backgroundColor: options.theme.backgroundColor,
+            ),
           );
         },
       ),
@@ -200,8 +202,8 @@ class _FlutterAdminBody extends StatelessWidget {
         builder: (context, controller) {
           return TalkerErrorView(
             talker: options.talker,
-            scrollController: controller,
             theme: options.theme,
+            scrollController: controller,
           );
         },
       ),

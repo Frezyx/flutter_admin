@@ -52,6 +52,7 @@ class TalkerErrorView extends StatelessWidget {
                           data: errors[i],
                           onTap: () {},
                           expanded: true,
+                          backgroundColor: theme.cardColor,
                         );
                       },
                       childCount: errors.length,
