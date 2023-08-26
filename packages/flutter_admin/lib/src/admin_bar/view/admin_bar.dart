@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/flutter_admin.dart';
 import 'package:flutter_admin/src/admin_bar/controller/admin_bar_controller.dart';
+import 'package:flutter_admin/src/admin_bar/view/admin_bar_body.dart';
 import 'package:flutter_admin/src/admin_bar/view/widgets/widgets.dart';
-import 'package:flutter_admin/src/device_info/device_info.dart';
 import 'package:flutter_admin/src/flutter_admin_provider.dart';
 
 class FlutterAdminBar extends StatelessWidget {
@@ -56,7 +56,6 @@ class FlutterAdminBar extends StatelessWidget {
                     GestureDetector(
                       onTap: _hideMenuBar,
                       child: BaseCard(
-                        adminTheme: options.theme,
                         child: Icon(
                           Icons.remove_red_eye_outlined,
                           size: 28,
@@ -86,7 +85,6 @@ class FlutterAdminBar extends StatelessWidget {
                     GestureDetector(
                       onTap: _toggleExpanded,
                       child: BaseCard(
-                        adminTheme: options.theme,
                         child: Icon(
                           Icons.expand_less,
                           size: 28,
@@ -98,16 +96,7 @@ class FlutterAdminBar extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: FlutterAdminBarController.defaultBarHeight,
-              ),
-              child: SizedBox(
-                height: controller.barHeight -
-                    FlutterAdminBarController.defaultBarHeight,
-                child: const DeviceInfoView(),
-              ),
-            ),
+            AdminBarBody(controller: controller),
           ],
         ),
       ),
@@ -129,24 +118,24 @@ class _HttpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final options = FlutterAdminProvider.of(context);
-    return BarButton(
-      adminTheme: options.theme,
-      onPressed: onTap,
-      child: RichText(
-        text: const TextSpan(
-          text: '21 ',
-          style: TextStyle(
-            color: Colors.green,
-            fontSize: 15,
-            fontWeight: FontWeight.w600,
-          ),
-          children: [
-            TextSpan(
-              text: 'Http',
-              style: TextStyle(color: Colors.white),
+    return Expanded(
+      child: BarButton(
+        onPressed: onTap,
+        child: RichText(
+          text: const TextSpan(
+            text: '21 ',
+            style: TextStyle(
+              color: Colors.green,
+              fontSize: 15,
+              fontWeight: FontWeight.w600,
             ),
-          ],
+            children: [
+              TextSpan(
+                text: 'Http',
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -167,23 +156,24 @@ class _ErrorsButton extends StatelessWidget {
     return TalkerErrorsBuilder(
       talker: options.talker,
       builder: (context, errors) {
-        return BarButton(
-          adminTheme: options.theme,
-          onPressed: onTap,
-          child: RichText(
-            text: TextSpan(
-              text: '${errors.length} ',
-              style: const TextStyle(
-                color: Colors.red,
-                fontSize: 15,
-                fontWeight: FontWeight.w600,
-              ),
-              children: const [
-                TextSpan(
-                  text: 'Error',
-                  style: TextStyle(color: Colors.white),
+        return Expanded(
+          child: BarButton(
+            onPressed: onTap,
+            child: RichText(
+              text: TextSpan(
+                text: '${errors.length} ',
+                style: const TextStyle(
+                  color: Colors.red,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
                 ),
-              ],
+                children: const [
+                  TextSpan(
+                    text: 'Error',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -205,23 +195,24 @@ class _LogsButton extends StatelessWidget {
     final options = FlutterAdminProvider.of(context);
     return TalkerBuilder(
       talker: options.talker,
-      builder: (context, data) => BarButton(
-        adminTheme: options.theme,
-        onPressed: onTap,
-        child: RichText(
-          text: TextSpan(
-            text: '${data.length} ',
-            style: const TextStyle(
-              color: Colors.green,
-              fontSize: 15,
-              fontWeight: FontWeight.w600,
-            ),
-            children: const [
-              TextSpan(
-                text: 'Log',
-                style: TextStyle(color: Colors.white),
+      builder: (context, data) => Expanded(
+        child: BarButton(
+          onPressed: onTap,
+          child: RichText(
+            text: TextSpan(
+              text: '${data.length} ',
+              style: const TextStyle(
+                color: Colors.green,
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
               ),
-            ],
+              children: const [
+                TextSpan(
+                  text: 'Log',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
           ),
         ),
       ),

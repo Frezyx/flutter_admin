@@ -24,6 +24,7 @@ class _DeviceInfoViewState extends State<DeviceInfoView> {
     final options = FlutterAdminProvider.of(context);
     return CustomScrollView(
       slivers: [
+        const SliverToBoxAdapter(child: SizedBox(height: 16)),
         SliverToBoxAdapter(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -43,27 +44,26 @@ class _DeviceInfoViewState extends State<DeviceInfoView> {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: BaseCard(
-                    adminTheme: options.theme,
                     child: Column(
-                      children: [
-                        KeyValueRow(
-                          k: 'App name:',
-                          v: pi.appName,
-                        ),
-                        KeyValueRow(
-                          k: 'Vaerion:',
-                          v: pi.version,
-                        ),
-                        KeyValueRow(
-                          k: 'Build number:',
-                          v: pi.buildNumber,
-                        ),
-                        KeyValueRow(
-                          k: 'Package name:',
-                          v: pi.packageName,
-                        ),
-                      ],
-                    )),
+                  children: [
+                    KeyValueRow(
+                      k: 'App name:',
+                      v: pi.appName,
+                    ),
+                    KeyValueRow(
+                      k: 'Vaerion:',
+                      v: pi.version,
+                    ),
+                    KeyValueRow(
+                      k: 'Build number:',
+                      v: pi.buildNumber,
+                    ),
+                    KeyValueRow(
+                      k: 'Package name:',
+                      v: pi.packageName,
+                    ),
+                  ],
+                )),
               );
             },
           ),
@@ -87,7 +87,6 @@ class _DeviceInfoViewState extends State<DeviceInfoView> {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: BaseCard(
-                  adminTheme: options.theme,
                   child: Column(
                     children: deviceInfo.entries
                         .map(
