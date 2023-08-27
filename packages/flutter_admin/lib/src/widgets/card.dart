@@ -5,9 +5,11 @@ class BaseCard extends StatelessWidget {
   const BaseCard({
     Key? key,
     required this.child,
+    this.backgroundColor,
   }) : super(key: key);
 
   final Widget child;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {

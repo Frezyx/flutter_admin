@@ -1,18 +1,20 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/flutter_admin.dart';
 import 'package:flutter_admin/src/device_data/controller/app_data_controller.dart';
 import 'package:flutter_admin/src/flutter_admin_provider.dart';
 
-class DeviceDataBody extends StatefulWidget {
-  const DeviceDataBody({
+class DeviceDataView extends StatefulWidget {
+  const DeviceDataView({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<DeviceDataBody> createState() => _DeviceDataBodyState();
+  State<DeviceDataView> createState() => _DeviceDataViewState();
 }
 
-class _DeviceDataBodyState extends State<DeviceDataBody> {
+class _DeviceDataViewState extends State<DeviceDataView> {
   final _controller = DeviceDataController();
 
   @override
@@ -23,69 +25,30 @@ class _DeviceDataBodyState extends State<DeviceDataBody> {
 
   @override
   Widget build(BuildContext context) {
-    final options = FlutterAdminProvider.of(context);
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, _) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'App data',
-                        style: options.theme.headerStyle,
-                      ),
-                      Text(
-                        'Total files count: ${_controller.files.length}',
-                        style: options.theme.bodyText,
-                      ),
-                    ],
-                  ),
-                  IconButton(
-                    onPressed: _deleteFiles,
-                    icon: const Icon(Icons.delete, color: Colors.red),
-                  ),
-                ],
+        return CustomScrollView(
+          slivers: [
+            const SliverToBoxAdapter(child: SizedBox(height: 10)),
+            SliverToBoxAdapter(
+              child: _DeviceDataHeader(
+                controller: _controller,
+                onDeletePressed: () => _deleteFiles(),
               ),
             ),
-            Expanded(
-              child: ListView.separated(
-                physics: const BouncingScrollPhysics(),
-                padding: const EdgeInsets.only(top: 10.0),
-                itemCount: _controller.files.length,
-                separatorBuilder: (_, __) => const SizedBox(height: 6),
-                itemBuilder: (context, i) {
-                  final f = _controller.files[i];
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: BaseCard(
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Text(
-                              f.path,
-                              style: options.theme.subtitleText,
-                            ),
-                          ),
-                          IconButton(
-                            onPressed: () => _deleteFile(i),
-                            icon: const Icon(Icons.delete, color: Colors.red),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-            )
+            const SliverToBoxAdapter(child: SizedBox(height: 10)),
+            SliverList.separated(
+              itemCount: _controller.files.length,
+              separatorBuilder: (_, __) => const SizedBox(height: 6),
+              itemBuilder: (context, i) {
+                final file = _controller.files[i];
+                return _DeviceDataCard(
+                  file: file,
+                  onTap: () => _deleteFile(i),
+                );
+              },
+            ),
           ],
         );
       },
@@ -93,6 +56,81 @@ class _DeviceDataBodyState extends State<DeviceDataBody> {
   }
 
   void _deleteFiles() => _controller.deleteFiles();
-
   void _deleteFile(int index) => _controller.deleteFile(index);
+}
+
+class _DeviceDataHeader extends StatelessWidget {
+  const _DeviceDataHeader({
+    Key? key,
+    required this.controller,
+    required this.onDeletePressed,
+  }) : super(key: key);
+
+  final DeviceDataController controller;
+  final VoidCallback onDeletePressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final options = FlutterAdminProvider.of(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Deice app data',
+                style: options.theme.headerStyle,
+              ),
+              Text(
+                'Total files count: ${controller.files.length}',
+                style: options.theme.bodyText,
+              ),
+            ],
+          ),
+          IconButton(
+            onPressed: onDeletePressed,
+            icon: const Icon(Icons.delete, color: Colors.red),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _DeviceDataCard extends StatelessWidget {
+  const _DeviceDataCard({
+    Key? key,
+    required this.file,
+    required this.onTap,
+  }) : super(key: key);
+
+  final File file;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final options = FlutterAdminProvider.of(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: BaseCard(
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                file.path,
+                style: options.theme.subtitleText,
+              ),
+            ),
+            IconButton(
+              onPressed: onTap,
+              icon: const Icon(Icons.delete, color: Colors.red),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

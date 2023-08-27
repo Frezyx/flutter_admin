@@ -4,6 +4,7 @@ import 'package:flutter_admin/src/admin_bar/view/widgets/widgets.dart';
 import 'package:flutter_admin/src/device_data/device_data.dart';
 import 'package:flutter_admin/src/device_info/device_info.dart';
 import 'package:flutter_admin/src/flutter_admin_provider.dart';
+import 'package:flutter_admin/src/inspector/view/inspector_view.dart';
 import 'package:group_button/group_button.dart';
 
 class AdminBarBody extends StatefulWidget {
@@ -42,7 +43,8 @@ class _AdminBarBodyState extends State<AdminBarBody> {
                 controller: _pageController,
                 children: const [
                   DeviceInfoView(),
-                  DeviceDataBody(),
+                  DeviceDataView(),
+                  InspectorView(),
                 ],
               ),
             ),
@@ -93,24 +95,8 @@ class AdminBarPageSelector extends StatelessWidget {
                 icon: Icons.folder_open,
               ),
               AdminBarAction(
-                title: 'Data',
-                icon: Icons.folder_open,
-              ),
-              AdminBarAction(
-                title: 'Data',
-                icon: Icons.folder_open,
-              ),
-              AdminBarAction(
-                title: 'Data',
-                icon: Icons.folder_open,
-              ),
-              AdminBarAction(
-                title: 'Data',
-                icon: Icons.folder_open,
-              ),
-              AdminBarAction(
-                title: 'Data',
-                icon: Icons.folder_open,
+                title: 'Inspector',
+                icon: Icons.touch_app,
               ),
             ],
             onSelected: (_, index, __) => onSelected(index),
