@@ -18,12 +18,7 @@ class _InspectorViewState extends State<InspectorView> {
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, _) {
-        final actions = [
-          InspectorAction(
-            onTap: _controller.exitApp,
-            title: 'Close app',
-            icon: const Icon(Icons.exit_to_app, color: Colors.white),
-          ),
+        var actions = [
           InspectorAction(
             onTap: _controller.toggleDebugPaintSizeEnabled,
             title: 'Show paint sizes',
@@ -71,6 +66,11 @@ class _InspectorViewState extends State<InspectorView> {
             title: 'Disable opacity layers',
             icon: const Icon(Icons.opacity, color: Colors.white),
             selected: _controller.debugDisableOpacityLayers,
+          ),
+          InspectorAction(
+            onTap: _controller.exitApp,
+            title: 'Close app',
+            icon: const Icon(Icons.exit_to_app, color: Colors.white),
           ),
         ];
         return CustomScrollView(

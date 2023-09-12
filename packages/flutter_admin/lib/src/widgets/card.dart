@@ -17,7 +17,7 @@ class BaseCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: options.theme.lightCardColor,
+        color: backgroundColor ?? options.theme.lightCardColor,
         borderRadius: BorderRadius.circular(10),
       ),
       child: child,

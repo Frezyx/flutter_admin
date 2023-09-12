@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'DebugFriend',
       theme: ThemeData(primaryColor: Colors.black),
-
       home: DebugFriendView(
         icon: const SizedBox(
           width: 50,
@@ -33,13 +32,6 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      // customActions: [
-      //   ActionCard(
-      //     icon: const Icon(Icons.print_rounded),
-      //     title: 'Print to console',
-      //     onTap: () => debugPrint('Print to console'),
-      //   ),
-      // ],
     );
   }
 }
