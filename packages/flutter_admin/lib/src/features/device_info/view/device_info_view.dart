@@ -30,7 +30,7 @@ class _DeviceInfoViewState extends State<DeviceInfoView> {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               'Package info',
-              style: options.theme.headerStyle,
+              style: options.theme.header,
             ),
           ),
         ),
@@ -74,7 +74,7 @@ class _DeviceInfoViewState extends State<DeviceInfoView> {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               'Device info',
-              style: options.theme.headerStyle,
+              style: options.theme.header,
             ),
           ),
         ),

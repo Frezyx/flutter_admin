@@ -18,7 +18,7 @@ class KeyValueRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
-          child: Text(k, style: options.theme.bodyText),
+          child: Text(k, style: options.theme.body),
         ),
         Flexible(
           child: Align(
@@ -26,7 +26,7 @@ class KeyValueRow extends StatelessWidget {
             child: Text(
               v,
               textAlign: TextAlign.end,
-              style: options.theme.bodyText,
+              style: options.theme.body,
             ),
           ),
         ),

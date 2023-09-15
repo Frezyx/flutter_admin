@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/flutter_admin.dart';
+import 'package:flutter_admin/src/features/network/controller/network_controller.dart';
 import 'package:flutter_admin/src/services/dio/dio.dart';
+import 'package:talker_dio_logger/talker_dio_logger.dart';
 
 class FlutterAdminProvider extends InheritedWidget {
   const FlutterAdminProvider({
@@ -37,12 +39,19 @@ class FlutterAdminOptions {
   }
 
   final FlutterAdminTheme theme;
-  late final Talker _talker;
   final Dio? dio;
+
+  late final Talker _talker;
+  final networkController = NetworkController();
 
   Talker get talker => _talker;
 
   void init() {
-    dio?.interceptors.add(DioAnalyserInterceptor());
+    dio?.interceptors.addAll([
+      DioAnalyserInterceptor(
+        networkController: networkController,
+      ),
+      TalkerDioLogger(talker: talker),
+    ]);
   }
 }

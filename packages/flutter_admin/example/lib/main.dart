@@ -1,9 +1,13 @@
 import 'dart:math';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/flutter_admin.dart';
 
-final talker = TalkerFlutter.init();
+final talker = TalkerFlutter.init(
+  settings: TalkerSettings(maxHistoryItems: 10000),
+);
+final dio = Dio();
 
 void main() {
   runApp(const MyApp());
@@ -23,6 +27,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => FlutterAdmin(
         adminTheme: const FlutterAdminTheme(),
         talker: talker,
+        dio: dio,
         builder: (context) => child!,
       ),
     );
@@ -52,8 +57,24 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
+  void _makeTestRequests() {
+    dio.get('https://jsonplaceholder.typicode.com/todos/');
+    dio.get('https://jsonplaceholder.typicode.com/todos/1');
+    dio.get('https://jsonplaceholder.typicode.com/todos/2');
+    dio.post(
+      'https://jsonplaceholder.typicode.com/todos/',
+      data: {
+        "userId": 10,
+        "id": 199,
+        "title": "numquam repellendus a magnam",
+        "completed": true
+      },
+    );
+  }
+
   void _incrementCounter() {
     setState(() => _counter++);
+    _makeTestRequests();
     talker.log(
       "Count incremented $_counter",
       logLevel: LogLevel.values[Random().nextInt(LogLevel.values.length - 1)],

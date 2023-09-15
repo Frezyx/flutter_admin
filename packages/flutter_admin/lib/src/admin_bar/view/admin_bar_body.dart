@@ -4,6 +4,7 @@ import 'package:flutter_admin/src/admin_bar/view/widgets/widgets.dart';
 import 'package:flutter_admin/src/features/device_data/device_data.dart';
 import 'package:flutter_admin/src/features/device_info/device_info.dart';
 import 'package:flutter_admin/src/features/inspector/view/inspector_view.dart';
+import 'package:flutter_admin/src/features/network/view/network_view.dart';
 import 'package:flutter_admin/src/flutter_admin_provider.dart';
 import 'package:group_button/group_button.dart';
 
@@ -45,6 +46,7 @@ class _AdminBarBodyState extends State<AdminBarBody> {
                   DeviceInfoView(),
                   DeviceDataView(),
                   InspectorView(),
+                  NetworkView(),
                 ],
               ),
             ),
@@ -98,6 +100,10 @@ class AdminBarPageSelector extends StatelessWidget {
                 title: 'Inspector',
                 icon: Icons.touch_app,
               ),
+              AdminBarAction(
+                title: 'Network',
+                icon: Icons.wifi,
+              ),
             ],
             onSelected: (_, index, __) => onSelected(index),
             buttonBuilder: (selected, e, context) {
@@ -115,7 +121,7 @@ class AdminBarPageSelector extends StatelessWidget {
                     const SizedBox(width: 4),
                     Text(
                       e.title,
-                      style: options.theme.bodyText.copyWith(fontSize: 14),
+                      style: options.theme.body.copyWith(fontSize: 14),
                     ),
                   ],
                 ),

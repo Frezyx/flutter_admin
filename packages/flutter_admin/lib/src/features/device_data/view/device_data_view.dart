@@ -82,11 +82,11 @@ class _DeviceDataHeader extends StatelessWidget {
             children: [
               Text(
                 'Deice app data',
-                style: options.theme.headerStyle,
+                style: options.theme.header,
               ),
               Text(
                 'Total files count: ${controller.files.length}',
-                style: options.theme.bodyText,
+                style: options.theme.body,
               ),
             ],
           ),
@@ -121,7 +121,7 @@ class _DeviceDataCard extends StatelessWidget {
             Expanded(
               child: Text(
                 file.path,
-                style: options.theme.subtitleText,
+                style: options.theme.subtitle,
               ),
             ),
             IconButton(

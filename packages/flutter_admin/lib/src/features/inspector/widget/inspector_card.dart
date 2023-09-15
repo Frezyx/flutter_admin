@@ -42,7 +42,7 @@ class InspectorCard extends StatelessWidget {
               action.icon,
               if (action.title != null) const SizedBox(width: 10),
               if (action.title != null)
-                Text(action.title!, style: options.theme.bodyText),
+                Text(action.title!, style: options.theme.body),
             ],
           ),
         ),
