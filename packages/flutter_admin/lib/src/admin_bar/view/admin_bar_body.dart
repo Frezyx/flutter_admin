@@ -5,7 +5,6 @@ import 'package:flutter_admin/src/features/device_data/device_data.dart';
 import 'package:flutter_admin/src/features/device_info/device_info.dart';
 import 'package:flutter_admin/src/features/inspector/view/inspector_view.dart';
 import 'package:flutter_admin/src/features/network/view/network_view.dart';
-import 'package:flutter_admin/src/flutter_admin_provider.dart';
 import 'package:group_button/group_button.dart';
 
 class AdminBarBody extends StatefulWidget {
@@ -38,6 +37,24 @@ class _AdminBarBodyState extends State<AdminBarBody> {
             AdminBarPageSelector(
               onSelected: _setActiveIndex,
               controller: _groupButtonController,
+              actions: const [
+                AdminBarAction(
+                  title: 'Device',
+                  icon: Icons.app_settings_alt,
+                ),
+                AdminBarAction(
+                  title: 'Data',
+                  icon: Icons.folder_open,
+                ),
+                AdminBarAction(
+                  title: 'Network',
+                  icon: Icons.wifi,
+                ),
+                AdminBarAction(
+                  title: 'Inspector',
+                  icon: Icons.touch_app,
+                ),
+              ],
             ),
             Expanded(
               child: PageView(
@@ -45,8 +62,8 @@ class _AdminBarBodyState extends State<AdminBarBody> {
                 children: const [
                   DeviceInfoView(),
                   DeviceDataView(),
-                  InspectorView(),
                   NetworkView(),
+                  InspectorView(),
                 ],
               ),
             ),
@@ -63,83 +80,4 @@ class _AdminBarBodyState extends State<AdminBarBody> {
       curve: Curves.linear,
     );
   }
-}
-
-class AdminBarPageSelector extends StatelessWidget {
-  const AdminBarPageSelector({
-    Key? key,
-    required this.onSelected,
-    required this.controller,
-  }) : super(key: key);
-
-  final GroupButtonController controller;
-  final ValueChanged<int> onSelected;
-
-  @override
-  Widget build(BuildContext context) {
-    final options = FlutterAdminProvider.of(context);
-    return SizedBox(
-      height: 44,
-      child: ListView(
-        padding: const EdgeInsets.only(left: 16),
-        scrollDirection: Axis.horizontal,
-        children: [
-          GroupButton<AdminBarAction>(
-            controller: controller,
-            isRadio: true,
-            buttons: const [
-              AdminBarAction(
-                title: 'Device',
-                icon: Icons.app_settings_alt,
-              ),
-              AdminBarAction(
-                title: 'Data',
-                icon: Icons.folder_open,
-              ),
-              AdminBarAction(
-                title: 'Inspector',
-                icon: Icons.touch_app,
-              ),
-              AdminBarAction(
-                title: 'Network',
-                icon: Icons.wifi,
-              ),
-            ],
-            onSelected: (_, index, __) => onSelected(index),
-            buttonBuilder: (selected, e, context) {
-              return BarButton(
-                backgroundColor:
-                    selected ? Theme.of(context).primaryColor : null,
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      e.icon,
-                      color: options.theme.iconTheme.color,
-                      size: 20,
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      e.title,
-                      style: options.theme.body.copyWith(fontSize: 14),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class AdminBarAction {
-  const AdminBarAction({
-    required this.title,
-    required this.icon,
-  });
-
-  final String title;
-  final IconData icon;
 }

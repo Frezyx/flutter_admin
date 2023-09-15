@@ -118,26 +118,35 @@ class _HttpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: BarButton(
-        onPressed: onTap,
-        child: RichText(
-          text: const TextSpan(
-            text: '21 ',
-            style: TextStyle(
-              color: Colors.green,
-              fontSize: 15,
-              fontWeight: FontWeight.w600,
-            ),
-            children: [
-              TextSpan(
-                text: 'Http',
-                style: TextStyle(color: Colors.white),
+    final options = FlutterAdminProvider.of(context);
+    return TalkerBuilder(
+      talker: options.talker,
+      builder: (context, data) {
+        final httpRequestsCount = data
+            .where((e) => e.title == WellKnownTitles.httpRequest.title)
+            .length;
+        return Expanded(
+          child: BarButton(
+            onPressed: onTap,
+            child: RichText(
+              text: TextSpan(
+                text: '$httpRequestsCount ',
+                style: const TextStyle(
+                  color: Colors.green,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                ),
+                children: const [
+                  TextSpan(
+                    text: 'Http',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
