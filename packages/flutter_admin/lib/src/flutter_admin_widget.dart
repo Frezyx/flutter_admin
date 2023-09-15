@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/flutter_admin.dart';
@@ -12,12 +13,14 @@ class FlutterAdmin extends StatefulWidget {
     required this.builder,
     this.adminTheme = const FlutterAdminTheme(),
     this.talker,
+    this.dio,
   }) : super(key: key);
 
   final bool enabled;
   final FlutterAdminTheme adminTheme;
   final WidgetBuilder builder;
   final Talker? talker;
+  final Dio? dio;
 
   @override
   State<FlutterAdmin> createState() => _FlutterAdminState();
@@ -27,14 +30,23 @@ class _FlutterAdminState extends State<FlutterAdmin> {
   final _controller = FlutterAdminBarController();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
+  late final FlutterAdminOptions options;
+
+  @override
+  void initState() {
+    options = FlutterAdminOptions(
+      talker: widget.talker,
+      theme: widget.adminTheme,
+      dio: widget.dio,
+    )..init();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     if (!widget.enabled) return widget.builder.call(context);
     return FlutterAdminProvider(
-      options: FlutterAdminOptions(
-        talker: widget.talker,
-        theme: widget.adminTheme,
-      ),
+      options: options,
       child: Directionality(
         textDirection: TextDirection.ltr,
         child: Navigator(

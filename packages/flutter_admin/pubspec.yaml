@@ -11,13 +11,14 @@ dependencies:
   flutter:
     sdk: flutter
 
-  talker_flutter: ^3.2.10
+  dio: ^5.3.2
+  talker_flutter: ^3.3.1
     # path:
     #   ../../../../../talker/packages/talker_flutter
   package_info_plus: ^4.1.0
   device_info_plus: ^9.0.3
   path_provider: ^2.1.0
-  group_button: ^5.3.2
+  group_button: ^5.3.3
   
 dev_dependencies:
   flutter_test:
