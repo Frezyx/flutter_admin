@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/flutter_admin.dart';
-import 'package:flutter_admin/src/device_data/controller/app_data_controller.dart';
+import 'package:flutter_admin/src/features/device_data/controller/app_data_controller.dart';
 import 'package:flutter_admin/src/flutter_admin_provider.dart';
 
 class DeviceDataView extends StatefulWidget {

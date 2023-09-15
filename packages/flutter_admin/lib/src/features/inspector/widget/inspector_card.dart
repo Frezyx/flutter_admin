@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/flutter_admin.dart';
+import 'package:flutter_admin/src/features/inspector/models/inspector_action.dart';
 import 'package:flutter_admin/src/flutter_admin_provider.dart';
-import 'package:flutter_admin/src/inspector/models/inspector_action.dart';
 
 /// Creates a custom button for any test action in your application
 ///

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_admin/src/inspector/controller/inspector_controller.dart';
-import 'package:flutter_admin/src/inspector/models/inspector_action.dart';
-import 'package:flutter_admin/src/inspector/widget/inspector_card.dart';
+import 'package:flutter_admin/src/features/inspector/controller/inspector_controller.dart';
+import 'package:flutter_admin/src/features/inspector/models/inspector_action.dart';
+import 'package:flutter_admin/src/features/inspector/widget/inspector_card.dart';
 
 class InspectorView extends StatefulWidget {
   const InspectorView({Key? key}) : super(key: key);

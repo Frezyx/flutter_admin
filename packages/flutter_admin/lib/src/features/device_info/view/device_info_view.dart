@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/flutter_admin.dart';
-import 'package:flutter_admin/src/device_info/controller/device_info_controller.dart';
+import 'package:flutter_admin/src/features/device_info/controller/device_info_controller.dart';
 import 'package:flutter_admin/src/flutter_admin_provider.dart';
 
 class DeviceInfoView extends StatefulWidget {
