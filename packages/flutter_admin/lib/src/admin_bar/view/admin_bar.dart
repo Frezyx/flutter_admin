@@ -85,10 +85,17 @@ class FlutterAdminBar extends StatelessWidget {
                     GestureDetector(
                       onTap: _toggleExpanded,
                       child: BaseCard(
-                        child: Icon(
-                          Icons.expand_less,
-                          size: 28,
-                          color: options.theme.iconTheme.color,
+                        child: AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 300),
+                          child: controller.barHeight == expandedHeigh
+                              ? _ExpandIcon(
+                                  options: options,
+                                  expanded: true,
+                                )
+                              : _ExpandIcon(
+                                  options: options,
+                                  expanded: false,
+                                ),
                         ),
                       ),
                     ),
@@ -108,6 +115,27 @@ class FlutterAdminBar extends StatelessWidget {
   void _hideMenuBar() => controller.hideBar();
 }
 
+class _ExpandIcon extends StatelessWidget {
+  const _ExpandIcon({
+    Key? key,
+    required this.expanded,
+    required this.options,
+  }) : super(key: key);
+
+  final bool expanded;
+
+  final FlutterAdminOptions options;
+
+  @override
+  Widget build(BuildContext context) {
+    return Icon(
+      expanded ? Icons.expand_more : Icons.expand_less,
+      size: 28,
+      color: options.theme.iconTheme.color,
+    );
+  }
+}
+
 class _HttpButton extends StatelessWidget {
   const _HttpButton({
     Key? key,
@@ -122,9 +150,8 @@ class _HttpButton extends StatelessWidget {
     return TalkerBuilder(
       talker: options.talker,
       builder: (context, data) {
-        final httpRequestsCount = data
-            .where((e) => e.title == WellKnownTitles.httpRequest.title)
-            .length;
+        final httpRequestsCount =
+            data.where((e) => e.key == TalkerLogType.httpRequest.key).length;
         return Expanded(
           child: BarButton(
             onPressed: onTap,

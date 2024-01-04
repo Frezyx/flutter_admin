@@ -11,7 +11,7 @@ class TalkerErrorsBuilder extends StatelessWidget {
   final Talker talker;
   final Widget Function(
     BuildContext context,
-    List<TalkerDataInterface> errors,
+    List<TalkerData> errors,
   ) builder;
 
   @override

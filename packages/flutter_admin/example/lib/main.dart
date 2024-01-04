@@ -53,7 +53,6 @@ class _MyHomePageState extends State<MyHomePage> {
     talker.error('The restaurant is closed ❌');
     talker.info('Ordering from other restaurant...');
     talker.info('Payment started...');
-    talker.good('Payment completed! Waiting for pizza 🍕');
     super.initState();
   }
 

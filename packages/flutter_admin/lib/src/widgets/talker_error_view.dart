@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_admin/flutter_admin.dart';
 
 class TalkerErrorView extends StatelessWidget {
@@ -53,6 +52,7 @@ class TalkerErrorView extends StatelessWidget {
                           onTap: () {},
                           expanded: true,
                           backgroundColor: theme.cardColor,
+                          color: Colors.red,
                         );
                       },
                       childCount: errors.length,

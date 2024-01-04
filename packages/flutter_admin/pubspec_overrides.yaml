@@ -1,0 +1,10 @@
+# dependency_overrides:
+#   talker_flutter: 
+#     path:
+#       /Users/stanislavilin/Documents/dev/talker/packages/talker_flutter
+#   talker_dio_logger:
+#     path:
+#       /Users/stanislavilin/Documents/dev/talker/packages/talker_dio_logger
+#   talker:
+#     path:
+#       /Users/stanislavilin/Documents/dev/talker/packages/talker

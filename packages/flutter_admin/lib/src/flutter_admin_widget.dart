@@ -128,7 +128,9 @@ class _FlutterAdminBody extends StatelessWidget {
       animation: controller,
       builder: (context, _) {
         return Container(
-          padding: EdgeInsets.only(bottom: mq.viewPadding.bottom / 2),
+          padding: controller.barShowing
+              ? EdgeInsets.only(bottom: mq.viewPadding.bottom / 2)
+              : EdgeInsets.zero,
           decoration: BoxDecoration(color: options.theme.backgroundColor),
           child: Column(
             children: [
@@ -227,14 +229,24 @@ class _FlutterAdminBody extends StatelessWidget {
   }
 
   void _onVerticalDragUpdate(DragUpdateDetails details, double fullHeight) {
-    controller.barHeight -= details.delta.dy;
-    if (controller.barHeight >= ((fullHeight / 2) + 100) &&
-        details.delta.direction < 0) {
+    // controller.barHeight -= details.delta.dy;
+
+    /// Expand
+    //
+    // Last condition
+    // controller.barHeight >= ((fullHeight / 2) + 100) &&
+    //    details.delta.direction < 0
+    if (details.globalPosition.dy >= 50 && details.delta.direction < 0) {
       controller.barHeight = fullHeight;
       return;
     }
 
-    if (controller.barHeight <= ((fullHeight / 2) - 100) &&
+    /// Collapse
+    //
+    // Last condition
+    // controller.barHeight <= ((fullHeight / 2) - 100) &&
+    //    details.delta.direction > 0
+    if (details.globalPosition.dy <= fullHeight &&
         details.delta.direction > 0) {
       controller.barHeight = FlutterAdminBarController.defaultBarHeight;
       return;
