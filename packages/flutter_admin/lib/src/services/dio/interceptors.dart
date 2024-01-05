@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_admin/src/features/network/controller/network_controller.dart';
 
-class DioAnalyserInterceptor extends Interceptor {
-  DioAnalyserInterceptor({
+class DioAnalyzerInterceptor extends Interceptor {
+  DioAnalyzerInterceptor({
     required NetworkController networkController,
   }) : _networkController = networkController;
 
@@ -14,12 +14,18 @@ class DioAnalyserInterceptor extends Interceptor {
     RequestInterceptorHandler handler,
   ) {
     super.onRequest(options, handler);
-    _networkController.sentBytes += options.data?.length ?? 0;
+    _networkController.handleRequest(options);
   }
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     super.onResponse(response, handler);
-    _networkController.receivedBytes += response.data.toString().length;
+    _networkController.handleResponse(response);
+  }
+
+  @override
+  void onError(DioException err, ErrorInterceptorHandler handler) {
+    super.onError(err, handler);
+    _networkController.handleException(err);
   }
 }

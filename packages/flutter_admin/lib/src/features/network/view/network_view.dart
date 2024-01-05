@@ -1,10 +1,14 @@
+import 'package:dio/src/options.dart';
+import 'package:dio/src/response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_admin/flutter_admin.dart';
 import 'package:flutter_admin/src/flutter_admin_provider.dart';
 import 'package:flutter_admin/src/utils/utils.dart';
 
 class NetworkView extends StatelessWidget {
-  const NetworkView({Key? key}) : super(key: key);
+  const NetworkView({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +44,80 @@ class NetworkView extends StatelessWidget {
             },
           ),
         ),
+        const SliverToBoxAdapter(child: SizedBox(height: 16)),
+        const HttpLogsSliverList(),
       ],
+    );
+  }
+}
+
+class HttpLogsSliverList extends StatelessWidget {
+  const HttpLogsSliverList({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final options = FlutterAdminProvider.of(context);
+    final controller = options.networkController;
+    final responses = controller.responses.entries.toList();
+
+    return SliverList.separated(
+      itemBuilder: (context, index) {
+        final requestResponse = responses[index];
+        return HttpResponseCard(response: requestResponse);
+      },
+      itemCount: responses.length,
+      separatorBuilder: (context, index) => const SizedBox(height: 8),
+    );
+  }
+}
+
+class HttpResponseCard extends StatelessWidget {
+  const HttpResponseCard({
+    Key? key,
+    required this.response,
+  }) : super(key: key);
+
+  final MapEntry<RequestOptions, Response> response;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: BaseCard(
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                response.key.uri.toString(),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 12,
+                ),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.green,
+                borderRadius: BorderRadius.circular(14),
+              ),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 6,
+                vertical: 2,
+              ),
+              child: Text(
+                response.value.statusCode?.toString() ?? '',
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

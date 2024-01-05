@@ -48,7 +48,7 @@ class FlutterAdminOptions {
 
   void init() {
     dio?.interceptors.addAll([
-      DioAnalyserInterceptor(
+      DioAnalyzerInterceptor(
         networkController: networkController,
       ),
       TalkerDioLogger(talker: talker),
