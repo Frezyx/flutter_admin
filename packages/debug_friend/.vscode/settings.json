@@ -10,8 +10,8 @@
     },
     "dart.previewLsp": true,
     "editor.codeActionsOnSave": {
-        "source.fixAll": true,
-        "source.organizeImports": true,
+        "source.fixAll": "explicit",
+        "source.organizeImports": "explicit"
     },
     "editor.formatOnSave": true,
     "cmake.sourceDirectory": "${workspaceFolder}/windows/runner"

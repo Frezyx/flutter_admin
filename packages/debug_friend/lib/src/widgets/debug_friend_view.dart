@@ -72,7 +72,7 @@ class _DebugFriendViewState extends State<DebugFriendView> {
 
   void _insertOverlay(BuildContext context) {
     final theme = widget.theme ?? DebugFriendTheme.fromFlutterTheme(context);
-    return Overlay.of(context)!.insert(
+    return Overlay.of(context).insert(
       OverlayEntry(
         builder: (context) {
           return DebugFriendButton(

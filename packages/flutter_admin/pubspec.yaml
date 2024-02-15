@@ -12,12 +12,12 @@ dependencies:
     sdk: flutter
 
   dio: ^5.4.0
-  talker_flutter: ^4.0.0-dev.3
-  talker_dio_logger: ^4.0.0-dev.3
-  package_info_plus: ^4.2.0
+  talker_flutter: ^4.0.0
+  talker_dio_logger: ^4.0.0
+  package_info_plus: ^5.0.1
   device_info_plus: ^9.1.1
-  path_provider: ^2.1.1
-  group_button: ^5.3.3
+  path_provider: ^2.1.2
+  group_button: ^5.3.4
   
 dev_dependencies:
   flutter_test:

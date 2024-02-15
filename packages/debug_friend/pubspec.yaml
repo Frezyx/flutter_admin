@@ -11,10 +11,9 @@ dependencies:
     sdk: flutter
   device_info_plus: ^9.0.3
   package_info_plus: ^4.1.0
-  path_provider: ^2.0.15
-  lint: ^1.10.0
-  talker: ^3.1.1
-  talker_flutter: ^3.2.6
+  path_provider: ^2.1.2
+  talker: ^4.0.2
+  talker_flutter: ^4.0.2
 
 dev_dependencies:
   flutter_test:

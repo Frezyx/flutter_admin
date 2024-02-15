@@ -73,32 +73,32 @@ class _AndroidInfoBody extends StatelessWidget {
         children: [
           KeyValueLine(
             k: 'Device:',
-            v: _deviceInfo.device ?? '',
+            v: _deviceInfo.device,
             theme: theme,
           ),
           KeyValueLine(
             k: 'Model:',
-            v: _deviceInfo.model ?? '',
+            v: _deviceInfo.model,
             theme: theme,
           ),
           KeyValueLine(
             k: 'Product:',
-            v: _deviceInfo.product ?? '',
+            v: _deviceInfo.product,
             theme: theme,
           ),
           KeyValueLine(
             k: 'Version:',
-            v: _deviceInfo.version.release ?? '',
+            v: _deviceInfo.version.release,
             theme: theme,
           ),
           KeyValueLine(
             k: 'Version codename:',
-            v: _deviceInfo.version.codename ?? '',
+            v: _deviceInfo.version.codename,
             theme: theme,
           ),
           KeyValueLine(
             k: 'Version incremental:',
-            v: _deviceInfo.version.incremental ?? '',
+            v: _deviceInfo.version.incremental,
             theme: theme,
           ),
           KeyValueLine(
