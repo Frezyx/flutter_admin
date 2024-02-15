@@ -1,3 +1,7 @@
+## 1.0.1
+- Update internal packages versions
+- Fix analyzer issues
+
 ## 1.0.0
   - **BREAKING**: Temporarily remove the ability to edit custom actions
   - **FEAT**: Upgrade UI and theming of elements

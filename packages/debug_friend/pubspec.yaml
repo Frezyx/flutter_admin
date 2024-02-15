@@ -1,6 +1,6 @@
 name: debug_friend
 description: Flutter debug helper widget with device info, common and custom actions.
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/Frezyx/debug_friend
 
 environment:
